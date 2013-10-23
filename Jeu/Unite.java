@@ -5,7 +5,8 @@ package jeu;
  *
  */
 public class Unite extends ObjectMap {
-	Environnement Env; // Environnement entourant l'unité
+	
+	
 	
 	
 }
