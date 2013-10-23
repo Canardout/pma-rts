@@ -4,7 +4,7 @@ package jeu;
  * @author fayej
  *
  */
-public class Villageois extends Unité {
+public class Villageois extends Unite {
 	
 		public Villageois()  {
 		// Constructeur du villageois
