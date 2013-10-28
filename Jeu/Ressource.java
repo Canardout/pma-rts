@@ -1,5 +1,5 @@
 package jeu;
-/**Classe définissant la base des diverses ressources du jeux ..
+/**Classe définissant les diverses ressources du jeux ..
  * 
  * @author fayej
  *

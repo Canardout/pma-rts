@@ -1,25 +1,60 @@
 package jeu;
 
+import java.awt.Dimension;
+
+import madkit.message.ObjectMessage;
+
 /**
  * Classe "FORUM" définis le batiment Forum et son activité au cours de son activation.
  * @author fayej
  *
  */
 
-
-
 public class Forum extends Batiment {
 	
-	public Forum()  {
-		
-	}
+	
+	private int x;
+	private int y;
+	private  Dimension location ;
+	private Environnement env;
+	int vil=0;
+	private Vecteur emplacement;
+	
+		public Forum(int x , int y)  {
+			this.x =x;
+			this.y =y;
+		 this.location  = new Dimension(y,x);
+		 this.emplacement = new Vecteur(x,y);
+		}
 
 	
 	protected void activate(){
-		// Définir le rôle de l'objet "FORUM" dans la société
-		//requestRole(Société.COMMUNAUTE , Société.GROUPE, Société.ROLE);
+		
+		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.FORUM);
+		
+		
 	}
-
+	@SuppressWarnings("unused")
+	private void create() { //cr�e un villageois
+		
+		
+		if (vil % 500 == 0){
+			System.out.println("Je lance un villageois");
+			Dimension d= new Dimension (x,y);
+			launchAgent(new Villageois(d));
+			vil++;
+		}
+		vil++;
+		
+	}
 	
+	
+	@SuppressWarnings("unused")
+	private void localisation() {
+		// Donne ces coordonn�es
+		
+		ObjectMessage<Vecteur> mesCord = new ObjectMessage<Vecteur>(this.emplacement);
+		sendMessage(Societe.SOCIETE , Societe.SIMU , Societe.RAMENEUR, mesCord);
+		}
 
 }
