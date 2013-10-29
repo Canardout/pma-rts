@@ -28,12 +28,12 @@ public class Viewer extends SwingViewer{
 			
 			requestRole(Societe.SOCIETE, Societe.SIMU,Societe.VIEW);
 
-			SingleAgentProbe<Environnement, Dimension> envProbe = new SingleAgentProbe<Environnement, Dimension>(
+			SingleAgentProbe<Cellule, Dimension> envProbe = new SingleAgentProbe<Cellule, Dimension>(
 					Societe.SOCIETE, 
 					Societe.SIMU,
 					Societe.ENV, 
 					"dimension") {
-					protected void adding(Environnement agent) {
+					protected void adding(Cellule agent) {
 						super.adding(agent);
 						envSize = getPropertyValue();
 					}

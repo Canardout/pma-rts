@@ -1,9 +1,18 @@
 package jeu;
-/**
- * Classe qui crée les Batiments , chaque batiments hérite de cette classe
- * @author fayej
- *
- */
-public class Batiment extends ObjectMap {
 
+/**
+* Classe qui cree les Batiments , chaque batiments herite de cette classe
+*
+* TODO redefinire auteur
+* @author fayej, powlpy
+* @version 1.0
+*/
+@SuppressWarnings("serial")
+public abstract class Batiment extends ObjectMap {
+        /**
+         * ecrire commentaire ou pas
+         */
+        protected int longueur;
+        protected int largeur;
+        
 }

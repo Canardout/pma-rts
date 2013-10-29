@@ -11,9 +11,18 @@ public class Bois extends Ressource{
 	
 	private Dimension location ;
 	private Environnement env;
-
 	private Vecteur emplacement;
 	
+	
+		public Bois (Coord c, int q){
+	        this.coord = c;
+	        this.quantite = q;
+		}
+
+		public Bois (Coord c){
+		        this(c, 100); //Définis une ressource avec 100 de quantité (constructeur àlawanegain)
+		}
+
 	
 		public Bois(Dimension location)  {
 		

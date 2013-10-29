@@ -16,7 +16,7 @@ import madkit.message.ObjectMessage;
 public class Villageois extends Unite {
 	
 	private Dimension location ;
-	private Environnement env;
+	private Cellule env;
 	boolean plein;
 	private Vecteur deplacement;
 	private Vecteur arrive = null;
@@ -51,17 +51,16 @@ public class Villageois extends Unite {
 				}
 			}
 			else{
-				deplacement = arrive.soustraction(unite).getDirecteur().multiplication(5); //*vitesse
+				deplacement = arrive.soustraction(unite).getDirecteur().multiplication(2); //*vitesse
 				unite.additionEgale(deplacement);
 				this.location.height = (int) unite.x;
 				this.location.width = (int) unite.y;
 				if (unite.x > this.arrive.x-5 && unite.x < this.arrive.x+5 && unite.y >this.arrive.y-5 && unite.y< this.arrive.y+5) {
-					Societe.libre.remove(this);
-					//leaveRole(Societe.SOCIETE , Societe.SIMU , Societe.CHERCHEUR);
-					destroyRole(Societe.SOCIETE , Societe.SIMU , Societe.CHERCHEUR);
+					
+					
 					plein = true;
 					this.arrive = null;
-					requestRole(Societe.SOCIETE , Societe.SIMU , Societe.RAMENEUR);
+					
 					
 				
 				}
@@ -85,17 +84,14 @@ public class Villageois extends Unite {
 			}
 			}
 			else {
-				deplacement = arrive.soustraction(unite).getDirecteur().multiplication(2);
+				deplacement = arrive.soustraction(unite).getDirecteur().multiplication(1);
 				unite.additionEgale(deplacement);
 				this.location.height = (int) unite.x;
 				this.location.width = (int) unite.y;
 				if (unite.x > arrive.x-5 && unite.x < arrive.x+5 && unite.y >arrive.y-5 && unite.y< arrive.y+5) {
-					leaveRole(Societe.SOCIETE , Societe.SIMU , Societe.RAMENEUR);
 					plein = false;
-					
 					this.arrive =null;
-					requestRole(Societe.SOCIETE , Societe.SIMU , Societe.CHERCHEUR);
-				}	
+				}
 		
 			}
 		}

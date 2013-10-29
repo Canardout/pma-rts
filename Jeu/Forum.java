@@ -16,9 +16,11 @@ public class Forum extends Batiment {
 	private int x;
 	private int y;
 	private  Dimension location ;
-	private Environnement env;
+	private Cellule env;
 	int vil=0;
 	private Vecteur emplacement;
+	protected int stock; //temporairement place ici
+    protected int vie;
 	
 		public Forum(int x , int y)  {
 			this.x =x;
@@ -27,10 +29,12 @@ public class Forum extends Batiment {
 		 this.emplacement = new Vecteur(x,y);
 		}
 
-	
+		public int getStock (){
+            return this.stock;
+    }
 	protected void activate(){
 		
-		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.FORUM);
+		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.FORUM );
 		
 		
 	}

@@ -25,11 +25,11 @@ public class Societe extends AbstractAgent{
 	protected void activate() {
 		// 1 : create the simulation group
 		createGroup(SOCIETE, SIMU);
-		libre = new ArrayList();
+		
 
 		// 2 : create the environment
-		Environnement environment = new Environnement();
-		launchAgent(environment);
+		Cellule cellule = new Cellule();
+		launchAgent(cellule);
 		
 		// 3 : create the scheduler
 		GameDistributor scheduler = new GameDistributor();
@@ -41,7 +41,7 @@ public class Societe extends AbstractAgent{
 
 		// 2 : launch some simulated agents
 		
-		Dimension bois = new Dimension (540,200);
+		Dimension bois = new Dimension (200,200);
 		Dimension bois2 = new Dimension (50,200);
 		Dimension bois3 = new Dimension (50,25);
 			launchAgent(new Forum(20,20));
