@@ -14,6 +14,7 @@ import madkit.kernel.AbstractAgent;
 public class ObjectMap extends AbstractAgent { 
 	
 	protected Coord coord;
+	protected Environnement env;
     
     /**
      * getter de coord

@@ -1,5 +1,7 @@
 package jeu;
 
+import java.awt.Dimension;
+
 
 /**
 * Classe representant des coordonnees
@@ -10,8 +12,8 @@ public class Coord {
         /**
          * coordonnees du point
          */
-        public double x;
-        public double y;
+        public int x;
+        public int y;
         
         /**
          * valeur representant la marge d'erreur pour verifie l'egalite entre 2 point
@@ -24,7 +26,7 @@ public class Coord {
          * @param px coordonnee x
          * @param py coordonnee y
          */
-        public Coord (double px, double py){
+        public Coord (int px, int py){
                 this.x = px;
                 this.y = py;
         }
@@ -60,7 +62,7 @@ public class Coord {
          * @param px nouvelle valeur de x
          * @param py nouvelle valeur de y
          */
-        public void set (double px, double py){
+        public void set (int px, int py){
                 this.x = px;
                 this.y = py;
         }
@@ -126,6 +128,9 @@ public class Coord {
                          this.y > (c.y - e) && this.y < (c.y + e);
         }
         
+        public Dimension dim(){
+        	return new Dimension (this.x , this.y);
+        }
         /**
          * distance entre 2 points
          * @param c second Coord
@@ -137,4 +142,11 @@ public class Coord {
                 return v.norme();
         }
         */
+        public  Coord multiple(int i){
+        	return(new Coord(this.x*10 , this.y*10)); 
+        }
+        public String toString ( ){
+            return "Cordonnee :"+this.x +" ," +this.y;  // --- Ici completer avec les infos de ta classe que tu souhaite afficher
+        }
+        
 }

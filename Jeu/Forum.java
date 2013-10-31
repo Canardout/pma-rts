@@ -1,11 +1,9 @@
 package jeu;
 
-import java.awt.Dimension;
 
-import madkit.message.ObjectMessage;
 
 /**
- * Classe "FORUM" dÃ©finis le batiment Forum et son activitÃ© au cours de son activation.
+ * Classe "FORUM" definis le batiment Forum et son activitee au cours de son activation.
  * @author fayej
  *
  */
@@ -13,23 +11,22 @@ import madkit.message.ObjectMessage;
 public class Forum extends Batiment {
 	
 	
-	private int x;
-	private int y;
-	private  Dimension location ;
+	private Coord coord;
 	private Cellule env;
-	int vil=0;
-	private Vecteur emplacement;
-	protected int stock; //temporairement place ici
+	protected int stock =40; //temporairement place ici
     protected int vie;
 	
-		public Forum(int x , int y)  {
-			this.x =x;
-			this.y =y;
-		 this.location  = new Dimension(y,x);
-		 this.emplacement = new Vecteur(x,y);
-		}
 
-		public int getStock (){
+	public Forum (Cellule c){
+		this.coord = c.coord;
+		this.env = c;
+		this.env.coord = this.coord;
+		System.out.println(this.env.coord);
+	}
+	public void addStock(){
+		this.stock ++;
+	}
+	public int getStock (){
             return this.stock;
     }
 	protected void activate(){
@@ -40,15 +37,17 @@ public class Forum extends Batiment {
 	}
 	@SuppressWarnings("unused")
 	private void create() { //crée un villageois
+		this.env = env.env.getCellule(this.coord);
 		
-		
-		if (vil % 500 == 0){
+		if (this.stock-40 >=0){
+			
 			System.out.println("Je lance un villageois");
-			Dimension d= new Dimension (x,y);
-			launchAgent(new Villageois(d));
-			vil++;
+			launchAgent(new Villageois(this.env));
+			this.stock = this.stock-40;
+			System.out.println("Mon stock est de : "+this.stock);
 		}
-		vil++;
+		
+		
 		
 	}
 	
@@ -57,8 +56,7 @@ public class Forum extends Batiment {
 	private void localisation() {
 		// Donne ces coordonnées
 		
-		ObjectMessage<Vecteur> mesCord = new ObjectMessage<Vecteur>(this.emplacement);
-		sendMessage(Societe.SOCIETE , Societe.SIMU , Societe.RAMENEUR, mesCord);
+		
 		}
 
 }

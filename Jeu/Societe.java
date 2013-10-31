@@ -1,10 +1,6 @@
 package jeu;
 
 
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.List;
-
 import madkit.kernel.AbstractAgent;
 
 public class Societe extends AbstractAgent{
@@ -18,7 +14,7 @@ public class Societe extends AbstractAgent{
 	public static final String	VIEW	= "viewer";
 	public static final String FORUM = "Forum";
 	public static final String BOIS ="bois";
-	public static ArrayList <Villageois> libre ;
+	public static final String CARTE="carte";
 
 	
 	
@@ -28,8 +24,8 @@ public class Societe extends AbstractAgent{
 		
 
 		// 2 : create the environment
-		Cellule cellule = new Cellule();
-		launchAgent(cellule);
+		Environnement env = new Environnement(25,25);
+		launchAgent(env);
 		
 		// 3 : create the scheduler
 		GameDistributor scheduler = new GameDistributor();
@@ -40,16 +36,7 @@ public class Societe extends AbstractAgent{
 		launchAgent(viewer,true);
 
 		// 2 : launch some simulated agents
-		
-		Dimension bois = new Dimension (200,200);
-		Dimension bois2 = new Dimension (50,200);
-		Dimension bois3 = new Dimension (50,25);
-			launchAgent(new Forum(20,20));
-			
-			
-			launchAgent(new Bois(bois));
-			launchAgent(new Bois(bois2));
-			launchAgent(new Bois(bois3));
+
 		
 	}
 	

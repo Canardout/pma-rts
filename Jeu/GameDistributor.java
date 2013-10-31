@@ -1,57 +1,41 @@
 package jeu;
 
-
-
 import madkit.kernel.AbstractAgent;
 import madkit.kernel.Scheduler;
-import madkit.kernel.Scheduler.SimulationState;
+
 import madkit.simulation.activator.GenericBehaviorActivator;
 
 
 public class GameDistributor extends Scheduler{
 		
-	protected GenericBehaviorActivator<AbstractAgent> Villageois;
-	protected GenericBehaviorActivator<AbstractAgent> Viewer;
-	protected GenericBehaviorActivator<AbstractAgent> Forum;
-	protected GenericBehaviorActivator<AbstractAgent> Bois;
-	protected GenericBehaviorActivator<AbstractAgent> Rameneur;
+	protected GenericBehaviorActivator<AbstractAgent> [] Activateur;
 	
 	@Override
 	protected void activate() {
-
-		// 1 : request my role
-		requestRole(Societe.SOCIETE,
-				Societe.SIMU,
-				Societe.SCHEDULER); 
+		this.Activateur = new GenericBehaviorActivator[6];
+		// Le Scheduler prend son rôle
+		requestRole(Societe.SOCIETE,Societe.SIMU,Societe.SCHEDULER); 
 		
-		// 3 : initialize the activators
-		// by default, they are activated once each in the order they have been added
-		
-		
-		Bois = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,
-				Societe.SIMU,
-				Societe.BOIS, "wood");
-		addActivator(Bois);
-		
-		Villageois = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,
-				Societe.SIMU,
-				Societe.CHERCHEUR, "Chrwood");
-		addActivator(Villageois);
-		Villageois = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.RAMENEUR ,"Retour");
-		addActivator(Villageois);
-		
-		Viewer = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,
-				Societe.SIMU,
-				Societe.VIEW, "observe");
-		addActivator(Viewer);
-		Forum = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.FORUM ,"localisation");
-		addActivator(Forum);
-		Forum = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.FORUM ,"create");
-		addActivator(Forum);
+		// Activateur pour : l'agent qui gère toute la carte (ENVIRONNEMENT)
+		this.Activateur[0] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,Societe.SIMU,Societe.CARTE, "ressource"); ///!\ Provisoir /!\ lance de nouveau agents Bois quand 
+		// Activateur pour : le bois (Augmentation de leur ressources)                                                               // Ils sont tous mort
+		this.Activateur[1] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,Societe.SIMU,Societe.BOIS, "wood");
+		// Activateur pour : les villageois (Recherche ressource Bois)
+		this.Activateur[2] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,Societe.SIMU,Societe.CHERCHEUR, "Chrwood");
+		// Activateur pour : les villageois (Rentre au forum)
+		this.Activateur[3] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.RAMENEUR ,"Retour");
+		// Activateur pour : Le rendu graphique de la simulation (viewer)
+		this.Activateur[4] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,Societe.SIMU,Societe.VIEW, "observe");
+		// Activateur pour : Le Forum (création de villageois)
+		this.Activateur[5] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.FORUM ,"create");
 		
 		
+		for (int i = 0 ; i< this.Activateur.length ; i++){
+			addActivator(this.Activateur[i]);
+		}
 		
-		setDelay(20);
+		
+		setDelay(200);
 		
 		//4 : let us start the simulation automatically
 		setSimulationState(SimulationState.PAUSED);
