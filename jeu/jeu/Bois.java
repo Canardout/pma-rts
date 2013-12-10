@@ -32,6 +32,7 @@ public class Bois extends Ressource{
 	protected void activate(){
 		// Defini le role de l'objet "Bois" dans la société
 		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.BOIS);
+		this.activationgeneral();
 		
 	}
 	@SuppressWarnings("unused")

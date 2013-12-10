@@ -15,7 +15,7 @@ public class ObjectMap extends AbstractAgent {
 	
 	protected Coord coord;
 	protected Environnement env;
-	protected Alignement al;
+	public Alignement al;
     
     /**
      * getter de coord
@@ -23,6 +23,11 @@ public class ObjectMap extends AbstractAgent {
      */
     public Coord getCoord (){
             return this.coord;
+    }
+    
+    
+    public void activationgeneral(){
+    	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.OBJECTMAP);
     }
 
 }

@@ -143,7 +143,7 @@ public class Coord {
         }
         */
         public  Coord multiple(int i){
-        	return(new Coord(this.x*10 , this.y*10)); 
+        	return(new Coord(this.x*i , this.y*i)); 
         }
         
         public int distance(Coord b){

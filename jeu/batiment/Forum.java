@@ -1,0 +1,117 @@
+package batiment;
+
+
+import jeu.Alignement;
+import jeu.Batiment;
+import jeu.Cellule;
+import jeu.Coord;
+import jeu.Societe;
+import unite.Constructeur;
+import unite.Villageois;
+
+
+
+
+/**
+ * Classe "FORUM" definis le batiment Forum et son activitee au cours de son activation.
+ * @author fayej
+ *
+ */
+
+public class Forum extends Batiment {
+	
+	
+	public Coord coord;
+	
+	private Cellule env;
+	protected int stock =40; //temporairement place ici
+    protected int vie;
+    public int limitpop =5;
+    protected int limitcont = 3;
+ 
+
+	
+
+	public Forum (Cellule c , Alignement a){
+		this.coord = new Coord(c.coord);
+		this.env = c;
+		this.env.coord = this.coord;
+		this.al = a;
+		
+	}
+	public void addStock(){
+		this.stock ++;
+	}
+	public boolean deleteStock(){
+		if (this.stock-1 < 0){
+			return false;
+		}
+		else {
+			this.stock --;
+			return true;
+			
+		}
+		
+	}
+	public int getStock (){
+            return this.stock;
+    }
+	protected void activate(){
+		
+		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.FORUM );
+		this.activationgeneral();
+		
+		
+	}
+	@SuppressWarnings("unused")
+	private void create() { //cr�e un villageois
+		
+		if (this.stock-40 >=0){
+			
+			if(!(this.limitpop <=0)){
+			launchAgent(new Villageois(this.env,this.al));
+			
+			
+			this.stock = this.stock-40;
+			this.limitpop --;}
+							/*
+				Random r = new Random();
+				int valeur = r.nextInt(3)-1;
+				int valeur2 = r.nextInt(3)-1;
+				for (int i=0 ; i< this.coord.size() ; i++){
+					if (this.stock >400 && this.limitagrand >0){
+					if (this.env.env.getCellule(this.coord.get(i).x+valeur, this.coord.get(i).y+valeur2).objet == null){
+						this.env.env.getCellule(this.coord.get(i).x+valeur, this.coord.get(i).y+valeur2).objet = this;
+						this.stock = this.stock-400;
+						this.limitpop = this.limitpop+5;
+						Coord c = new Coord(this.coord.get(i).x+valeur, this.coord.get(i).y+valeur2);
+						this.coord.add(c);
+						this.limitagrand --;
+						
+					}
+					*/
+				else if (this.stock -100>= 0 && this.limitcont >0){
+					
+					launchAgent(new Constructeur(this.env,this.al));
+					this.stock = this.stock -300;
+					this.limitcont--;
+				}}
+				
+				}
+			
+		//}
+	//}
+	
+	
+	@SuppressWarnings("unused")
+	private void localisation() {
+		// Donne ces coordonn�es
+		
+		
+		}
+	
+
+	
+
+
+}

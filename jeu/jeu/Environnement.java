@@ -2,14 +2,13 @@ package jeu;
 
 
 import java.util.ArrayList;
-
 import java.util.Random;
-
 
 import madkit.kernel.AbstractAgent;
 
-
 import java.awt.Color;
+
+import batiment.Forum;
 
 
 /**
@@ -31,12 +30,12 @@ public class Environnement extends AbstractAgent{
    private int largeur;
    private Alignement[] al;
     
-    protected void activate(){ // Activation de l'Environnement en creant un tableau de cellule et en lançant tous ces agents cellules
+    protected void activate(){ // Activation de l'Environnement en creant un tableau de cellule et en lanï¿½ant tous ces agents cellules
     	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.CARTE );
     	
-        	 // Crée la grille de jeu (grille de cellule)
-        	for (int i=0 ; i < this.carte.length ; i++){
-        		for (int j=0 ; j < this.carte.length ; j++){
+        	 // Crï¿½e la grille de jeu (grille de cellule)
+        	for (int i=0 ; i < this.longueur; i++){
+        		for (int j=0 ; j < this.largeur ; j++){
         			Coord actual = new Coord (i,j); //(*10 pour l'affichage)
         			this.carte[i][j] = new Cellule(actual,this);
         			launchAgent(this.carte[i][j]);
@@ -46,27 +45,27 @@ public class Environnement extends AbstractAgent{
         	int valeur ;
     		int valeur2 ;
         	valeur = r.nextInt(this.longueur-1);
-			valeur2 = r.nextInt(this.longueur-1);
+			valeur2 = r.nextInt(this.largeur-1);
 			for (int i =0 ; i<this.al.length ; i++){
 				this.carte[valeur][valeur2].add(new Forum (this.carte[valeur][valeur2], this.al[i]));
 				valeur = r.nextInt(this.longueur-1);
-    			valeur2 = r.nextInt(this.longueur-1);
+    			valeur2 = r.nextInt(this.largeur-1);
 			}
 		
         	
 	}
     
     
-    public Environnement (){
+    private Environnement (){
     }
     
    @SuppressWarnings("null")
 public ArrayList<Cellule> getenv(Cellule c){
 	   ArrayList<Cellule> l = new ArrayList() ;
-	   // Regard d'une unité "normale" (carrée de 9)
+	   // Regard d'une unitï¿½ "normale" (carrï¿½e de 9)
 	   for (int i =-1 ; i<=1 ; i++){
 		   for (int j = -1 ; j<=1 ; j++ ){
-			   l.add(this.getCellule(c.coord.x+i , c.coord.y+j));
+			   l.add(this.getCellule((c.coord.x+i) , (c.coord.y+j)));
 		   }
 	   }
 	  
@@ -80,6 +79,7 @@ public ArrayList<Cellule> getenv(Cellule c){
 		this.longueur = longueur;
 		this.largeur = largeur;
 		this.al = new Alignement[al];
+		//Generation des couleurs des Alignements
 		Random rand = new Random();
 		float red = rand.nextFloat();
 		float grey = rand.nextFloat();
@@ -101,7 +101,8 @@ public ArrayList<Cellule> getenv(Cellule c){
     
     public Cellule getCellule (int x, int y){
     	if (x <0) x = x*(-1);
-    	if (y< 0) y = y*(-1);
+    	if (y < 0) y = y*(-1);
+    	
             return this.carte[(x)%this.longueur][(y)%this.largeur];
     }
     
@@ -117,7 +118,8 @@ public ArrayList<Cellule> getenv(Cellule c){
     		int valeur2 ;
     		for (int i = 0 ; i<10 ; i++){
     			valeur = r.nextInt(this.longueur-1);
-    			valeur2 = r.nextInt(this.longueur-1);
+    			valeur2 = r.nextInt(this.largeur-1);
+    			
     			if (this.carte[valeur][valeur2].objet == null){
         			this.carte[valeur][valeur2].add(new Bois(this.carte[valeur][valeur2]));
     		}

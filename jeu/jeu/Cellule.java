@@ -1,5 +1,8 @@
 
 package jeu;
+import java.util.ArrayList;
+
+import unite.Unite;
 import madkit.kernel.AbstractAgent;
 import madkit.kernel.Watcher;
 import madkit.simulation.probe.PropertyProbe;
@@ -12,6 +15,7 @@ import madkit.simulation.probe.PropertyProbe;
 */
 public class Cellule extends Watcher {
 	public ObjectMap objet; // l'objet que la cellule contient?
+	public ArrayList<Unite> personne;
 	public Coord coord;
 	public Environnement env;
 	
@@ -20,6 +24,7 @@ public class Cellule extends Watcher {
          this.objet = null;
          this.coord = coord;  
          this.env = env;
+         this.personne = new ArrayList<Unite>();
 	 }
 
 	 
@@ -33,7 +38,7 @@ public class Cellule extends Watcher {
 	
 
 
-	public void add(ObjectMap o){  // donne un objet à la cellule
+	public void add(ObjectMap o){  // donne un objet ï¿½ la cellule
          this.objet = o;
          launchAgent(o);
 	 }
@@ -45,6 +50,7 @@ public class Cellule extends Watcher {
 	protected void activate() { // Active la cellule 
 		// La cellule se fait "capter" par l'affichage
 		requestRole(Societe.SOCIETE,Societe.SIMU,Societe.ENV );
+		
 		
 		// 2 : Ce capteur est utilise pour initialiser les agents du domaine environnement
 		/*
