@@ -33,7 +33,7 @@ public class Societe extends AbstractAgent{
 		int taille_cellule;
 		longueur = 25;
 		largeur = 25;
-		taille_cellule = 20;
+		taille_cellule = 25;
 		Environnement env = new Environnement(longueur,largeur,2);
 		launchAgent(env);
 		
@@ -44,8 +44,6 @@ public class Societe extends AbstractAgent{
 		// 3 : create the viewer
 		
 		Viewer viewer= new Viewer(scheduler,taille_cellule, longueur , largeur);
-		launchAgent(viewer,true);
-		Viewer viewer2= new Viewer(scheduler,taille_cellule, longueur , largeur);
 		launchAgent(viewer,true);
 
 		// 2 : launch some simulated agents

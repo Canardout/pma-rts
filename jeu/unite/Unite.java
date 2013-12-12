@@ -13,7 +13,6 @@ import jeu.Vecteur;
 import madkit.kernel.AbstractAgent;
 import madkit.simulation.probe.PropertyProbe;
 
-
 /** Classe qui définis les Unités , chaque Unité (hors batiment) hérite de cette classe.
  * 
  * @author fayej
@@ -116,6 +115,37 @@ public class Unite extends ObjectMap {
 		this.curent = curent.env.getCellule(curent.coord.x+(nbrAlt()), curent.coord.y+(nbrAlt()));
 		this.coord = curent.coord;
 		this.curent.personne.add(this);
+	}
+	
+	public static final Coord HAUT = new Coord(0, -1);
+	public static final Coord GAUCHE = new Coord(-1, 0);
+	public static final Coord DROITE = new Coord(1, 0);
+	public static final Coord BAS = new Coord(0, 1);
+	
+	public boolean move (Coord c){
+		Cellule ce = this.curent.env.getCellule(this.coord.add(c));
+		if(ce == null)
+			return false;
+		else{
+			this.curent.personne.remove(this);
+			this.curent = ce;
+			this.coord = this.curent.coord;
+			this.curent.personne.add(this);
+			return true;
+		}
+	}
+	
+	public static Coord envers (Coord c){
+		if(c == GAUCHE)
+			return DROITE;
+		else if(c == DROITE)
+			return GAUCHE;
+		else if(c == HAUT)
+			return BAS;
+		else if(c == BAS)
+			return HAUT;
+		else
+			return null;
 	}
 	
     /**

@@ -103,7 +103,7 @@ public class Villageois extends Unite {
 	public void end(){
 		this.curent.personne.remove(this);
 		Forum b = (Forum)this.Forum.objet;
-		b.limitpop++;
+		//b.limitpop++;
 		
 	}
 	
@@ -124,6 +124,8 @@ public class Villageois extends Unite {
 	
 	@SuppressWarnings("unused")
 	private void Chrwood() {
+
+		
 		if(this.vie <= 0){
 			
 			this.killAgent(this);

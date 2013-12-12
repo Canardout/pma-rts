@@ -39,9 +39,6 @@ import jeu.Societe;
 		
 
 
-		public void end(){
-			this.curent.personne.remove(this);
-		}
 
 		
 		protected void activate(){

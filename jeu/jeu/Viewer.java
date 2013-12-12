@@ -73,7 +73,7 @@ public class Viewer extends SwingViewer{
 			cellule = new PropertyProbe <Cellule , Coord>(Societe.SOCIETE,Societe.SIMU,Societe.ENV , "coord");
 			getFrame().pack();
 			getFrame().setLocation(500, 500);
-			getFrame().setSize(new Dimension(largeur*taille_cel,(longueur*taille_cel)+115));
+			getFrame().setSize(new Dimension(largeur*taille_cel,longueur*taille_cel));
 			getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setSynchronousPainting(true);
 			
@@ -132,12 +132,12 @@ public class Viewer extends SwingViewer{
 					}
 					
 					
-					else if (a instanceof Bois){ // reprï¿½sente le bois
+					else if (a instanceof Bois){ // représente le bois
 						g.setColor(Color.GREEN);
 						g.drawImage(bois,coord.x,coord.y, null);
 						//g.fillOval(coord.x,coord.y, 8, 8);
 					}
-					else if (a instanceof Villageois){ // reprï¿½sente les villageois
+					else if (a instanceof Villageois){ // représente les villageois
 						g.drawImage(villageois,coord.x,coord.y, null);
 						/*
 						Villageois b = (Villageois) a;
