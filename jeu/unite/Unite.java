@@ -158,5 +158,8 @@ public class Unite extends ObjectMap {
             //TODO a faire
     }
 	
-	
+    @Override
+    public void end(){
+    	this.curent.personne.remove(this);
+    }
 }

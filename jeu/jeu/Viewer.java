@@ -73,7 +73,7 @@ public class Viewer extends SwingViewer{
 			cellule = new PropertyProbe <Cellule , Coord>(Societe.SOCIETE,Societe.SIMU,Societe.ENV , "coord");
 			getFrame().pack();
 			getFrame().setLocation(500, 500);
-			getFrame().setSize(new Dimension(largeur*taille_cel,longueur*taille_cel));
+			getFrame().setSize(new Dimension(largeur*taille_cel,(longueur*taille_cel)+115));
 			getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setSynchronousPainting(true);
 			

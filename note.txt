@@ -1,67 +1,67 @@
-Noter ici les chose Ã  faire ou que vous proposez.
-Lorsque vous avez fait ou que vous faÃ®tes quelque chose, notez le : --en cours, fait, commentaire(prÃ©nom)--
-Ps : on est pas obligÃ© de tout faire, certaine proposition ne sont que des idÃ©es et sont Ã  discutÃ©.
-Les proposition Ã  faire en prioritÃ© osnt marquÃ© d'un @.
+Noter ici les chose à faire ou que vous proposez.
+Lorsque vous avez fait ou que vous faîtes quelque chose, notez le : --en cours, fait, commentaire(prénom)--
+Ps : on est pas obligé de tout faire, certaine proposition ne sont que des idées et sont à discuté.
+Les proposition à faire en priorité osnt marqué d'un @.
 
 moteur :
---Fait(nico) mais cause d'Ã©trange bug d'affichage, pas normal-- Faire une mÃ©thode move avec une constante en paramÃ¨tre.
+--Fait(nico) mais cause d'étrange bug d'affichage, pas normal-- Faire une méthode move avec une constante en paramètre.
 
--@ Faire une mÃ©thode qui renvoie ce que vois une unite (cela peut aussi s'appliquer au batiment).
--@ PossibilitÃ© pour les bÃ¢timent de stocker des messages (surement aussi pour les unitÃ©s)
--@ Les guerriers ne tuent plus en un coup et chaque unitÃ©s Ã  un certains nombre de vie. (bÃ¢t aussi)
--? ManiÃ¨re plus intellignet de gÃ©rer des forets ? (peut etre utilise une carte de base)
+-@ Faire une méthode qui renvoie ce que vois une unite (cela peut aussi s'appliquer au batiment).
+-@ Possibilité pour les bâtiment de stocker des messages (surement aussi pour les unités)
+-@ Les guerriers ne tuent plus en un coup et chaque unités à un certains nombre de vie. (bât aussi)
+-? Manière plus intellignet de gérer des forets ? (peut etre utilise une carte de base)
 - Mieux ranger les fichiers et packages
 - Definire des constantes et variables.
 - Rajouter le choix des IA.
 
 IA :
--@ Donner aux Villageois une faÃ§on intelligente de chercher des Ressources.
+-@ Donner aux Villageois une façon intelligente de chercher des Ressources.
 -@ Passer ensuite aux guerriers.
 
 Affichage :
--@ Donner une image Ã  tous les bÃ¢timents et unitÃ©s.
+-@ Donner une image à tous les bâtiments et unités.
 -@ Scrolling
 - ? afficher les vies ?
 - ? animation de mort ?
 
 proposition gameplay :
--rÃ©Ã©quilibrage unitÃ©s.
--? plusieurs ressources ? (Ã  voir, surement plus tard)
--? unitÃ© qui fait une action 1 tour sur 2 lorsque moitiÃ© moins de vie ?
--? Les unitÃ©s doivent manger ?
-- idÃ©e future : ? amÃ©liorations ?
-- idÃ©e future : ? PossibilitÃ© aux unitÃ©s d'Ã©voluer ?
+-rééquilibrage unités.
+-? plusieurs ressources ? (à voir, surement plus tard)
+-? unité qui fait une action 1 tour sur 2 lorsque moitié moins de vie ?
+-? Les unités doivent manger ?
+- idée future : ? améliorations ?
+- idée future : ? Possibilité aux unités d'évoluer ?
 
 Discussion :
--vision Ã  6 cases (variable selon les unitÃ©s ?)
--distance de com Ã  2 cases (0 pour les bÃ¢ts Ã©videmment)
--Comment choisire quelles unitÃ©s se crÃ©er ?
--Les unitÃ©s peuvent s'attaquer Ã  une case ?
--Les bord de la carte sont murs oÃ¹ les unitÃ©s ressortent Ã  l'opposÃ©s ?
+-vision à 6 cases (variable selon les unités ?)
+-distance de com à 2 cases (0 pour les bâts évidemment)
+-Comment choisire quelles unités se créer ?
+-Les unités peuvent s'attaquer à une case ?
+-Les bord de la carte sont murs où les unités ressortent à l'opposés ?
 
-proposition unitÃ© ;
-- cavalier : se dÃ©place 2 cases par tour
--@ archer : attaque Ã  distance
-- lancier : peut lancer une lance et attque au corp Ã  corp, doit aller Ã  la caserne pour chercher une nouvelle lance.
-- espion : se fait difficilement repÃ©rÃ© (Ã  voir)
-- catapulte : lente mais grande portÃ© et tir imprÃ©cis ou projectile qui arrive au tour suivant(Ã  voir)
-- destructeur : guerrier plus fort contre les bÃ¢timents
-- soldat bouclier : guerrier plus rÃ©sistant contre les flÃ¨ches
+proposition unité ;
+- cavalier : se déplace 2 cases par tour
+-@ archer : attaque à distance
+- lancier : peut lancer une lance et attque au corp à corp, doit aller à la caserne pour chercher une nouvelle lance.
+- espion : se fait difficilement repéré (à voir)
+- catapulte : lente mais grande porté et tir imprécis ou projectile qui arrive au tour suivant(à voir)
+- destructeur : guerrier plus fort contre les bâtiments
+- soldat bouclier : guerrier plus résistant contre les flèches
 
-proposition bÃ¢timent :
--hopitale : soigne les unitÃ©s qui sont dessus
--rÃ©serve : stock des ressources
--tour : lance des flÃ¨ches
--mur : trÃ¨s rÃ©sistant et empÃªche les unitÃ©s de passer
+proposition bâtiment :
+-hopitale : soigne les unités qui sont dessus
+-réserve : stock des ressources
+-tour : lance des flèches
+-mur : très résistant et empêche les unités de passer
 
-dÃ©tail unitÃ© (Ã  discuter):
+détail unité (à discuter):
 -Villageois : pv : 10, atk : 2
 -Constructeur : pv : 10, atk : 2
 -Guerrier : pv : 20, atk : 5
--Archer : pv : 15, atk : 5, portÃ©e : 3 (attaque 1 tour sur 2)
--Archer long : pv : 10, atk : 6, portÃ©e : 5 (attaque 1 tour sur 3)
--Cavalier : pv 30, atk : 3, vit*2 (idÃ©e : le cavalier perd son cheval Ã  20 pv et rÃ©duit ses action Ã  10)
--Lancier : pv : 20, atk : 4, portÃ©e lance : 2
--Catapulte : pv : 10, atk : 30, portÃ©e 8, vit/2 (attaque 1 tour sur 6 et voir dÃ©tail catapulte)
--Destructeur : pv : 20, atk : 3, atk bÃ¢t : 10
--Soldat bouclier : pv : 25, atk : 3, dÃ©gat flÃ¨ches / 2
+-Archer : pv : 15, atk : 5, portée : 3 (attaque 1 tour sur 2)
+-Archer long : pv : 10, atk : 6, portée : 5 (attaque 1 tour sur 3)
+-Cavalier : pv 30, atk : 3, vit*2 (idée : le cavalier perd son cheval à 20 pv et réduit ses action à 10)
+-Lancier : pv : 20, atk : 4, portée lance : 2
+-Catapulte : pv : 10, atk : 30, portée 8, vit/2 (attaque 1 tour sur 6 et voir détail catapulte)
+-Destructeur : pv : 20, atk : 3, atk bât : 10
+-Soldat bouclier : pv : 25, atk : 3, dégat flèches / 2
