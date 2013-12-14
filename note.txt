@@ -4,7 +4,7 @@ Ps : on est pas obligé de tout faire, certaine proposition ne sont que des idées
 Les proposition à faire en priorité osnt marqué d'un @.
 
 moteur :
---Fait(nico) mais cause d'étrange bug d'affichage, pas normal-- Faire une méthode move avec une constante en paramètre.
+--Fait(nico) mais cause parfois d'étrange bug d'affichage, pas normal-- Faire une méthode move avec une constante en paramètre.
 
 -@ Faire une méthode qui renvoie ce que vois une unite (cela peut aussi s'appliquer au batiment).
 -@ Possibilité pour les bâtiment de stocker des messages (surement aussi pour les unités)
@@ -12,7 +12,7 @@ moteur :
 -? Manière plus intellignet de gérer des forets ? (peut etre utilise une carte de base)
 - Mieux ranger les fichiers et packages
 - Definire des constantes et variables.
-- Rajouter le choix des IA.
+--En cours(nico)-- Rajouter le choix des IA.
 
 IA :
 -@ Donner aux Villageois une façon intelligente de chercher des Ressources.

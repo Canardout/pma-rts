@@ -124,13 +124,20 @@ public class Villageois extends Unite {
 	
 	@SuppressWarnings("unused")
 	private void Chrwood() {
-
 		
-		if(this.vie <= 0){
-			
+		if(this.vie <= 0){		
 			this.killAgent(this);
 			this.curent.personne.remove(this);
 		}
+		
+		switch(this.al.IA){
+		case 2 : IA2(); break;
+		default : IA1(); break;
+		}
+	}
+	
+	// par Jérémie
+	private void IA1 (){
 		
 		if (plein){ // Si le villageois est plein , alors il cherche un FORUM pour se vider.
 			if (this.curent.coord != this.Forum.coord){ 
@@ -215,6 +222,11 @@ public class Villageois extends Unite {
 			}
 		}
 		}
+		
+	}
+	
+	// par Nicolas
+	private void IA2 (){
 		
 	}
 
