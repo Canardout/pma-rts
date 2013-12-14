@@ -18,7 +18,8 @@ import jeu.Societe;
  *
  */
 
-public class Caserne extends Batiment {
+@SuppressWarnings("serial")
+public class Caserne extends Batiment implements Stockable{
 	
 	
 	public Coord coord;
@@ -29,7 +30,7 @@ public class Caserne extends Batiment {
     public int statue ;
     public int horloge;
 
-	
+    public static final int MAX_STOCK = Integer.MAX_VALUE; // à voir
 
 	public Caserne (Cellule c , Alignement a){
 		
@@ -62,6 +63,31 @@ public class Caserne extends Batiment {
 	public int getStock (){
             return this.stock;
     }
+	
+	public int prendreStock (int demande){
+		if(demande > this.stock){
+			int s = this.stock;
+			this.stock = 0;
+			return s;	
+		}
+		else{
+			this.stock -= demande;
+			return demande;
+		}
+	}
+	
+	public int donnerStock (int dons){
+		if(this.stock + dons > MAX_STOCK){
+			int r = MAX_STOCK - this.stock;
+			this.stock = MAX_STOCK;
+			return r;
+		}
+		else{
+			this.stock += dons;
+			return 0;
+		}
+	}
+	
 	protected void activate(){
 		
 		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.CASERNE );

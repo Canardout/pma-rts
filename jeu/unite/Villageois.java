@@ -21,6 +21,8 @@ import madkit.simulation.probe.PropertyProbe;
  * @author fayej
  *
  */
+
+@SuppressWarnings("serial")
 public class Villageois extends Unite {
 	
 	

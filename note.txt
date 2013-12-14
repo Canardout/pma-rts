@@ -15,7 +15,7 @@ moteur :
 --En cours(nico)-- Rajouter le choix des IA.
 
 IA :
--@ Donner aux Villageois une façon intelligente de chercher des Ressources.
+--En cours(nico)-- Donner aux Villageois une façon intelligente de chercher des Ressources.
 -@ Passer ensuite aux guerriers.
 
 Affichage :
