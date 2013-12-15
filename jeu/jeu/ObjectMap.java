@@ -25,6 +25,16 @@ public class ObjectMap extends AbstractAgent {
             return this.coord;
     }
     
+    /**
+     * Distance entre 2 objet en nombre de cellule à parcourire
+     */
+    public int distance (ObjectMap o){
+    	return distance(o.getCoord());
+    }
+    
+    public int distance (Coord c){
+    	return Math.abs(this.coord.x - c.x) + Math.abs(this.coord.y - c.y);
+    }
     
     public void activationgeneral(){
     	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.OBJECTMAP);

@@ -1,0 +1,67 @@
+Noter ici les chose à faire ou que vous proposez.
+Lorsque vous avez fait ou que vous faîtes quelque chose, notez le : --en cours, fait, commentaire(prénom)--
+Ps : on est pas obligé de tout faire, certaine proposition ne sont que des idées et sont à discuté.
+Les proposition à faire en priorité osnt marqué d'un @.
+
+moteur :
+--Fait(nico) mais cause parfois d'étrange bug d'affichage, pas normal-- Faire une méthode move avec une constante en paramètre.
+
+-@ Faire une méthode qui renvoie ce que vois une unite (cela peut aussi s'appliquer au batiment).
+-@ Possibilité pour les bâtiment de stocker des messages (surement aussi pour les unités)
+-@ Les guerriers ne tuent plus en un coup et chaque unités à un certains nombre de vie. (bât aussi)
+-? Manière plus intellignet de gérer des forets ? (peut etre utilise une carte de base)
+- Mieux ranger les fichiers et packages
+- Definire des constantes et variables.
+--En cours(nico)-- Rajouter le choix des IA.
+
+IA :
+--En cours(nico)-- Donner aux Villageois une façon intelligente de chercher des Ressources.
+-@ Passer ensuite aux guerriers.
+
+Affichage :
+-@ Donner une image à tous les bâtiments et unités.
+-@ Scrolling
+- ? afficher les vies ?
+- ? animation de mort ?
+
+proposition gameplay :
+-rééquilibrage unités.
+-? plusieurs ressources ? (à voir, surement plus tard)
+-? unité qui fait une action 1 tour sur 2 lorsque moitié moins de vie ?
+-? Les unités doivent manger ?
+- idée future : ? améliorations ?
+- idée future : ? Possibilité aux unités d'évoluer ?
+
+Discussion :
+-vision à 6 cases (variable selon les unités ?)
+-distance de com à 2 cases (0 pour les bâts évidemment)
+-Comment choisire quelles unités se créer ?
+-Les unités peuvent s'attaquer à une case ?
+-Les bord de la carte sont murs où les unités ressortent à l'opposés ?
+
+proposition unité ;
+- cavalier : se déplace 2 cases par tour
+-@ archer : attaque à distance
+- lancier : peut lancer une lance et attque au corp à corp, doit aller à la caserne pour chercher une nouvelle lance.
+- espion : se fait difficilement repéré (à voir)
+- catapulte : lente mais grande porté et tir imprécis ou projectile qui arrive au tour suivant(à voir)
+- destructeur : guerrier plus fort contre les bâtiments
+- soldat bouclier : guerrier plus résistant contre les flèches
+
+proposition bâtiment :
+-hopitale : soigne les unités qui sont dessus
+-réserve : stock des ressources
+-tour : lance des flèches
+-mur : très résistant et empêche les unités de passer
+
+détail unité (à discuter):
+-Villageois : pv : 10, atk : 2
+-Constructeur : pv : 10, atk : 2
+-Guerrier : pv : 20, atk : 5
+-Archer : pv : 15, atk : 5, portée : 3 (attaque 1 tour sur 2)
+-Archer long : pv : 10, atk : 6, portée : 5 (attaque 1 tour sur 3)
+-Cavalier : pv 30, atk : 3, vit*2 (idée : le cavalier perd son cheval à 20 pv et réduit ses action à 10)
+-Lancier : pv : 20, atk : 4, portée lance : 2
+-Catapulte : pv : 10, atk : 30, portée 8, vit/2 (attaque 1 tour sur 6 et voir détail catapulte)
+-Destructeur : pv : 20, atk : 3, atk bât : 10
+-Soldat bouclier : pv : 25, atk : 3, dégat flèches / 2

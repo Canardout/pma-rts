@@ -45,8 +45,9 @@ public class Societe extends AbstractAgent{
 		
 		Viewer viewer= new Viewer(scheduler,taille_cellule, longueur , largeur);
 		launchAgent(viewer,true);
-		Viewer viewer2= new Viewer(scheduler,taille_cellule, longueur , largeur);
-		launchAgent(viewer,true);
+		//Mais pourquoi, il y a 2 viewer ????
+		/*Viewer viewer2= new Viewer(scheduler,taille_cellule, longueur , largeur);
+		launchAgent(viewer,true);*/
 
 		// 2 : launch some simulated agents
 

@@ -98,6 +98,10 @@ public ArrayList<Cellule> getenv(Cellule c){
 		
 		
     }
+
+	public boolean horsLimite (Coord c){
+		return c.x < 0 || c.y < 0 || c.x >= this.longueur || c.y >= this.largeur;
+	}
     
     public Cellule getCellule (int x, int y){
     	if (x <0) x = x*(-1);
@@ -107,7 +111,10 @@ public ArrayList<Cellule> getenv(Cellule c){
     }
     
     public Cellule getCellule (Coord c){
-            return this.carte[(c.x)%this.longueur][(c.y)%this.largeur];
+    	if(!horsLimite(c))
+            return this.carte[c.x][c.y];
+    	else
+    		return null;
     }
     
     protected void ressource(){ // s'il n'y a plus d'arbre sur le terrain alors j'en refait !
