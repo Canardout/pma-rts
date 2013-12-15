@@ -1,5 +1,9 @@
 package jeu;
 
+import java.util.Random;
+
+import unite.Villageois;
+
 
 
 public class Bois extends Ressource{
@@ -11,6 +15,7 @@ public class Bois extends Ressource{
 			this.curent = cel;
 			this.coord = cel.coord;
 			this.quantite = 300;
+			this.curent.objet=this;
 		}
 	
 		public Bois (Coord c, int q){
@@ -42,6 +47,8 @@ public class Bois extends Ressource{
 			this.curent.objet = null; // On dis à la cellule qu'elle ne contiens maintenant plus rien
 			killAgent(this);
 		}
+		
+			
 		}
 		
 }

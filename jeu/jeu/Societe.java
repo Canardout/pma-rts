@@ -1,6 +1,10 @@
 package jeu;
 
 
+import java.awt.FlowLayout;
+import java.awt.Frame;
+import java.awt.TextField;
+
 import madkit.kernel.AbstractAgent;
 
 public class Societe extends AbstractAgent{
@@ -19,10 +23,14 @@ public class Societe extends AbstractAgent{
 	public static final String OBJECTMAP ="representable";
 	public static final String CONSTRUCTEUR ="construit";
 	public static final String CASERNE ="cons-soldat";
+	public static final String HOPITAL = "HOPITAL";
 
 	
 	
 	protected void activate() {
+		
+		
+		
 		// 1 : create the simulation group
 		createGroup(SOCIETE, SIMU);
 		
@@ -33,7 +41,7 @@ public class Societe extends AbstractAgent{
 		int taille_cellule;
 		longueur = 25;
 		largeur = 25;
-		taille_cellule = 20;
+		taille_cellule = 50;
 		Environnement env = new Environnement(longueur,largeur,2);
 		launchAgent(env);
 		
@@ -45,9 +53,7 @@ public class Societe extends AbstractAgent{
 		
 		Viewer viewer= new Viewer(scheduler,taille_cellule, longueur , largeur);
 		launchAgent(viewer,true);
-		//Mais pourquoi, il y a 2 viewer ????
-		/*Viewer viewer2= new Viewer(scheduler,taille_cellule, longueur , largeur);
-		launchAgent(viewer,true);*/
+		
 
 		// 2 : launch some simulated agents
 

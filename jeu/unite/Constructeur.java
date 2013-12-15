@@ -4,6 +4,7 @@ import java.util.Random;
 
 import batiment.Caserne;
 import batiment.Forum;
+import batiment.Hopital;
 import jeu.Alignement;
 import jeu.Bois;
 import jeu.Cellule;
@@ -23,7 +24,8 @@ import jeu.Societe;
 		
 		public boolean vide;
 		private int quantite =0; // quantite de ressource prise par le villageois
-		private Cellule Forum; // cellule de naissance (Forum) du villageois. /!\ Provisoir
+		private Cellule Forum; // cellule de naissance (Forum) du villageois. 
+		private boolean action;
 		
 		
 		public Constructeur (Cellule c , Alignement a){
@@ -34,6 +36,7 @@ import jeu.Societe;
 			this.vie =10;
 			this.vide = true;
 			this.quantite =0;
+			this.action = false;
 			
 		}
 		
@@ -98,6 +101,40 @@ import jeu.Societe;
 			}
 		}
 		
+		
+		private void se_remplis(){
+			if (this.curent.coord != this.Forum.coord){ 
+				this.rapproche(this.Forum);
+			}
+			else {
+			if (this.takeForum()){} // s'il est sur une case "Forum" , alors il se charge de 1.
+			else { // Sinon il regarde sur les cases adjacentes pour voir s'il n'y a pas un Forum
+				if (this.Forum ==null){
+					this.killAgent(this); // le constructeur se suicide s'il n'a plus de forum
+				}
+				
+				
+				 
+				else this.rapproche(this.Forum);	
+				
+				
+			}
+		}
+			
+		}
+		
+		private void choixconstructeur(){
+			System.out.println("Je fais un choix");
+			if (!this.action){
+				System.out.println("J'essaye de construire et ...");
+				this.construit();
+			}
+			else this.apporte();
+		}
+		
+		
+		
+		
 		@SuppressWarnings("unused")
 		private void construit() {
 			if(this.vie <= 0){
@@ -106,23 +143,7 @@ import jeu.Societe;
 			}
 			
 			if (vide){ // Si le constructeur est vide , alors il cherche un FORUM pour se remplir.
-				if (this.curent.coord != this.Forum.coord){ 
-					this.rapproche(this.Forum);
-				}
-				else {
-				if (this.takeForum()){} // s'il est sur une case "Forum" , alors il se charge de 1.
-				else { // Sinon il regarde sur les cases adjacentes pour voir s'il n'y a pas un Forum
-					if (this.Forum ==null){
-						this.killAgent(this); // le constructeur se suicide s'il n'a plus de forum
-					}
-					
-					
-					 
-					else this.rapproche(this.Forum);	
-					
-					
-				}
-			}
+			this.se_remplis();
 			}
 			
 			
@@ -146,6 +167,7 @@ import jeu.Societe;
 							this.quantite --;
 							if(this.quantite >=0){ // Je mets ici >=10 en cas de bug (qui ne devrai normalement ne pas avoir lieu)
 								this.vide = true;
+								this.action = true;
 							}
 						
 					}
@@ -176,6 +198,35 @@ import jeu.Societe;
 			}
 			}
 		}
+		
+		
+		
+		private void apporte() {
+			if (this.vide){
+				this.se_remplis();
+			}
+			else {
+			if (!(this.al.demande_ressource.isEmpty())){
+				Cellule plusproche = this.al.demande_ressource.get(0);
+				if (this.curent.coord != plusproche.coord){
+					this.rapproche(plusproche);
+					}
+				else 	if (this.curent.objet instanceof Caserne){
+					Caserne b ;
+					b = (Caserne) this.curent.objet;
+					b.addStock();
+					this.quantite --;
+					if(this.quantite >=0){ // Je mets ici >=10 en cas de bug (qui ne devrai normalement ne pas avoir lieu)
+						this.vide = true;
+						action = false;
+						this.curent.objet.al.demande_ressource.remove(this.curent); // On enleve l'objet qui demande des ressources pour le remettre à la fin de la liste 
+						this.curent.objet.al.demande_ressource.add(this.curent);
+					}
+			}
+		}
+			else action = false;
+			}
 
+	}
 	}
 

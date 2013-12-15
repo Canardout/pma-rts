@@ -10,6 +10,7 @@ import javax.swing.JScrollBar;
 
 import batiment.Caserne;
 import batiment.Forum;
+import batiment.Hopital;
 import unite.Constructeur;
 import unite.Soldat;
 import unite.Villageois;
@@ -28,8 +29,11 @@ public class Viewer extends SwingViewer{
 		public Image bois;
 		public Image forum;
 		public Image villageois;
-		public Image soldat;
 		
+		public Image hopital;
+		public Image constructeur;
+		public Image soldat;
+		public Image soldat_fatiguer;
 		protected PropertyProbe<ObjectMap , Coord> aff ;
 		protected PropertyProbe <Cellule , Coord> cellule;
 		 
@@ -46,8 +50,10 @@ public class Viewer extends SwingViewer{
 			this.bois = new ImageIcon(getClass().getResource("/jeu/Ressource/arbre.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 			this.forum = new ImageIcon(getClass().getResource("/jeu/Ressource/forum.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 			this.villageois = new ImageIcon(getClass().getResource("/jeu/Ressource/Villageois2.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
-			this.soldat = new ImageIcon(getClass().getResource("/jeu/Ressource/vill.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
-			
+			this.soldat = new ImageIcon(getClass().getResource("/jeu/Ressource/soldat.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
+			this.soldat_fatiguer = new ImageIcon(getClass().getResource("/jeu/Ressource/vill.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
+			this.hopital = new ImageIcon(getClass().getResource("/jeu/Ressource/hopital.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
+			this.constructeur = new ImageIcon(getClass().getResource("/jeu/Ressource/constructeur.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 		}
 
 		
@@ -124,11 +130,14 @@ public class Viewer extends SwingViewer{
 					g.fillRect(coord.x,coord.y, 8, 8);
 					}
 				}
+				else if (a instanceof Hopital){
+					g.drawImage(hopital,coord.x,coord.y, null);
+				}
 					
 				
 				else if (a instanceof Constructeur){
-						g.setColor(Color.ORANGE);
-						g.fillRect(coord.x,coord.y, 5, 5);
+					
+						g.drawImage(constructeur,coord.x,coord.y, null);
 					}
 					
 					
@@ -156,11 +165,10 @@ public class Viewer extends SwingViewer{
 					else if (a instanceof Soldat){
 						Soldat b = (Soldat) a;
 						if (b.epuise){
-							g.drawImage(soldat,coord.x,coord.y, null);
+							g.drawImage(soldat_fatiguer,coord.x,coord.y, null);
 						}
 						else{
-						g.setColor(a.al.color.darker().darker());
-						g.fillRect(coord.x,coord.y, 6, 6);
+							g.drawImage(soldat,coord.x,coord.y, null);
 						}
 					}
 					

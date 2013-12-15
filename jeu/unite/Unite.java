@@ -162,4 +162,10 @@ public class Unite extends ObjectMap {
     public void end(){
     	this.curent.personne.remove(this);
     }
+    public int getvie(){
+    	return this.vie;
+    }
+    public void setvie(int var){ //méthode pour donner l'accès à la variable de vie (pour l'hopital ou une attaque)
+    	this.vie = this.vie+var;
+    }
 }

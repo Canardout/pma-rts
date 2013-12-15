@@ -19,7 +19,8 @@ import unite.Villageois;
  */
 
 @SuppressWarnings("serial")
-public class Forum extends Batiment implements Stockable{
+public class Forum extends Batiment //implements Stockable
+{
 	
 	
 	public Coord coord;
@@ -38,6 +39,7 @@ public class Forum extends Batiment implements Stockable{
 		this.env = c;
 		this.env.coord = this.coord;
 		this.al = a;
+		this.env.objet = this;
 		
 	}
 	public void addStock(){
