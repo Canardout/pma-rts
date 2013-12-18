@@ -14,5 +14,8 @@ public abstract class Batiment extends ObjectMap {
          */
         protected int longueur;
         protected int largeur;
+        public void activationgeneral(){
+        	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.OBJECTMAP);
+        }
         
 }

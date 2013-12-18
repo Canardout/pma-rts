@@ -24,10 +24,10 @@ public class Bois extends Ressource{
 		}
 
 		public Bois (Coord c){
-		        this(c, 100); //Définis une ressource avec 100 de quantité 
+		        this(c, 100); //Dï¿½finis une ressource avec 100 de quantitï¿½ 
 		}
 		
-		public void give(){ //la ressource se décremente et la "donne" au villageois
+		public void give(){ //la ressource se dï¿½cremente et la "donne" au villageois
 			this.quantite--; 
 			
 		}
@@ -35,16 +35,16 @@ public class Bois extends Ressource{
 	
 	
 	protected void activate(){
-		// Defini le role de l'objet "Bois" dans la société
+		// Defini le role de l'objet "Bois" dans la sociï¿½tï¿½
 		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.BOIS);
-		this.activationgeneral();
+		
 		
 	}
 	@SuppressWarnings("unused")
 	private void wood() {
 		
 		if (this.quantite <=0){
-			this.curent.objet = null; // On dis à la cellule qu'elle ne contiens maintenant plus rien
+			this.curent.objet = null; // On dis ï¿½ la cellule qu'elle ne contiens maintenant plus rien
 			killAgent(this);
 		}
 		

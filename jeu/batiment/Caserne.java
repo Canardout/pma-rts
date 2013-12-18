@@ -31,7 +31,7 @@ public class Caserne extends Batiment //implements Stockable
     public int statue ;
  
 
-    public static final int MAX_STOCK = Integer.MAX_VALUE; // à voir
+    public static final int MAX_STOCK = Integer.MAX_VALUE; // ï¿½ voir
 
 	public Caserne (Cellule c , Alignement a){
 		
@@ -110,9 +110,9 @@ public class Caserne extends Batiment //implements Stockable
 			}
 		}
 		else {
-			if (this.stock >= 500){
+			if (this.stock >= 150){
 			launchAgent(new Soldat(this.env,this.al));
-			this.stock = this.stock-500;
+			this.stock = this.stock-150;
 			}
 			
 		}

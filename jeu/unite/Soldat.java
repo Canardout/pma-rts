@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
+import batiment.Forum;
+
 import jeu.Alignement;
 import jeu.Cellule;
 import jeu.Coord;
@@ -23,8 +25,8 @@ public class Soldat extends Unite {
 	
 	
 	
-	public boolean epuise; // Indique si le soldat à besoin de se reposer ou non
-	int repos; // Mesure le repos que doit prendre un Soldat après avoir tuer quelque-chose.
+	public boolean epuise; // Indique si le soldat ï¿½ besoin de se reposer ou non
+	int repos; // Mesure le repos que doit prendre un Soldat aprï¿½s avoir tuer quelque-chose.
 	private Cellule Caserne; // cellule de naissance (Forum) du villageois. /!\ Provisoir
 	
 	
@@ -51,7 +53,6 @@ public class Soldat extends Unite {
 		
 	}
 	
-
 
 
 	

@@ -124,16 +124,21 @@ import jeu.Societe;
 		}
 		
 		private void choixconstructeur(){
-			System.out.println("Je fais un choix");
+			
 			if (!this.action){
-				System.out.println("J'essaye de construire et ...");
+			
 				this.construit();
 			}
 			else this.apporte();
 		}
 		
 		
-		
+		public void end(){
+			this.curent.personne.remove(this);
+			Forum b = (Forum)this.Forum.objet;
+			b.limitcont++;
+			
+		}
 		
 		@SuppressWarnings("unused")
 		private void construit() {
@@ -219,7 +224,7 @@ import jeu.Societe;
 					if(this.quantite >=0){ // Je mets ici >=10 en cas de bug (qui ne devrai normalement ne pas avoir lieu)
 						this.vide = true;
 						action = false;
-						this.curent.objet.al.demande_ressource.remove(this.curent); // On enleve l'objet qui demande des ressources pour le remettre à la fin de la liste 
+						this.curent.objet.al.demande_ressource.remove(this.curent); // On enleve l'objet qui demande des ressources pour le remettre ï¿½ la fin de la liste 
 						this.curent.objet.al.demande_ressource.add(this.curent);
 					}
 			}

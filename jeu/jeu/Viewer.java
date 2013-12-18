@@ -34,8 +34,9 @@ public class Viewer extends SwingViewer{
 		public Image constructeur;
 		public Image soldat;
 		public Image soldat_fatiguer;
-		protected PropertyProbe<ObjectMap , Coord> aff ;
+		protected PropertyProbe<Batiment , Coord> aff ;
 		protected PropertyProbe <Cellule , Coord> cellule;
+		protected PropertyProbe <Ressource , Coord> ressource;
 		 
 		 
 		
@@ -75,8 +76,9 @@ public class Viewer extends SwingViewer{
 					
 					
 			};
-			aff = new PropertyProbe<ObjectMap, Coord>(Societe.SOCIETE, Societe.SIMU, Societe.OBJECTMAP ,"coord");
+			aff = new PropertyProbe<Batiment, Coord>(Societe.SOCIETE, Societe.SIMU, Societe.OBJECTMAP ,"coord");
 			cellule = new PropertyProbe <Cellule , Coord>(Societe.SOCIETE,Societe.SIMU,Societe.ENV , "coord");
+			ressource = new PropertyProbe <Ressource , Coord>(Societe.SOCIETE , Societe.SIMU , Societe.BOIS , "coord");
 			getFrame().pack();
 			getFrame().setLocation(500, 500);
 			getFrame().setSize(new Dimension(largeur*taille_cel,(longueur*taille_cel)+115));
@@ -88,6 +90,7 @@ public class Viewer extends SwingViewer{
 			getFrame().getJMenuBar();
 			addProbe(aff);
 			addProbe(cellule);
+			addProbe(ressource);
 			
 			
 		}
@@ -100,11 +103,30 @@ public class Viewer extends SwingViewer{
 				//g.drawImage(fond, coord.x,coord.y, pane );
 				g.drawImage(herbe,coord.x,coord.y, null);
 				g.drawRect(coord.x,coord.y, taille_cel, taille_cel);
-				
+				for (int i =0 ; i< a.personne.size() ; i++){
+					
+					if (a.personne.get(i) instanceof Constructeur){
+						g.drawImage(constructeur,coord.x+(i*3),coord.y+(i*3), null);
+					}
+					else if (a.personne.get(i) instanceof Villageois){ // reprï¿½sente les villageois
+						g.drawImage(villageois,coord.x+(i*3),coord.y+(i*3), null);
+						
+					}
+					else if (a.personne.get(i) instanceof Soldat){
+						Soldat b = (Soldat) a.personne.get(i);
+						if (b.epuise){
+							g.drawImage(soldat_fatiguer,coord.x,coord.y, null);
+						}
+						else{
+							g.drawImage(soldat,coord.x,coord.y, null);
+						}
+					}
+					
+				}
 				
 			}
 			
-			for (ObjectMap a : aff.getCurrentAgentsList()) {
+			for (Batiment a : aff.getCurrentAgentsList()) {
 				Coord coord1 = aff.getPropertyValue(a); // Prend les coordonnï¿½e des agents "capturer" dans les listes d'affichage
 				Coord coord = coord1.multiple(taille_cel); 
 				if (a instanceof Forum){
@@ -133,48 +155,23 @@ public class Viewer extends SwingViewer{
 				else if (a instanceof Hopital){
 					g.drawImage(hopital,coord.x,coord.y, null);
 				}
+			}
 					
 				
-				else if (a instanceof Constructeur){
-					
-						g.drawImage(constructeur,coord.x,coord.y, null);
-					}
-					
-					
-					else if (a instanceof Bois){ // représente le bois
+				for (Ressource a : ressource.getCurrentAgentsList()) {
+					Coord coord1 = ressource.getPropertyValue(a); // Prend les coordonnï¿½e des agents "capturer" dans les listes d'affichage
+					Coord coord = coord1.multiple(taille_cel); 
+					if (a instanceof Bois){ // reprï¿½sente le bois
 						g.setColor(Color.GREEN);
 						g.drawImage(bois,coord.x,coord.y, null);
 						//g.fillOval(coord.x,coord.y, 8, 8);
 					}
-					else if (a instanceof Villageois){ // représente les villageois
-						g.drawImage(villageois,coord.x,coord.y, null);
-						/*
-						Villageois b = (Villageois) a;
-						if (!b.plein){
-							g.setColor(a.al.color);
-							g.fillOval(coord.x,coord.y, 4, 4);
-							
-						}
-						else {
-							
-							g.setColor(a.al.color.darker());
-							g.fillOval(coord.x,coord.y, 4, 4);
-						}
-						*/
-					}
-					else if (a instanceof Soldat){
-						Soldat b = (Soldat) a;
-						if (b.epuise){
-							g.drawImage(soldat_fatiguer,coord.x,coord.y, null);
-						}
-						else{
-							g.drawImage(soldat,coord.x,coord.y, null);
-						}
-					}
+					
+				
 					
 					
 				}
-			
+			/*
 			for (Cellule a :  cellule.getCurrentAgentsList()){
 				g.setColor(Color.GRAY);
 				Coord coord1 = cellule.getPropertyValue(a); // Prend les coordonnï¿½e des agents "capturer" dans les listes d'affichage
@@ -182,6 +179,7 @@ public class Viewer extends SwingViewer{
 				g.drawString(""+a.personne.size(),coord.x,coord.y);
 				
 			}
+			*/
 				}
 			}
 

@@ -26,12 +26,12 @@ public class Forum extends Batiment //implements Stockable
 	public Coord coord;
 	
 	private Cellule env;
-	protected int stock =40; //temporairement place ici
+	protected int stock =400; //temporairement place ici
     protected int vie;
     public int limitpop =5;
-    protected int limitcont = 3;
+    public int limitcont = 3;
  
-	public static final int MAX_STOCK = Integer.MAX_VALUE; // à voir
+	public static final int MAX_STOCK = Integer.MAX_VALUE; // ï¿½ voir
 	
 
 	public Forum (Cellule c , Alignement a){
@@ -94,7 +94,7 @@ public class Forum extends Batiment //implements Stockable
 	@SuppressWarnings("unused")
 	private void create() { //crï¿½e un villageois
 		
-		if (this.stock-40 >=0){
+		if (this.stock-100 >=0){
 			
 			if(!(this.limitpop <=0)){
 			launchAgent(new Villageois(this.env,this.al));
@@ -118,10 +118,10 @@ public class Forum extends Batiment //implements Stockable
 						
 					}
 					*/
-				else if (this.stock -100>= 0 && this.limitcont >0){
+				else if (this.stock -150>= 0 && this.limitcont >0){
 					
 					launchAgent(new Constructeur(this.env,this.al));
-					this.stock = this.stock -300;
+					this.stock = this.stock -150;
 					this.limitcont--;
 				}}
 				
