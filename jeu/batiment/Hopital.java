@@ -14,7 +14,7 @@ public class Hopital extends Batiment //implements Stockable
 	public Coord coord;
 	
 	public Cellule env;
-	protected int stock ; 
+	protected int stock ; // L'hopital possède des stocks ?
     protected int vie;
     public int statue ;
     public int horloge;

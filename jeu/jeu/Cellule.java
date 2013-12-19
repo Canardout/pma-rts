@@ -73,4 +73,24 @@ public class Cellule extends Watcher {
 	}
 
 	}
+	
+	/**
+	 * @author nico
+	 * @return la liste des ObjectMap de la case
+	 */
+		public ArrayList<ObjectMap> listeObjet (){
+			ArrayList<ObjectMap> l = new ArrayList<ObjectMap>(this.personne);
+			if(this.objet != null){
+				l.add(this.objet);
+			}
+			return l;
+		}
+		
+		/**
+		 * @author nico
+		 * @return le nombre d'ObjectMap present sur la case
+		 */
+		public int nombreObjet (){
+			return this.personne.size() + (this.objet == null ? 0 : 1);
+		}
 }

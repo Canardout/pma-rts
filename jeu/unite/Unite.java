@@ -58,7 +58,7 @@ public class Unite extends ObjectMap {
     public void activationgeneral(){
     	
 
-        	
+        	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.OBJECTMAP);
         	this.curent.personne.add(this);
     	
     	
@@ -122,6 +122,11 @@ public class Unite extends ObjectMap {
 	public static final Coord DROITE = new Coord(1, 0);
 	public static final Coord BAS = new Coord(0, 1);
 	
+	/**
+	 * Méthode permmetant de déplacer l'unité d'une case.
+	 * @param coordonnées, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
+	 * @return false si l'unite ne peux pas se deplace
+	 */
 	public boolean move (Coord c){
 		Cellule ce = this.curent.env.getCellule(this.coord.add(c));
 		if(ce == null)
@@ -135,6 +140,11 @@ public class Unite extends ObjectMap {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param coordonnées, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
+	 * @return l'inverse du paramètre
+	 */
 	public static Coord envers (Coord c){
 		if(c == GAUCHE)
 			return DROITE;
@@ -146,6 +156,10 @@ public class Unite extends ObjectMap {
 			return HAUT;
 		else
 			return null;
+	}
+	
+	public int distance (Coord c){
+		return this.coord.distance(c);
 	}
 	
     /**
@@ -165,7 +179,7 @@ public class Unite extends ObjectMap {
     public int getvie(){
     	return this.vie;
     }
-    public void setvie(int var){ //mï¿½thode pour donner l'accï¿½s ï¿½ la variable de vie (pour l'hopital ou une attaque)
+    public void setvie(int var){ //méthode pour donner l'accès à la variable de vie (pour l'hopital ou une attaque)
     	this.vie = this.vie+var;
     }
 }

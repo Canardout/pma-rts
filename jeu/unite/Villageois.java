@@ -1,10 +1,7 @@
 package unite;
 
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Random;
 
 import batiment.Forum;
 import jeu.Alignement;
@@ -31,6 +28,8 @@ public class Villageois extends Unite {
 	private int quantite =0; // quantite de ressource prise par le villageois
 	private Cellule Forum; // cellule de naissance (Forum) du villageois. /!\ Provisoir
 	
+	public static final int MAX_STOCK = 10;
+	
 	
 	public Villageois (Cellule c , Alignement a){
 		this.curent = c;
@@ -40,9 +39,6 @@ public class Villageois extends Unite {
 		this.vie =10;
 		
 	}
-	
-
-
 
 	
 	protected void activate(){
@@ -53,7 +49,6 @@ public class Villageois extends Unite {
 		
 		
 	}
-	
 	
 	
 	/////////////////// Cette methode et la suivante sont a simplifier en une seul , mais je ne sais comment faire pour le moment ! ///////////////////////////////////
@@ -88,6 +83,7 @@ public class Villageois extends Unite {
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+	
 	private boolean giveForum(){ // Donne une ressource au forum (si le villageois est sur la bonne case) retourne Vrai s'il a reussit , faux sinon.
 		if (this.curent.objet instanceof Forum){ 
 			Forum b ;
@@ -109,6 +105,7 @@ public class Villageois extends Unite {
 		
 	}
 	
+	
 	private void presente(ArrayList<Cellule> a){ // Regarde si la cellule est dï¿½jï¿½ prï¿½sente dans une liste de cellule
 		boolean present = true;
 		for (int i =0 ; i<a.size() ; i++){
@@ -124,6 +121,7 @@ public class Villageois extends Unite {
 		}
 	}
 	
+	
 	@SuppressWarnings("unused")
 	private void Chrwood() {
 		
@@ -137,6 +135,7 @@ public class Villageois extends Unite {
 		default : IA1(); break;
 		}
 	}
+	
 	
 	// par Jérémie
 	private void IA1 (){
@@ -227,6 +226,7 @@ public class Villageois extends Unite {
 		
 	}
 	
+	
 	// par Nicolas
 	private void IA2 (){
 		
@@ -244,19 +244,3 @@ public class Villageois extends Unite {
 		}
 	}
 }
-
-	
-	
-	
-	
-	
-	
-	
-	
-		
-		
-	
-	
-	
-	
-

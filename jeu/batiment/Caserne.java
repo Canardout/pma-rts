@@ -19,7 +19,7 @@ import jeu.Societe;
  */
 
 @SuppressWarnings("serial")
-public class Caserne extends Batiment //implements Stockable
+public class Caserne extends Batiment implements Stockable
 {
 	
 	

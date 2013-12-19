@@ -21,6 +21,8 @@ public class Coord {
          */
         public static double EPSILON = 0.5;
         
+        public static final Coord NULL = new Coord(0, 0);
+        
         /**
          * Constructeur par valeur
          * @param px coordonnee x

@@ -19,7 +19,7 @@ import unite.Villageois;
  */
 
 @SuppressWarnings("serial")
-public class Forum extends Batiment //implements Stockable
+public class Forum extends Batiment implements Stockable
 {
 	
 	

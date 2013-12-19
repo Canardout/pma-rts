@@ -1,18 +1,13 @@
 package unite;
 
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
-
-import batiment.Forum;
 
 import jeu.Alignement;
 import jeu.Cellule;
 import jeu.Coord;
 import jeu.Societe;
-import madkit.kernel.AbstractAgent;
-import madkit.simulation.probe.PropertyProbe;
 
 
 

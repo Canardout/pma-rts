@@ -99,6 +99,11 @@ public ArrayList<Cellule> getenv(Cellule c){
 		
     }
 
+	/**
+	 * @author nico
+	 * @param coordonnée
+	 * @return true si les coordonnées sont hors de la carte
+	 */
 	public boolean horsLimite (Coord c){
 		return c.x < 0 || c.y < 0 || c.x >= this.longueur || c.y >= this.largeur;
 	}
@@ -110,6 +115,7 @@ public ArrayList<Cellule> getenv(Cellule c){
             return this.carte[(x)%this.longueur][(y)%this.largeur];
     }
     
+    //nico
     public Cellule getCellule (Coord c){
     	if(!horsLimite(c))
             return this.carte[c.x][c.y];
