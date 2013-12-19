@@ -161,6 +161,10 @@ public class Unite extends ObjectMap {
 		return this.coord.distance(c);
 	}
 	
+	public int distance (Cellule c){
+		return distance(c.coord);
+	}
+	
     /**
      * Ordonne a l'unite de se diriger vers un objet cible.
      * Dans le cas ou l'objet se deplace, la position devra etre redefinis

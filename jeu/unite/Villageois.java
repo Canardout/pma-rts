@@ -4,10 +4,13 @@ package unite;
 import java.util.ArrayList;
 
 import batiment.Forum;
+import batiment.Stockable;
 import jeu.Alignement;
 import jeu.Bois;
 import jeu.Cellule;
+import jeu.Coord;
 import jeu.Societe;
+import jeu.Ressource;
 import madkit.kernel.AbstractAgent;
 import madkit.simulation.probe.PropertyProbe;
 
@@ -26,7 +29,7 @@ public class Villageois extends Unite {
 	
 	public boolean plein;
 	private int quantite =0; // quantite de ressource prise par le villageois
-	private Cellule Forum; // cellule de naissance (Forum) du villageois. /!\ Provisoir
+	private Cellule forum; // cellule de naissance (Forum) du villageois. /!\ Provisoir
 	
 	public static final int MAX_STOCK = 10;
 	
@@ -34,7 +37,7 @@ public class Villageois extends Unite {
 	public Villageois (Cellule c , Alignement a){
 		this.curent = c;
 		this.coord = c.coord;
-		this.Forum = c;
+		this.forum = c;
 		this.al =a;
 		this.vie =10;
 		
@@ -47,7 +50,9 @@ public class Villageois extends Unite {
 		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.CHERCHEUR);
 		this.activationgeneral();
 		
-		
+		this.etat = "recherche";
+		this.direction = Coord.NULL;
+		this.cercle = 0;	
 	}
 	
 	
@@ -100,7 +105,7 @@ public class Villageois extends Unite {
 	
 	public void end(){
 		this.curent.personne.remove(this);
-		Forum b = (Forum)this.Forum.objet;
+		Forum b = (Forum)this.forum.objet;
 		b.limitpop++;
 		
 	}
@@ -141,19 +146,19 @@ public class Villageois extends Unite {
 	private void IA1 (){
 		
 		if (plein){ // Si le villageois est plein , alors il cherche un FORUM pour se vider.
-			if (this.curent.coord != this.Forum.coord){ 
-				this.rapproche(this.Forum);
+			if (this.curent.coord != this.forum.coord){ 
+				this.rapproche(this.forum);
 			}
 			else {
 			if (this.giveForum()){} // s'il est sur une case "Forum" , alors il se vide de 1.
 			else { // Sinon il regarde sur les cases adjacentes pour voir s'il n'y a pas un Forum
-				if (this.Forum ==null){
+				if (this.forum ==null){
 					this.killAgent(this);
 				}
 				
 				
 				 
-				else this.rapproche(this.Forum);	
+				else this.rapproche(this.forum);	
 				
 				
 			}
@@ -226,12 +231,63 @@ public class Villageois extends Unite {
 		
 	}
 	
-	
+	// TODO a terminer
 	// par Nicolas
+	private String etat; // Ce que fait le Villageois actuellement
+	private int cercle; // cercle ou est situe le villageois lors de la recherche
+	private Coord direction; // direction du villageois lors de la recherche du Bois
 	private void IA2 (){
-		
+		/*
+		 * recherche
+		 * ramene
+		 * recolte
+		 */
+		switch(this.etat){
+		case "recherche" : 
+			
+			break;
+			
+		case "ramene" : 
+			if(distance(this.forum) > 0)
+				rapproche(this.forum);
+			else
+				donnerRessource((Stockable)this.forum.objet); //attention aux erreurs
+			break;
+			
+		case "recolte" : 
+			if(estPlein()){
+				this.etat = "ramene";
+				IA2();
+			}
+			else if(this.curent.objet == null){
+				this.etat = "recherche";
+				IA2();
+			}
+			else{
+				recolte((Ressource)this.curent.objet); //attention aux erreurs
+			}
+				
+			break;
+			
+		default : 
+			System.out.println("Etat inconnue : " + this.etat);
+			break;
+		}
 	}
 
+	public void donnerRessource (Stockable bat){
+		this.quantite = bat.donnerStock(this.quantite);
+	}
+	
+	public void recolte (Ressource r){
+		r.decrementeQuantite();
+		this.quantite++;
+	}
+	
+	public boolean estPlein (){
+		return this.quantite >= MAX_STOCK;
+	}
+	
 	class AgentsProbe extends PropertyProbe<AbstractAgent, Villageois>{
 		
 		public AgentsProbe(String community, String group, String role, String fieldName) {
