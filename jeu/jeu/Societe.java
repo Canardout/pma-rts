@@ -39,8 +39,8 @@ public class Societe extends AbstractAgent{
 		int longueur;
 		int largeur;
 		int taille_cellule;
-		longueur = 25;
-		largeur = 25;
+		longueur = 20;
+		largeur = 20;
 		taille_cellule = 25;
 		Environnement env = new Environnement(longueur,largeur,2);
 		launchAgent(env);

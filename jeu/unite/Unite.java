@@ -58,7 +58,7 @@ public class Unite extends ObjectMap {
     public void activationgeneral(){
     	
 
-        	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.OBJECTMAP);
+        	
         	this.curent.personne.add(this);
     	
     	
@@ -141,7 +141,6 @@ public class Unite extends ObjectMap {
 	}
 	
 	/**
-	 * 
 	 * @param coordonnées, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
 	 * @return l'inverse du paramètre
 	 */
@@ -179,7 +178,7 @@ public class Unite extends ObjectMap {
     public int getvie(){
     	return this.vie;
     }
-    public void setvie(int var){ //méthode pour donner l'accès à la variable de vie (pour l'hopital ou une attaque)
+    public void setvie(int var){ //mï¿½thode pour donner l'accï¿½s ï¿½ la variable de vie (pour l'hopital ou une attaque)
     	this.vie = this.vie+var;
     }
 }
