@@ -123,8 +123,8 @@ public class Unite extends ObjectMap {
 	public static final Coord BAS = new Coord(0, 1);
 	
 	/**
-	 * Méthode permmetant de déplacer l'unité d'une case.
-	 * @param coordonnées, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
+	 * Methode permmetant de deplacer l'unite d'une case.
+	 * @param coordonnees, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
 	 * @return false si l'unite ne peux pas se deplace
 	 */
 	public boolean move (Coord c){
@@ -141,8 +141,8 @@ public class Unite extends ObjectMap {
 	}
 	
 	/**
-	 * @param coordonnées, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
-	 * @return l'inverse du paramètre
+	 * @param coordonnees, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
+	 * @return l'inverse du parametre
 	 */
 	public static Coord envers (Coord c){
 		if(c == GAUCHE)
@@ -182,7 +182,7 @@ public class Unite extends ObjectMap {
     public int getvie(){
     	return this.vie;
     }
-    public void setvie(int var){ //mï¿½thode pour donner l'accï¿½s ï¿½ la variable de vie (pour l'hopital ou une attaque)
+    public void setvie(int var){ //mï¿½thode pour donner l'acces a la variable de vie (pour l'hopital ou une attaque)
     	this.vie = this.vie+var;
     }
 }

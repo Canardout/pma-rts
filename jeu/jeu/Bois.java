@@ -45,6 +45,7 @@ public class Bois extends Ressource{
 		
 		if (this.quantite <=0){
 			this.curent.objet = null; // On dis � la cellule qu'elle ne contiens maintenant plus rien
+			this.env.supprimerRessource(this.curent);
 			killAgent(this);
 		}
 		

@@ -1,6 +1,7 @@
 
 package jeu;
 import java.util.ArrayList;
+import java.util.List;
 
 import unite.Unite;
 import madkit.kernel.AbstractAgent;
@@ -92,5 +93,20 @@ public class Cellule extends Watcher {
 		 */
 		public int nombreObjet (){
 			return this.personne.size() + (this.objet == null ? 0 : 1);
+		}
+		
+		/**
+		 * @author nico
+		 * la cellule de la liste la plus proche de this, 
+		 * null si aucune cellule est trouvee
+		 * ne retourne pas la cellule courante
+		 * @return 
+		 */
+		public Cellule plusProche (List<Cellule> l){
+
+			Cellule c = null;
+			for(int i = 0 ; i < l.length ; i++){
+				
+			}
 		}
 }

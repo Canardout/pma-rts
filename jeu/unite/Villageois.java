@@ -142,7 +142,7 @@ public class Villageois extends Unite {
 	}
 	
 	
-	// par Jérémie
+	// par Jï¿½rï¿½mie
 	private void IA1 (){
 		
 		if (plein){ // Si le villageois est plein , alors il cherche un FORUM pour se vider.
@@ -196,7 +196,7 @@ public class Villageois extends Unite {
 			else this.al.ressource.remove(0);
 			
 		} 
-		else{ // Si aucune ressource nest actuellement exploite par lalignement :
+		else{ // Si aucune ressource nest actuellement exploite par l'alignement :
 			
 			////////Le villageois regarde sont environnement
 			
@@ -231,14 +231,14 @@ public class Villageois extends Unite {
 		
 	}
 	
-	// TODO a terminer
+	// TODO prendre en compte que la memoire ne sera plus partage a l'avenir
 	// par Nicolas
 	private String etat; // Ce que fait le Villageois actuellement
 	private int cercle; // cercle ou est situe le villageois lors de la recherche
 	private Coord direction; // direction du villageois lors de la recherche du Bois
 	private void IA2 (){
 		/*
-		 * recherche
+		 * recherche -> quand on sait la position des arbres, recolte ?
 		 * ramene
 		 * recolte
 		 */
@@ -250,12 +250,18 @@ public class Villageois extends Unite {
 		case "ramene" : 
 			if(distance(this.forum) > 0)
 				rapproche(this.forum);
-			else
+			else{
 				donnerRessource((Stockable)this.forum.objet); //attention aux erreurs
+				this.etat = "recolte";
+			}
 			break;
 			
 		case "recolte" : 
-			if(estPlein()){
+			if(!(this.curent.objet instanceof Ressource)){
+				Cellule c = laplusproche(this.al.ressource); //TODO ne verifie pas si vide, creer methode dans Cellule
+				this.rapproche(c);
+			}
+			else if(estPlein()){
 				this.etat = "ramene";
 				IA2();
 			}

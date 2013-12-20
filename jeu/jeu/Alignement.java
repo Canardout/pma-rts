@@ -11,7 +11,7 @@ public class Alignement {
 	public List<Cellule> ressource ;
 	public List<Cellule> caserne;
 	public List<Cellule> hopital;
-	public List<Cellule> demande_ressource; // Liste des cellule où se trouve des batiments voulant des ressources.
+	public List<Cellule> demande_ressource; // Liste des cellule oï¿½ se trouve des batiments voulant des ressources.
 	public Alignement (Color color){
 		this.color = color;
 		this.ressource = new ArrayList<Cellule>();
@@ -21,4 +21,11 @@ public class Alignement {
 		this.IA = 1;
 	}
 	
+	public void ajouteRessource (List<Cellule> r){
+		
+	}
+	
+	public boolean supprimeRessource (Cellule c){
+		return this.ressource.remove(c);
+	}
 }
