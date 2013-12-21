@@ -100,13 +100,29 @@ public class Cellule extends Watcher {
 		 * la cellule de la liste la plus proche de this, 
 		 * null si aucune cellule est trouvee
 		 * ne retourne pas la cellule courante
-		 * @return 
+		 * @return la cellule la plus proche
 		 */
 		public Cellule plusProche (List<Cellule> l){
 
 			Cellule c = null;
-			for(int i = 0 ; i < l.length ; i++){
-				
+			int d = Integer.MAX_VALUE;
+			for(int i = 0 ; i < l.size() ; i++){
+				if(l.get(i) != this){
+					int di = l.get(i).distance(this);
+					if(di < d){
+						c = l.get(i);
+						d = di;
+					}
+				}
 			}
+			return c;
+		}
+		
+		/**
+		 * @author nico
+		 * @return la distance entre 2 cellules
+		 */
+		public int distance (Cellule c){
+			return coord.distance(c.coord);
 		}
 }

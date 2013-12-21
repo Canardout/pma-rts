@@ -1,3 +1,5 @@
+Problème encodage sous Eclipse -> window->preferences->general->workspace->Text file encoding->UTF-8
+
 Noter ici les chose à faire ou que vous proposez.
 Lorsque vous avez fait ou que vous faîtes quelque chose, notez le : --en cours, fait, commentaire(prénom)--
 Ps : on est pas obligé de tout faire, certaine proposition ne sont que des idées et sont à discuté.

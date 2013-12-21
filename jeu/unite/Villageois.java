@@ -16,7 +16,7 @@ import madkit.simulation.probe.PropertyProbe;
 
 
 
-/**Classe Villageois définis l'unité "Villageoi" et son comportement lors de son activation 
+/**Classe Villageois definis l'unite "Villageois" et son comportement lors de son activation 
  * 
  * @author fayej
  *
@@ -73,7 +73,7 @@ public class Villageois extends Unite {
 		}
 		return autour;
 	}
-	private ArrayList<Cellule> watchForum(){ // Methode qui renvoie ce que regarde le villageois (les cellules adja�ante a la sienne + la sienne) sans les diagonalles)
+	private ArrayList<Cellule> watchForum(){ // Methode qui renvoie ce que regarde le villageois (les cellules adjacante a la sienne + la sienne) sans les diagonalles)
 		ArrayList<Cellule> autour = curent.env.getenv(curent);
 		
 		for (int i =0 ; i<autour.size() ; i++){
@@ -111,7 +111,7 @@ public class Villageois extends Unite {
 	}
 	
 	
-	private void presente(ArrayList<Cellule> a){ // Regarde si la cellule est d�j� pr�sente dans une liste de cellule
+	private void presente(ArrayList<Cellule> a){ // Regarde si la cellule est deja presente dans une liste de cellule
 		boolean present = true;
 		for (int i =0 ; i<a.size() ; i++){
 			for (int j = 0 ; j < this.al.ressource.size() ; j++){
@@ -142,7 +142,7 @@ public class Villageois extends Unite {
 	}
 	
 	
-	// par J�r�mie
+	// par Jeremie
 	private void IA1 (){
 		
 		if (plein){ // Si le villageois est plein , alors il cherche un FORUM pour se vider.
@@ -175,7 +175,7 @@ public class Villageois extends Unite {
 			if (!this.al.ressource.isEmpty()){ //regarde la liste des ressources repertorier de lalignement.
 				Cellule plusproche = this.laplusproche(this.al.ressource); // On prend la cellule repertorier la plusproche de la position actuel du villageois
 		
-			if (plusproche.objet != null){ // si l'objet n'est pas passer � null (destruction de l'agent)
+			if (plusproche.objet != null){ // si l'objet n'est pas passer a null (destruction de l'agent)
 				if(plusproche.objet.isAlive()){ // si l'objet est toujours en vie
 					if (this.curent.coord != plusproche.coord){ // si le villageois n'est pas deja sur la cellule concerner
 					this.rapproche(plusproche); // alors il se rapproche de la cellule en question
@@ -212,7 +212,7 @@ public class Villageois extends Unite {
 			}
 			
 			else{
-			//////////////////// Le cas o� tout les villageois n'ont rien trouv� , il cherche dans son environnement du bois ////////////////////////////////////////////////////////////// 
+			//////////////////// Le cas ou tout les villageois n'ont rien trouve , il cherche dans son environnement du bois ////////////////////////////////////////////////////////////// 
 				ArrayList<Cellule> autour2 = this.watchBois();
 				
 				if (autour2.isEmpty()){
@@ -221,7 +221,7 @@ public class Villageois extends Unite {
 				}
 				
 				else {
-					this.curent = autour2.get(0); // pour le moment : le villageois va � la premi�re ressource d�finis dans le tableau
+					this.curent = autour2.get(0); // pour le moment : le villageois va a la premiere ressource definis dans le tableau
 					this.al.ressource.add(autour2.get(0));
 				}
 			//////////////////////////////////////////////////////////////////////////////////////

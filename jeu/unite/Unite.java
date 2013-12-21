@@ -49,7 +49,7 @@ public class Unite extends ObjectMap {
     protected String action;
     
     /**
-     * Ordonne � l'unite de se deplace vers un point cible.
+     * Ordonne à l'unite de se deplace vers un point cible.
      * Cette methode redefinie objetCible a null.
      * TODO Cette specificite n'est definitif, il faut savoir si cette methode est faite
      * pour etre utilise en interne ou en externe.
@@ -182,7 +182,7 @@ public class Unite extends ObjectMap {
     public int getvie(){
     	return this.vie;
     }
-    public void setvie(int var){ //m�thode pour donner l'acces a la variable de vie (pour l'hopital ou une attaque)
+    public void setvie(int var){ //méthode pour donner l'acces a la variable de vie (pour l'hopital ou une attaque)
     	this.vie = this.vie+var;
     }
 }
