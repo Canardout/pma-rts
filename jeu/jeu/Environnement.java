@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import madkit.kernel.AbstractAgent;
+import madkit.kernel.Madkit;
+import madkit.kernel.Scheduler.SimulationState;
 
 import java.awt.Color;
 
@@ -29,6 +31,9 @@ public class Environnement extends AbstractAgent{
    private int longueur;
    private int largeur;
    private Alignement[] al;
+   private Forum[] forum;
+   private GameDistributor game;
+   public int nb_arbre;
     
     protected void activate(){ // Activation de l'Environnement en creant un tableau de cellule et en lan�ant tous ces agents cellules
     	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.CARTE );
@@ -48,6 +53,7 @@ public class Environnement extends AbstractAgent{
 			valeur2 = r.nextInt(this.largeur-1);
 			for (int i =0 ; i<this.al.length ; i++){
 				this.carte[valeur][valeur2].add(new Forum (this.carte[valeur][valeur2], this.al[i]));
+				this.forum[i] = (Forum)this.carte[valeur][valeur2].objet;
 				valeur = r.nextInt(this.longueur-1);
     			valeur2 = r.nextInt(this.largeur-1);
 			}
@@ -74,11 +80,13 @@ public ArrayList<Cellule> getenv(Cellule c){
 	   
    }
 
-	public Environnement (int longueur, int largeur , int al){ // Genere un environnement avec une longueur , largeur et un nombre d'alignement (nombre de forum en debut de simulation)
+	public Environnement (GameDistributor game,int longueur, int largeur , int al){ // Genere un environnement avec une longueur , largeur et un nombre d'alignement (nombre de forum en debut de simulation)
 		this.carte = new Cellule[longueur][largeur];
 		this.longueur = longueur;
 		this.largeur = largeur;
 		this.al = new Alignement[al];
+		this.forum = new Forum[al];
+		this.game = game;
 		//Generation des couleurs des Alignements
 		Random rand = new Random();
 		float red = rand.nextFloat();
@@ -87,7 +95,7 @@ public ArrayList<Cellule> getenv(Cellule c){
 		Color randomColor = new Color(red, grey, blue);
 		
 		for (int i =0 ; i<al ; i++){
-			this.al[i] = new Alignement(randomColor);
+			this.al[i] = new Alignement(randomColor , i);
 			red = rand.nextFloat();
 			grey = rand.nextFloat();
 			blue = rand.nextFloat();
@@ -119,7 +127,7 @@ public ArrayList<Cellule> getenv(Cellule c){
     
     protected void ressource(){ // s'il n'y a plus d'arbre sur le terrain alors j'en refait !
     	
-    	if (!isRole(Societe.SOCIETE,Societe.SIMU,Societe.BOIS)){
+    	if (this.nb_arbre <5){
     		Random r = new Random();
     		int valeur ;
     		int valeur2 ;
@@ -129,12 +137,23 @@ public ArrayList<Cellule> getenv(Cellule c){
     			
     			if (this.carte[valeur][valeur2].objet == null){
         			this.carte[valeur][valeur2].add(new Bois(this.carte[valeur][valeur2]));
+        			this.nb_arbre++;
     		}
     		
     		}
-    		
+    	}
+    	int cpt = 0;
+    	for (int i = 0 ; i<this.forum.length ; i++){
+			if (this.forum[i].perdu){
+				cpt++;
+			}
+		}
+    	if (cpt == this.forum.length-1){
+    		this.game.stop();
+    		System.out.println("Nous avons un gagnant !");
     		
     	}
+    	
     }
     
 }

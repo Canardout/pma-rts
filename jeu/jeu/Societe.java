@@ -24,16 +24,21 @@ public class Societe extends AbstractAgent{
 	public static final String CONSTRUCTEUR ="construit";
 	public static final String CASERNE ="cons-soldat";
 	public static final String HOPITAL = "HOPITAL";
+	public static String[] ALIGNEMENT = new String[8]; // Alignement que 
+	//!\\ Les Alignement ne peuvent desormer plus exceder 8 !
 
 	
 	
 	protected void activate() {
 		
-		
+		for (int i = 0 ; i<this.ALIGNEMENT.length ; i++){
+			this.ALIGNEMENT[i] = "a"+i;
+		}
 		
 		// 1 : create the simulation group
 		createGroup(SOCIETE, SIMU);
-		
+		GameDistributor scheduler = new GameDistributor();
+		launchAgent(scheduler,false);
 
 		// 2 : create the environment
 		int longueur;
@@ -41,13 +46,12 @@ public class Societe extends AbstractAgent{
 		int taille_cellule;
 		longueur = 25;
 		largeur = 25;
-		taille_cellule = 20;
-		Environnement env = new Environnement(longueur,largeur,2);
+		taille_cellule = 30;
+		Environnement env = new Environnement(scheduler,longueur,largeur,5);
 		launchAgent(env);
 		
 		// 3 : create the scheduler
-		GameDistributor scheduler = new GameDistributor();
-		launchAgent(scheduler,false);
+		
 
 		// 3 : create the viewer
 		

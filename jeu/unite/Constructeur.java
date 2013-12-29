@@ -155,7 +155,9 @@ import jeu.Societe;
 			
 			
 			
-			else{
+			else{ 
+			Forum c = (Forum)this.Forum.objet;
+				if (!c.perdu){
 				
 				if (!this.al.caserne.isEmpty()){ //regarde la liste des ressources r�pertori� (d�j� trouv�)
 					Cellule plusproche = this.laplusproche(this.al.caserne);
@@ -200,6 +202,7 @@ import jeu.Societe;
 					
 				
 				}
+			}
 			}
 			}
 		}

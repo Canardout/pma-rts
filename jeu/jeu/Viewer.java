@@ -28,6 +28,7 @@ public class Viewer extends SwingViewer{
 		public Image herbe;
 		public Image bois;
 		public Image forum;
+		public Image forum_perte;
 		public Image villageois;
 		
 		public Image hopital;
@@ -55,6 +56,7 @@ public class Viewer extends SwingViewer{
 			this.soldat_fatiguer = new ImageIcon(getClass().getResource("/jeu/Ressource/vill.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 			this.hopital = new ImageIcon(getClass().getResource("/jeu/Ressource/hopital.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 			this.constructeur = new ImageIcon(getClass().getResource("/jeu/Ressource/constructeur.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
+			this.forum_perte =  new ImageIcon(getClass().getResource("/jeu/Ressource/mort.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 		}
 
 		
@@ -130,9 +132,11 @@ public class Viewer extends SwingViewer{
 				Coord coord1 = aff.getPropertyValue(a); // Prend les coordonn�e des agents "capturer" dans les listes d'affichage
 				Coord coord = coord1.multiple(taille_cel); 
 				if (a instanceof Forum){
-					
-							g.setColor(a.al.color);
+							Forum b = (Forum)a;
+							if(!b.perdu){
 							g.drawImage(forum,coord.x,coord.y, null);
+							}
+							else g.drawImage(forum_perte,coord.x,coord.y, null);
 							//g.fillRect(coord.x,coord.y, 10, 10);
 						}
 				else if (a instanceof Caserne){

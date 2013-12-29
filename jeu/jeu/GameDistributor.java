@@ -31,14 +31,14 @@ public class GameDistributor extends madkit.kernel.Scheduler{
 		// Activateur pour : les villageois (Rentre au forum)
 		this.Activateur[3] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.RAMENEUR ,"Retour");
 		// Activateur pour : Le rendu graphique de la simulation (viewer)
-		this.Activateur[4] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,Societe.SIMU,Societe.VIEW, "observe");
+		
 		// Activateur pour : Le Forum (cr�ation de villageois)
 		this.Activateur[5] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.FORUM ,"create");
 		this.Activateur[6] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.SOLDAT ,"attaque");
 		this.Activateur[7] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.CONSTRUCTEUR ,"choixconstructeur");
 		this.Activateur[8] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.CASERNE ,"create");
 		this.Activateur[9] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE , Societe.SIMU , Societe.HOPITAL ,"soin");
-		
+		this.Activateur[4] = new GenericBehaviorActivator<AbstractAgent>(Societe.SOCIETE,Societe.SIMU,Societe.VIEW, "observe");
 		for (int i = 0 ; i< this.Activateur.length ; i++){
 			addActivator(this.Activateur[i]);
 		}
@@ -51,7 +51,9 @@ public class GameDistributor extends madkit.kernel.Scheduler{
 		
 	}	 
 					 
-					 
+	public void stop(){
+		setSimulationState(SimulationState.PAUSED);
+	}
 					 
 					 
 		
