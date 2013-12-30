@@ -21,11 +21,9 @@ import jeu.Societe;
 @SuppressWarnings("serial")
 public class Caserne extends Batiment implements Stockable
 {
+
 	
-	
-	public Coord coord;
-	
-	private Cellule env;
+	private Cellule env; //TODO à modifier, porte le même nom que l'environnement et même fonction que curent
 	protected int stock ; 
     protected int vie;
     public int statue ;

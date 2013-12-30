@@ -18,6 +18,7 @@ public class ObjectMap extends AbstractAgent {
 	
 	protected Coord coord;
 	protected Environnement env;
+	public Cellule curent;
 	public Alignement al;
     
     /**
@@ -44,7 +45,7 @@ public class ObjectMap extends AbstractAgent {
     }
     
     //nico
-  	public static int vision = 6;
+  	public static final int vision = 6;
   	/**
   	 * Les premiers éléments de la liste sont les plus proches de l'objets
   	 * @return tous les objets visible par l'unite
@@ -63,7 +64,13 @@ public class ObjectMap extends AbstractAgent {
   		}
   		return l;
   	}
-  	//nico
+  	/**
+  	 * @author nico
+  	 * @param l liste d'objet visible
+  	 * @param v position actuel du pointeur
+  	 * @param i distance par rapport au centre
+  	 * @param dep vecteur de déplacement du pointeur
+  	 */
   	private void parcoursVision(List<ObjectMap> l, Coord v, int i, Coord dep){
   		for(int j = 0 ; j < i ; j++){
   			if(this.env.getCellule(this.coord.add(v)) != null){

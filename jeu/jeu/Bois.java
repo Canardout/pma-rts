@@ -8,9 +8,6 @@ import unite.Villageois;
 
 public class Bois extends Ressource{
 	
-	private Coord coord;
-	private Cellule curent;
-	
 		public Bois(Cellule cel){
 			this.curent = cel;
 			this.coord = cel.coord;
@@ -45,7 +42,6 @@ public class Bois extends Ressource{
 		
 		if (this.quantite <=0){
 			this.curent.objet = null; // On dis à la cellule qu'elle ne contiens maintenant plus rien
-			this.env.supprimerRessource(this.curent); //TODO à supprimmer, les villageois ne savent pas que l'arbre est supprimé
 			killAgent(this);
 		}
 		

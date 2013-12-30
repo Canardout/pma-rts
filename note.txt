@@ -6,13 +6,16 @@ Ps : on est pas obligé de tout faire, certaine proposition ne sont que des idées
 Les proposition à faire en priorité osnt marqué d'un @.
 
 moteur :
---en cours(nivo)-- Faire une méthode qui renvoie ce que vois une unite (cela peut aussi s'appliquer au batiment).
+-@ remplacer env par curent dans les bâtiments et définir le vrai env
+- Pouvoir choisir le nombre d'arbre dans la societe
+--en cours(nico)-- Faire une méthode qui renvoie ce que vois une unite (cela peut aussi s'appliquer au batiment).
 -@ Possibilité pour les bâtiment de stocker des messages (surement aussi pour les unités)
 -@ Les guerriers ne tuent plus en un coup et chaque unités à un certains nombre de vie. (bât aussi)
--? Manière plus intellignet de gérer des forets ? (peut etre utilise une carte de base)
+-? Manière plus intelligente de gérer des forets ? (peut etre utilise une carte de base)
 - Mieux ranger les fichiers et packages
 - Definire des constantes et variables.
 --En cours(nico)-- Rajouter le choix des IA.
+- faire apparaitre des arbres avant qu'il disparaissent tous.
 
 IA :
 --En cours(nico)-- Donner aux Villageois une façon intelligente de chercher des Ressources.
@@ -21,6 +24,8 @@ IA :
 Affichage :
 -@ Donner une image à tous les bâtiments et unités.
 -@ Scrolling
+- pouvoir zoomer et dézoomer
+- afficher une minimap pour les grandes map
 - ? afficher les vies ?
 - ? animation de mort ?
 

@@ -21,11 +21,9 @@ import unite.Villageois;
 @SuppressWarnings("serial")
 public class Forum extends Batiment implements Stockable
 {
+
 	
-	
-	public Coord coord;
-	
-	private Cellule env;
+	private Cellule env; //TODO à modifier, porte le même nom que l'environnement et même fonction que curent
 	protected int stock =400; //temporairement place ici
     protected int vie;
     public int limitpop =5;

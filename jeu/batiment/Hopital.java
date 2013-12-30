@@ -9,12 +9,10 @@ import unite.Soldat;
 
 public class Hopital extends Batiment //implements Stockable
 {
+
 	
-	
-	public Coord coord;
-	
-	public Cellule env;
-	protected int stock ; // L'hopital possède des stocks ?
+	public Cellule env; //TODO Ã  modifier, porte le mÃªme nom que l'environnement et mÃªme fonction que curent
+	protected int stock ; // L'hopital possï¿½de des stocks ?
     protected int vie;
     public int statue ;
     public int horloge;
@@ -91,8 +89,8 @@ public class Hopital extends Batiment //implements Stockable
 			*/
 			for(int i =0 ; i<this.env.personne.size() ; i++){
 				System.out.print("Avant : "+this.env.personne.get(i).getvie());
-				this.env.personne.get(i).setvie(1); //donne 1 de vie aux unités. (pourra être remplacer par un % pour plus d'équitabilité)
-				System.out.println("Après : "+this.env.personne.get(i).getvie());
+				this.env.personne.get(i).setvie(1); //donne 1 de vie aux unitï¿½s. (pourra ï¿½tre remplacer par un % pour plus d'ï¿½quitabilitï¿½)
+				System.out.println("Aprï¿½s : "+this.env.personne.get(i).getvie());
 			}
 			/*
 			this.horloge++;

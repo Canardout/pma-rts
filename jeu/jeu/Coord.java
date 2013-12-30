@@ -106,6 +106,21 @@ public class Coord {
         }
         
         /**
+         * @return l'inverse du coord
+         */
+        public Coord inverse (){
+        	return new Coord(-this.x, -this.y);
+        }
+        
+        /**
+         * this = this.inverse()
+         */
+        public void inverseEgale (){
+        	this.x = -this.x;
+        	this.y = -this.y;
+        }
+        
+        /**
          * verifie l'egalite entre 2 Coord
          * prend en compte une marge d'erreur en utilisant l'attribut EPSILON
          * @param c Coord a comparer
@@ -139,7 +154,7 @@ public class Coord {
          * @return la distance entre 2 points
          */
         /*
-        public double distance (Coord c){  // /!\ Problème ici , un vecteur est définis avec deux cordoonée x et y , hors ici on lui donne 4 coordonnées
+        public double distance (Coord c){  // /!\ Problï¿½me ici , un vecteur est dï¿½finis avec deux cordoonï¿½e x et y , hors ici on lui donne 4 coordonnï¿½es
                 Vecteur v = new Vecteur(this, c);
                 return v.norme();
         }

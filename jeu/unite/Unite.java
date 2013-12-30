@@ -19,8 +19,7 @@ import madkit.simulation.probe.PropertyProbe;
  *
  */
 public class Unite extends ObjectMap {
-	protected Cellule curent;
-	protected Coord coord;
+	
 	protected int vie;
 	 /**
      * Represente l'objet ou l'unite doit se dirige lorsqu'il se deplace.
@@ -140,22 +139,6 @@ public class Unite extends ObjectMap {
 		}
 	}
 	
-	/**
-	 * @param coordonnees, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
-	 * @return l'inverse du parametre
-	 */
-	public static Coord envers (Coord c){
-		if(c == GAUCHE)
-			return DROITE;
-		else if(c == DROITE)
-			return GAUCHE;
-		else if(c == HAUT)
-			return BAS;
-		else if(c == BAS)
-			return HAUT;
-		else
-			return null;
-	}
 	
 	public int distance (Coord c){
 		return this.coord.distance(c);
