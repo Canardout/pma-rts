@@ -10,10 +10,15 @@ package jeu;
 @SuppressWarnings("serial")
 public abstract class Batiment extends ObjectMap {
         /**
-         * ecrire commentaire ou pas
+         * finalement, tous les bâtiments font 1 de long
          */
         protected int longueur;
         protected int largeur;
+        
+        public Batiment (Cellule c, Alignement a){
+        	super(c, a);
+        }
+        
         public void activationgeneral(){
         	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.OBJECTMAP);
         }

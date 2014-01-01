@@ -28,20 +28,17 @@ import madkit.simulation.probe.PropertyProbe;
 public class Villageois extends Unite {
 	
 	public boolean plein;
-	private int quantite =0; // quantite de ressource prise par le villageois
-	private Cellule forum; // cellule de naissance (Forum) du villageois. /!\ Provisoir
+	private int quantite; // quantite de ressource prise par le villageois
 	private List<Cellule> posArbre; // position des arbres connus par le villageois
 	
+	public static final int MAX_VIE = 10;
 	public static final int MAX_STOCK = 10;
 	
 	
 	public Villageois (Cellule c , Alignement a){
-		this.curent = c;
-		this.coord = c.coord; //inutilisé
-		this.forum = c;
-		this.al =a;
-		this.vie =10;
+		super(c, a, MAX_VIE);
 		this.posArbre = new ArrayList<Cellule>();
+		this.quantite = 0;
 	}
 
 	
@@ -232,29 +229,27 @@ public class Villageois extends Unite {
 		
 	}
 	
-	// TODO prendre en compte que la memoire ne sera plus partage a l'avenir
-	// TODO supprimer arbre quand on les voit plus
 	// par Nicolas
 	private String etat; // Ce que fait le Villageois actuellement
 	private int cercle; // cercle ou est situe le villageois lors de la recherche
 	private Coord direction; // direction du villageois lors de la recherche du Bois
 	private void IA2 (){
-		/*
-		 * recherche -> quand on sait la position des arbres, recolte ?
-		 * ramene
-		 * recolte
-		 */
+		System.out.println(this.etat);
 		switch(this.etat){
 		case "recherche" : 
-			if((actualiseListeArbre(vision()) & VUE) != 0)
+			List<ObjectMap> objetProche = vision();
+			if((actualiseListeArbre(objetProche) & VUE) == 0)
 				deplacement_aleatoire(); //TODO à modifier
 			else{
 				this.etat = "recolte";
-				//TODO cible = ressource la plus proche
+				this.objetCible = arbrePlusProcheO(objetProche);
+				System.out.println(this.objetCible);
+				IA2();
 			}
 			break;
 			
 		case "ramene" : 
+			actualiseListeArbre(vision());
 			if(distance(this.forum) > 0)
 				rapproche(this.forum);
 			else{
@@ -263,23 +258,37 @@ public class Villageois extends Unite {
 			}
 			break;
 			
-		case "recolte" : //TODO supprimmer arbre quand il n'existe plus
+		case "recolte" :
 			if(estPlein()){
 				this.etat = "ramene";
 				IA2();
 			}
-			else if(this.curent.objet == null || !this.curent.objet.isAlive()){
-				this.etat = "recherche";
-				IA2();
-			}
-			else if(this.curent.objet instanceof Ressource && this.curent.objet.isAlive()){
-				//Cellule c = laplusproche(this.al.ressource); //TODO ne verifie pas si vide, creer methode dans Cellule
-				//this.rapproche(c);
+			else if(this.curent.objet == null || !this.curent.objet.isAlive() || !(this.curent.objet instanceof Bois)){
+				actualiseListeArbre(vision());
+				
+				if(this.objetCible != null && this.objetCible.isAlive()){
+					rapproche(this.objetCible.curent);
+				}
+				else if(!this.posArbre.isEmpty()){
+					Cellule arbreProche = arbrePlusProche();
+					if(arbreProche != null){
+					this.objetCible = arbreProche.objet;
+					rapproche(this.objetCible.curent);
+					}
+					else{
+						this.etat = "recherche";
+						IA2();
+					}
+				}
+				else{
+					this.etat = "recherche";
+					IA2();
+				}
 			}
 			else{
-				//recolte((Ressource)this.curent.objet); //attention aux erreurs
+				recolte((Ressource)this.curent.objet);
 			}
-				
+			
 			break;
 			
 		default : 
@@ -311,8 +320,9 @@ public class Villageois extends Unite {
 	public static final int AJOUT = 2; // 1 << 1
 	public static final int SUPPR = 4; // 1 << 2
 	public int actualiseListeArbre (List<ObjectMap> l){ //méthode public mais plutôt créer pour une utilisation privée
-		int etat = l.isEmpty() ? 0 : 1; //VUE
+		int etat = 0; 
 		boolean modif = false;
+		boolean vue = false;
 		
 		//suppression
 		for(int i = 0 ; i < this.posArbre.size() ; i++){
@@ -333,6 +343,7 @@ public class Villageois extends Unite {
 		//ajout
 		for(int i = 0 ; i < l.size() ; i++){
 			if(l.get(i) instanceof Bois){
+				vue = true;
 				if(!this.posArbre.contains(l.get(i).curent)){
 					this.posArbre.add(l.get(i).curent);
 				}
@@ -343,7 +354,52 @@ public class Villageois extends Unite {
 			etat |= AJOUT;
 		}
 		
+		if(vue){
+			etat |= VUE;
+		}
+		
 		return etat;
+	}
+	
+	/**
+	 * @return l'arbre le plus proche contenue dans la liste d'arbre du villageois, null si non trouvé
+	 */
+	public Cellule arbrePlusProche (){
+		return arbrePlusProche(this.posArbre);
+	}
+	
+	/**
+	 * @param liste
+	 * @return l'arbre le plus proche parmi une liste de Cellule, null si non trouvé
+	 */
+	public Cellule arbrePlusProche (List<Cellule> l){
+		int distance = Integer.MAX_VALUE;
+		Cellule c = null;
+		
+		for(int i = 0 ; i <l.size() ; i++){
+			if(l.get(i).objet instanceof Bois){
+				int dist = l.get(i).distance(this.curent);
+				if(dist < distance){
+					distance = dist;
+					c = l.get(i);
+				}
+			}
+		}
+		return c;
+	}
+	
+	/**
+	 * @param liste d'ObjectMap donné par vision (déjà trié)
+	 * @return l'arbre le plus proche parmi la liste d'ObjectMap donné par la vision, null si vide
+	 */
+	public ObjectMap arbrePlusProcheO (List<ObjectMap> l){
+		for(int i = 0 ; i < l.size() ; i++){
+			if(l.get(i) instanceof Bois){
+				return l.get(i);
+			}
+		}
+		
+		return null;
 	}
 	
 	class AgentsProbe extends PropertyProbe<AbstractAgent, Villageois>{

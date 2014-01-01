@@ -20,11 +20,7 @@ public class Hopital extends Batiment //implements Stockable
    
 
 	public Hopital (Cellule c , Alignement a){
-		
-		this.coord = new Coord(c.coord);
-		this.env = c;
-		this.env.coord = this.coord;
-		this.al = a;
+		super(c, a);
 		this.env.objet = this;
 		this.statue =0;
 		this.stock =0;

@@ -80,7 +80,10 @@ public class Cellule extends Watcher {
 	 * @return la liste des ObjectMap de la case
 	 */
 		public ArrayList<ObjectMap> listeObjet (){
-			ArrayList<ObjectMap> l = new ArrayList<ObjectMap>(this.personne);
+			ArrayList<ObjectMap> l = new ArrayList<ObjectMap>();
+			for(int i = 0 ; i < this.personne.size(); i++){
+				l.add((ObjectMap)this.personne.get(i));
+			}
 			if(this.objet != null){
 				l.add(this.objet);
 			}

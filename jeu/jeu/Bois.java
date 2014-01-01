@@ -9,19 +9,12 @@ import unite.Villageois;
 public class Bois extends Ressource{
 	
 		public Bois(Cellule cel){
-			this.curent = cel;
-			this.coord = cel.coord;
-			this.quantite = 300;
-			this.curent.objet=this;
+			this(cel, 300);
 		}
 	
-		public Bois (Coord c, int q){
-	        this.coord = c;
-	        this.quantite = q;
-		}
-
-		public Bois (Coord c){
-		        this(c, 100); //Définis une ressource avec 100 de quantité 
+		public Bois (Cellule c, int q){
+			super(c, q);
+			this.curent.objet = this;
 		}
 		
 		public void give(){ //la ressource se décremente et la "donne" au villageois

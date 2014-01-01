@@ -56,9 +56,6 @@ public class Environnement extends AbstractAgent{
 	}
     
     
-    private Environnement (){
-    }
-    
    @SuppressWarnings("null")
 public ArrayList<Cellule> getenv(Cellule c){
 	   ArrayList<Cellule> l = new ArrayList() ;
@@ -94,15 +91,14 @@ public ArrayList<Cellule> getenv(Cellule c){
 			randomColor = new Color(red, grey, blue);
 			
 		}
-		
-		
+		this.al[0].IA = 2; //TODO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
     }
 
 	/**
 	 * @author nico
-	 * @param coordonn�e
-	 * @return true si les coordonn�es sont hors de la carte
+	 * @param coordonnée
+	 * @return true si les coordonnées sont hors de la carte
 	 */
 	public boolean horsLimite (Coord c){
 		return c.x < 0 || c.y < 0 || c.x >= this.longueur || c.y >= this.largeur;
@@ -134,11 +130,10 @@ public ArrayList<Cellule> getenv(Cellule c){
     			valeur2 = r.nextInt(this.largeur-1);
     			
     			if (this.carte[valeur][valeur2].objet == null){
-        			this.carte[valeur][valeur2].add(new Bois(this.carte[valeur][valeur2]));
-    		}
+        			this.carte[valeur][valeur2].add(new Bois(getCellule(valeur, valeur2)));
+    			}
     		
     		}
-    		
     		
     	}
     }

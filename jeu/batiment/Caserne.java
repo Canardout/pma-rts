@@ -29,14 +29,12 @@ public class Caserne extends Batiment implements Stockable
     public int statue ;
  
 
-    public static final int MAX_STOCK = Integer.MAX_VALUE; // � voir
+    public static final int MAX_STOCK = Integer.MAX_VALUE; // à voir
 
 	public Caserne (Cellule c , Alignement a){
-		
-		this.coord = new Coord(c.coord);
+		super(c, a);
 		this.env = c;
 		this.env.coord = this.coord;
-		this.al = a;
 		this.env.objet = this;
 		this.statue =0;
 		this.stock =0;

@@ -11,16 +11,12 @@ public class Ressource extends ObjectMap {
     protected int quantite;
     
     
-    public Ressource(){
-    	
-    }
-    
-    public Ressource (Coord c, int q){
-            this.coord = c;
+    public Ressource (Cellule c, int q){
+            super(c, null);
             this.quantite = q;
     }
     
-    public Ressource (Coord c){
+    public Ressource (Cellule c){
             this(c, 100); //pouet-pouet <-- WHAT IS IT? OMG I DON'T UNDERSTAND
     }
 

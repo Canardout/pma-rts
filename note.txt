@@ -6,7 +6,7 @@ Ps : on est pas obligé de tout faire, certaine proposition ne sont que des idées
 Les proposition à faire en priorité osnt marqué d'un @.
 
 moteur :
--@ remplacer env par curent dans les bâtiments et définir le vrai env
+-@ remplacer env par curent dans les bâtiments
 - Pouvoir choisir le nombre d'arbre dans la societe
 --en cours(nico)-- Faire une méthode qui renvoie ce que vois une unite (cela peut aussi s'appliquer au batiment).
 -@ Possibilité pour les bâtiment de stocker des messages (surement aussi pour les unités)

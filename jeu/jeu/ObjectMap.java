@@ -21,6 +21,13 @@ public class ObjectMap extends AbstractAgent {
 	public Cellule curent;
 	public Alignement al;
     
+	public ObjectMap (Cellule c , Alignement a){
+		this.curent = c;
+		this.coord = c.coord;
+		this.al =a;
+		this.env = c.env;
+	}
+	
     /**
      * getter de coord
      * @return coord
@@ -54,7 +61,7 @@ public class ObjectMap extends AbstractAgent {
   		List<ObjectMap> l = new ArrayList<ObjectMap>();
   		
   		parcoursVision(l, Coord.NULL, 1, Coord.NULL);
-  		l.remove(this);
+  		//l.remove(this); //TODO bug à corrigé
   		for(int i = 1 ; i <= vision ; i++){
   			Coord v = new Coord(i, 0);
   			parcoursVision(l, v, i, new Coord(-1, 1));
@@ -72,6 +79,7 @@ public class ObjectMap extends AbstractAgent {
   	 * @param dep vecteur de déplacement du pointeur
   	 */
   	private void parcoursVision(List<ObjectMap> l, Coord v, int i, Coord dep){
+  		//System.out.println(env);
   		for(int j = 0 ; j < i ; j++){
   			if(this.env.getCellule(this.coord.add(v)) != null){
   				l.addAll(this.env.getCellule(this.coord.add(v)).listeObjet());

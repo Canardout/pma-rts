@@ -24,16 +24,12 @@ import jeu.Societe;
 		
 		public boolean vide;
 		private int quantite =0; // quantite de ressource prise par le villageois
-		private Cellule Forum; // cellule de naissance (Forum) du villageois. 
 		private boolean action;
 		
+		public static final int MAX_VIE = 10;
 		
 		public Constructeur (Cellule c , Alignement a){
-			this.curent = c;
-			this.coord = c.coord;
-			this.Forum = c;
-			this.al =a;
-			this.vie =10;
+			super(c, a, MAX_VIE);
 			this.vide = true;
 			this.quantite =0;
 			this.action = false;
@@ -103,19 +99,19 @@ import jeu.Societe;
 		
 		
 		private void se_remplis(){
-			if (this.curent.coord != this.Forum.coord){ 
-				this.rapproche(this.Forum);
+			if (this.curent.coord != this.forum.coord){ 
+				this.rapproche(this.forum);
 			}
 			else {
 			if (this.takeForum()){} // s'il est sur une case "Forum" , alors il se charge de 1.
 			else { // Sinon il regarde sur les cases adjacentes pour voir s'il n'y a pas un Forum
-				if (this.Forum ==null){
+				if (this.forum ==null){
 					this.killAgent(this); // le constructeur se suicide s'il n'a plus de forum
 				}
 				
 				
 				 
-				else this.rapproche(this.Forum);	
+				else this.rapproche(this.forum);	
 				
 				
 			}
@@ -135,7 +131,7 @@ import jeu.Societe;
 		
 		public void end(){
 			this.curent.personne.remove(this);
-			Forum b = (Forum)this.Forum.objet;
+			Forum b = (Forum)this.forum.objet;
 			b.limitcont++;
 			
 		}

@@ -29,14 +29,13 @@ public class Forum extends Batiment implements Stockable
     public int limitpop =5;
     public int limitcont = 3;
  
-	public static final int MAX_STOCK = Integer.MAX_VALUE; // � voir
+	public static final int MAX_STOCK = Integer.MAX_VALUE; // à voir
 	
 
 	public Forum (Cellule c , Alignement a){
-		this.coord = new Coord(c.coord);
+		super(c, a);
 		this.env = c;
 		this.env.coord = this.coord;
-		this.al = a;
 		this.env.objet = this;
 		
 	}

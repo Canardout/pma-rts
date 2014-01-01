@@ -24,13 +24,11 @@ public class Soldat extends Unite {
 	int repos; // Mesure le repos que doit prendre un Soldat apr�s avoir tuer quelque-chose.
 	private Cellule Caserne; // cellule de naissance (Forum) du villageois. /!\ Provisoir
 	
+	public static final int MAX_VIE = 15;
 	
 	public Soldat (Cellule c , Alignement a){
-		this.curent = c;
-		this.coord = c.coord;
+		super(c, a, MAX_VIE);
 		this.Caserne = c;
-		this.al =a;
-		this.vie = 15;
 		this.epuise = false;
 		
 	}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import jeu.Alignement;
 import jeu.Cellule;
 import jeu.Coord;
 import jeu.ObjectMap;
@@ -46,6 +47,14 @@ public class Unite extends ObjectMap {
      * TODO a definir
      */
     protected String action;
+    protected Cellule forum;
+    
+    public Unite (Cellule c, Alignement a, int v){
+    	super(c, a);
+    	this.vie = v;
+    	this.forum = c;
+    	this.curent.personne.add(this);
+    }
     
     /**
      * Ordonne à l'unite de se deplace vers un point cible.
