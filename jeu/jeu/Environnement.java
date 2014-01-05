@@ -148,4 +148,7 @@ public ArrayList<Cellule> getenv(Cellule c){
     	}
     }
     
+    public Coord getDimension (){
+    	return new Coord(this.longueur, this.largeur);
+    }
 }

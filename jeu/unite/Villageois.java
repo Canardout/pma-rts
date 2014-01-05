@@ -134,7 +134,7 @@ public class Villageois extends Unite {
 		}
 		
 		switch(this.al.IA){
-		case 2 : IA2(); break;
+		case 2 : case 3 : IA2(); break;
 		default : IA1(); break;
 		}
 	}
@@ -239,7 +239,11 @@ public class Villageois extends Unite {
 		case "recherche" : 
 			List<ObjectMap> objetProche = vision();
 			if((actualiseListeArbre(objetProche) & VUE) == 0)
-				deplacement_aleatoire(); //TODO à modifier
+				if(this.al.IA == 2)
+					deplacement_aleatoire();
+				else{
+					
+				}
 			else{
 				this.etat = "recolte";
 				this.objetCible = arbrePlusProcheO(objetProche);

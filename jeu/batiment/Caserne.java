@@ -23,7 +23,7 @@ public class Caserne extends Batiment implements Stockable
 {
 
 	
-	private Cellule env; //TODO à modifier, porte le même nom que l'environnement et même fonction que curent
+	private Cellule curent; //TODO à modifier, porte le même nom que l'environnement et même fonction que curent
 	protected int stock ; 
     protected int vie;
     public int statue ;
@@ -33,13 +33,13 @@ public class Caserne extends Batiment implements Stockable
 
 	public Caserne (Cellule c , Alignement a){
 		super(c, a);
-		this.env = c;
-		this.env.coord = this.coord;
-		this.env.objet = this;
+		this.curent = c;
+		this.curent.coord = this.coord;
+		this.curent.objet = this;
 		this.statue =0;
 		this.stock =0;
 	
-		this.al.caserne.add(this.env);
+		this.al.caserne.add(this.curent);
 		
 	}
 	public boolean  addStock(){
@@ -99,15 +99,15 @@ public class Caserne extends Batiment implements Stockable
 				this.statue++;
 				this.stock = this.stock-150;
 				if (this.statue == 3) {
-					this.al.caserne.remove(this.env);
-					this.al.demande_ressource.add(this.env);
+					this.al.caserne.remove(this.curent);
+					this.al.demande_ressource.add(this.curent);
 					
 				}
 			}
 		}
 		else {
 			if (this.stock >= 150){
-			launchAgent(new Soldat(this.env,this.al));
+			launchAgent(new Soldat(this.curent,this.al));
 			this.stock = this.stock-150;
 			}
 			

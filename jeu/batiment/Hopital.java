@@ -11,7 +11,7 @@ public class Hopital extends Batiment //implements Stockable
 {
 
 	
-	public Cellule env; //TODO à modifier, porte le même nom que l'environnement et même fonction que curent
+	public Cellule curent; //TODO à modifier, porte le même nom que l'environnement et même fonction que curent
 	protected int stock ; // L'hopital poss�de des stocks ?
     protected int vie;
     public int statue ;
@@ -21,11 +21,11 @@ public class Hopital extends Batiment //implements Stockable
 
 	public Hopital (Cellule c , Alignement a){
 		super(c, a);
-		this.env.objet = this;
+		this.curent.objet = this;
 		this.statue =0;
 		this.stock =0;
 		this.horloge=0;
-		this.al.hopital.add(this.env);
+		this.al.hopital.add(this.curent);
 		
 	}
 	public boolean  addStock(){
@@ -83,10 +83,10 @@ public class Hopital extends Batiment //implements Stockable
 		else {
 			if (this.horloge % 500 == 0){
 			*/
-			for(int i =0 ; i<this.env.personne.size() ; i++){
-				System.out.print("Avant : "+this.env.personne.get(i).getvie());
-				this.env.personne.get(i).setvie(1); //donne 1 de vie aux unit�s. (pourra �tre remplacer par un % pour plus d'�quitabilit�)
-				System.out.println("Apr�s : "+this.env.personne.get(i).getvie());
+			for(int i =0 ; i<this.curent.personne.size() ; i++){
+				System.out.print("Avant : "+this.curent.personne.get(i).getvie());
+				this.curent.personne.get(i).setvie(1); //donne 1 de vie aux unit�s. (pourra �tre remplacer par un % pour plus d'�quitabilit�)
+				System.out.println("Apr�s : "+this.curent.personne.get(i).getvie());
 			}
 			/*
 			this.horloge++;
