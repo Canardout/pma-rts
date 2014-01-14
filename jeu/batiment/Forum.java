@@ -10,6 +10,7 @@ import jeu.Cellule;
 import jeu.Coord;
 import jeu.Societe;
 import unite.Constructeur;
+import unite.Unite;
 import unite.Villageois;
 
 
@@ -39,6 +40,11 @@ public class Forum extends Batiment implements Stockable
     public static final int NON_FAIT = 0;
     public static final int FAIT = 1;
     public static final int EN_COURS = 2;
+    
+    // Les 2 listes suivant sont triés par rapport à la distance au forum par ordre croissant
+    private List<Cellule> posArbre; // position des arbres connus par le forum
+    private List<Cellule> posArbreSuppr; // ancienne position des arbres connues par le forum qui ont été supprimés, est remis à zéro en même temps que cercleVillageois
+    private List<Cellule> posForum; // position des forums ennemies connus par le forum
  
 	public static final int MAX_STOCK = Integer.MAX_VALUE; // à voir
 	
@@ -53,6 +59,8 @@ public class Forum extends Batiment implements Stockable
 		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
 			this.cercleVillageois[i] = NON_FAIT;
 		}
+		this.posArbre = new ArrayList<Cellule>();
+		this.posArbreSuppr = new ArrayList<Cellule>();
 	}
 	
 	public void addStock(){
@@ -156,21 +164,30 @@ public class Forum extends Batiment implements Stockable
 	 * @return le nombre maximum de cercle à faire pour visionner toute la map
 	 */
 	public int nbMaxCercle (){
-			Coord dim = this.env.getDimension();
-			int[] dist = new int[4];
-			dist[0] = this.coord.distance(Coord.NULL);
-			dist[1] = this.coord.distance(new Coord(dim.x, 0));
-			dist[2] = this.coord.distance(new Coord(0, dim.y));
-			dist[3] = this.coord.distance(dim);
+		Coord dim = this.env.getDimension();
+		int[] dist = new int[4];
+		dist[0] = this.coord.distance(Coord.NULL);
+		dist[1] = this.coord.distance(new Coord(dim.x, 0));
+		dist[2] = this.coord.distance(new Coord(0, dim.y));
+		dist[3] = this.coord.distance(dim);
 			
-			int gdist = 0;
-			for(int i = 0 ; i < 4 ; i++){
-				if(dist[i] > gdist)
-					gdist = dist[i];
-			}
+		int gdist = 0;
+		for(int i = 0 ; i < 4 ; i++){
+			if(dist[i] > gdist)
+				gdist = dist[i];
+		}
 			
-			return gdist / (2 * Villageois.vision + 1) + 
-					(((gdist % (2 * Villageois.vision + 1)) > Villageois.vision) ? 1 : 0);
+		return cercleChampsVision(gdist);
+	}
+	
+	/**
+	 * Retourne le cercle (ou le nombre de cercle) permettant de couvrir la distance maximum d
+	 * @param d
+	 * @return numero de cercle
+	 */
+	public int cercleChampsVision (int d){
+		return d / (2 * Villageois.vision + 1) + 
+				(((d % (2 * Villageois.vision + 1)) > Villageois.vision) ? 1 : 0);
 	}
 	
 	/**
@@ -195,7 +212,79 @@ public class Forum extends Batiment implements Stockable
 			}
 		}
 		
-		return -1; // erreur
+		initialiseCercle();
+		return 0;
+	}
+	
+	/**
+	 * Met un cercle à FAIT à condition que celui était à EN_COURS
+	 * @param cercle à modifier
+	 * @return true si le cercle à été modifié
+	 */
+	public boolean cercleFait (int cercle){
+		if(this.cercleVillageois[cercle] == EN_COURS){
+			this.cercleVillageois[cercle] = FAIT;
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Remet tous les cercles à NON_FAIT
+	 */
+	protected void initialiseCercle (){
+		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
+			this.cercleVillageois[i] = NON_FAIT;
+		}
+		
+		this.posArbre = new ArrayList<Cellule>();
+		this.posArbreSuppr = new ArrayList<Cellule>();
 	}
 
+	/**
+	 * Actualise la liste des arbres du forum. 
+	 * Remet les liste du villageois à 0
+	 * @author nico
+	 * @param Villageois
+	 */
+	public void actualiseListArbre(Villageois v){
+		List<Cellule> a = v.getPosArbre();
+		List<Cellule> s = v.getPosArbreSuppr();
+		
+		for(int i = 0 ; i < s.size() ; i++){
+			this.posArbreSuppr.add(s.get(i));
+			if(this.posArbre.contains(s.get(i)))
+				this.posArbre.remove(s.get(i));
+		}
+		
+		boolean init = false;
+		for(int i = 0 ; i < a.size() ; i++){
+			if(!this.posArbre.contains(a.get(i)) && !this.posArbreSuppr.contains(a.get(i))){
+				int d = this.coord.distance(a.get(i).coord);
+				
+				if(this.cercleVillageois[cercleChampsVision(d)] == FAIT){
+					init = true;
+					break;
+				}
+				
+				for(int y = 0 ; y < this.posArbre.size() ; y++){
+					if(d <= this.coord.distance(this.posArbre.get(y).coord)){
+						this.posArbre.add(y, a.get(i));
+						break;
+					}
+				}
+			}
+		}
+		
+		if(init){
+			initialiseCercle();
+			for(int i = 0 ; i < a.size() ; i++){
+				this.posArbre.add(a.get(i));
+			}
+		}
+		
+		v.initListe();
+	}
 }

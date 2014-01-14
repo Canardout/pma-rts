@@ -30,6 +30,8 @@ public class Villageois extends Unite {
 	public boolean plein;
 	private int quantite; // quantite de ressource prise par le villageois
 	private List<Cellule> posArbre; // position des arbres connus par le villageois
+	private List<Cellule> posArbreSuppr; // ancienne position des arbres connus par le villageois qui ne sont plus
+	public int indexMajPosArbre; // index de mise à jour de la position des arbres
 	
 	public static final int MAX_VIE = 10;
 	public static final int MAX_STOCK = 10;
@@ -38,6 +40,7 @@ public class Villageois extends Unite {
 	public Villageois (Cellule c , Alignement a){
 		super(c, a, MAX_VIE);
 		this.posArbre = new ArrayList<Cellule>();
+		this.posArbreSuppr = new ArrayList<Cellule>();
 		this.quantite = 0;
 	}
 
@@ -134,7 +137,8 @@ public class Villageois extends Unite {
 		}
 		
 		switch(this.al.IA){
-		case 2 : case 3 : IA2(); break;
+		case 2 : IA2(); break;
+		case 3 : IA3(); break;
 		default : IA1(); break;
 		}
 	}
@@ -229,20 +233,32 @@ public class Villageois extends Unite {
 		
 	}
 	
+	private void IA2(){
+		IAn(1);
+	}
+	
+	private void IA3(){
+		IAn(2);
+	}
+	
 	// par Nicolas
 	private String etat; // Ce que fait le Villageois actuellement
 	private int cercle; // cercle ou est situe le villageois lors de la recherche
 	private Coord direction; // direction du villageois lors de la recherche du Bois
-	private void IA2 (){
+	private void IAn (int ia){
 		System.out.println(this.etat);
 		switch(this.etat){
 		case "recherche" : 
 			List<ObjectMap> objetProche = vision();
 			if((actualiseListeArbre(objetProche) & VUE) == 0)
-				if(this.al.IA == 2)
-					deplacement_aleatoire();
-				else{
+				switch(ia){
+				/////////////////////////////////////////////////////////////////////////////////////////////////// IA2
+				case 1 : deplacement_aleatoire(); break;
+				/////////////////////////////////////////////////////////////////////////////////////////////////// IA3
+				case 2 : 
 					
+					break;
+				///////////////////////////////////////////////////////////////////////////////////////////////////
 				}
 			else{
 				this.etat = "recolte";
@@ -404,6 +420,19 @@ public class Villageois extends Unite {
 		}
 		
 		return null;
+	}
+	
+	public List<Cellule> getPosArbre (){
+		return this.posArbre;
+	}
+	
+	public List<Cellule> getPosArbreSuppr (){
+		return this.posArbreSuppr;
+	}
+	
+	public void initListe (){
+		this.posArbre = new ArrayList<Cellule>();
+		this.posArbreSuppr = new ArrayList<Cellule>();
 	}
 	
 	class AgentsProbe extends PropertyProbe<AbstractAgent, Villageois>{
