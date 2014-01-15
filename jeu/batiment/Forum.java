@@ -55,7 +55,7 @@ public class Forum extends Batiment implements Stockable
 		this.curent.coord = this.coord;
 		this.curent.objet = this;
 
-		this.cercleVillageois = new int[nbMaxCercle()];
+		this.cercleVillageois = new int[nbMaxCercle() - 1];
 		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
 			this.cercleVillageois[i] = NON_FAIT;
 		}
@@ -160,6 +160,8 @@ public class Forum extends Batiment implements Stockable
 		// Donne ces coordonnées	
 	}
 	
+	// Les fonctions qui suivent sont dédiés à la gestion des IA 2 et 3 des villageois
+	
 	/**
 	 * @return le nombre maximum de cercle à faire pour visionner toute la map
 	 */
@@ -185,9 +187,13 @@ public class Forum extends Batiment implements Stockable
 	 * @param d
 	 * @return numero de cercle
 	 */
-	public int cercleChampsVision (int d){
+	public static int cercleChampsVision (int d){
 		return d / (2 * Villageois.vision + 1) + 
 				(((d % (2 * Villageois.vision + 1)) > Villageois.vision) ? 1 : 0);
+	}
+	
+	public static int distanceCercle (int cercle){
+		return (2 * Villageois.vision + 1) * cercle;
 	}
 	
 	/**
@@ -198,22 +204,22 @@ public class Forum extends Batiment implements Stockable
 		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
 			if(this.cercleVillageois[i] == NON_FAIT){
 				this.cercleVillageois[i] = EN_COURS;
-				return i;
+				return i + 1;
 			}
 			else if(this.cercleVillageois[i] == EN_COURS){
 				if(i + 1 < this.cercleVillageois.length){
 					if(this.cercleVillageois[i + 1] == FAIT){
-						return i;
+						return i + 1;
 					}
 				}
 				else{
-					return i;
+					return i + 1;
 				}
 			}
 		}
 		
 		initialiseCercle();
-		return 0;
+		return 1;
 	}
 	
 	/**
@@ -222,8 +228,8 @@ public class Forum extends Batiment implements Stockable
 	 * @return true si le cercle à été modifié
 	 */
 	public boolean cercleFait (int cercle){
-		if(this.cercleVillageois[cercle] == EN_COURS){
-			this.cercleVillageois[cercle] = FAIT;
+		if(this.cercleVillageois[cercle - 1] == EN_COURS){
+			this.cercleVillageois[cercle - 1] = FAIT;
 			return true;
 		}
 		else{
@@ -286,5 +292,15 @@ public class Forum extends Batiment implements Stockable
 		}
 		
 		v.initListe();
+	}
+	
+	/**
+	 * @return l'arbre le plus proche connus par le forum, null si il n'y a pas d'arbre
+	 */
+	public Cellule getArbreProche (){
+		if(this.posArbre.isEmpty())
+			return null;
+		else
+			return this.posArbre.get(0);
 	}
 }

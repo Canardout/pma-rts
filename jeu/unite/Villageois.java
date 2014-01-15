@@ -50,10 +50,6 @@ public class Villageois extends Unite {
 		
 		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.CHERCHEUR);
 		this.activationgeneral();
-		
-		this.etat = "recherche";
-		this.direction = Coord.NULL;
-		this.cercle = 0;	
 	}
 	
 	
@@ -233,33 +229,16 @@ public class Villageois extends Unite {
 		
 	}
 	
-	private void IA2(){
-		IAn(1);
-	}
-	
-	private void IA3(){
-		IAn(2);
-	}
-	
 	// par Nicolas
-	private String etat; // Ce que fait le Villageois actuellement
-	private int cercle; // cercle ou est situe le villageois lors de la recherche
-	private Coord direction; // direction du villageois lors de la recherche du Bois
-	private void IAn (int ia){
+	private String etat = "ramene"; // Ce que fait le Villageois actuellement
+	private void IA2 (){
 		System.out.println(this.etat);
 		switch(this.etat){
 		case "recherche" : 
 			List<ObjectMap> objetProche = vision();
-			if((actualiseListeArbre(objetProche) & VUE) == 0)
-				switch(ia){
-				/////////////////////////////////////////////////////////////////////////////////////////////////// IA2
-				case 1 : deplacement_aleatoire(); break;
-				/////////////////////////////////////////////////////////////////////////////////////////////////// IA3
-				case 2 : 
-					
-					break;
-				///////////////////////////////////////////////////////////////////////////////////////////////////
-				}
+			if((actualiseListeArbre(objetProche) & VUE) == 0){
+				deplacement_aleatoire();
+			}
 			else{
 				this.etat = "recolte";
 				this.objetCible = arbrePlusProcheO(objetProche);
@@ -316,6 +295,92 @@ public class Villageois extends Unite {
 			break;
 		}
 	}
+	
+	//nico
+	private Cellule cible;
+	private int cercle; // cercle ou est situe le villageois lors de la recherche
+	private Coord direction; // direction du villageois lors de la recherche du Bois
+	private boolean grCercle; //true lorsque que le cercle est trop grand par rapport aux limites de la carte
+	private void IA3 (){
+		System.out.println(this.etat);
+		switch(this.etat){
+		case "recherche" : 
+			actualiseListeArbre(vision());
+			///////////////////////////////////////////////////////////////////////////////:
+			if(this.direction == Coord.NULL){
+				rapproche(cible); //TODO prendre en compte les cercles trop grand
+			}
+			else{
+				
+			}
+			break;
+			
+		case "ramene" :
+			actualiseListeArbre(vision());
+			if(distance(this.forum) > 0)
+				rapproche(this.forum);
+			else{
+				donnerRessource((Stockable)this.forum.objet); //attention aux erreurs
+				((Forum)this.forum.objet).actualiseListArbre(this);
+				this.cible = ((Forum)this.forum.objet).getArbreProche();
+				if(this.cible != null){
+					this.etat = "recolte";
+				}
+				else{ // il n'y a plus d'arbre : on en recherche !
+					cercle = ((Forum)this.forum.objet).assigneCercle();
+					this.direction = Coord.NULL;
+					this.cible = positionDebutCercle();
+					this.grCercle = this.cible == null;
+					this.etat = "recherche";
+				}			
+			}
+			break;
+			
+		case "recolte" :
+			if(estPlein()){
+				this.etat = "ramene";
+				IA3();
+			}
+			else if(this.curent.objet == null || !this.curent.objet.isAlive() || !(this.curent.objet instanceof Bois)){ //si la cellule courante n'est pas un arbre
+				actualiseListeArbre(vision());
+				
+				if(this.cible == null){ // aucune cible n'est assigné au villageois
+					this.cible = arbrePlusProche();
+					if(this.cible == null){
+						this.etat = "ramene";
+					}
+					IA3();
+				}
+				else{ // une cible est assigné au villageois
+					if(this.distance(this.cible) <= vision){ //si la cible est en vue
+						if(this.cible.objet == null || !this.cible.objet.isAlive() || !(this.cible.objet instanceof Bois)){ //si l'arbre cible n'est plus
+							this.cible = arbrePlusProche();
+							if(this.cible == null){
+								this.etat = "ramene";
+							}
+							IA3();
+						}
+						else{
+							rapproche(this.cible);
+						}
+					}
+					else{ // la cible n'est pas en vue
+						rapproche(this.cible);
+					}
+				}
+				
+			}
+			else{ // la cellule courante est un arbre
+				recolte((Ressource)this.curent.objet);
+			}
+			
+			break;
+			
+		default : 
+			System.out.println("Etat inconnue : " + this.etat);
+			break;
+		}
+	}
 
 	public void donnerRessource (Stockable bat){
 		this.quantite = bat.donnerStock(this.quantite);
@@ -330,15 +395,16 @@ public class Villageois extends Unite {
 		return this.quantite >= MAX_STOCK;
 	}
 	
+	public static final int VUE = 1;   // 1 << 0
+	public static final int AJOUT = 2; // 1 << 1
+	public static final int SUPPR = 4; // 1 << 2
 	/**
 	 * Met à jour la liste des Arbre connue par le villageois selon ce qu'il voit autour.
 	 * Permet aussi de savoir si il y a des arbres en vue et si il y a eu des ajout dans la liste grâce à la valeur retourné.
 	 * Utilisé les opérateur bit à bit : | & ^
+	 * @param champs de vision
 	 * @return champ de 3 bit, suppression:ajout:ArbreEnVue
 	 */
-	public static final int VUE = 1;   // 1 << 0
-	public static final int AJOUT = 2; // 1 << 1
-	public static final int SUPPR = 4; // 1 << 2
 	public int actualiseListeArbre (List<ObjectMap> l){ //méthode public mais plutôt créer pour une utilisation privée
 		int etat = 0; 
 		boolean modif = false;
@@ -348,6 +414,9 @@ public class Villageois extends Unite {
 		for(int i = 0 ; i < this.posArbre.size() ; i++){
 			if(this.curent.distance(this.posArbre.get(i)) <= ObjectMap.vision){
 				if(!l.contains(this.posArbre.get(i).objet)){
+					if(this.al.IA == 3){ //cette liste n'est utilisé qu'avec l'ia 3
+						this.posArbreSuppr.add(this.posArbre.get(i));
+					}
 					this.posArbre.remove(i);
 					i--; // élément supprimé, on décale l'index
 					modif = true;
@@ -433,6 +502,32 @@ public class Villageois extends Unite {
 	public void initListe (){
 		this.posArbre = new ArrayList<Cellule>();
 		this.posArbreSuppr = new ArrayList<Cellule>();
+	}
+	
+	public Cellule positionDebutCercle (){
+		int direc = this.cercle % 4;
+		Coord c;
+		do{
+			switch(direc){
+			case 1 : c = this.forum.coord.add(new Coord(distanceCercle(), 0)); break;
+			case 2 : c = this.forum.coord.add(new Coord(-distanceCercle(), 0)); break;
+			case 3 : c = this.forum.coord.add(new Coord(0, distanceCercle())); break;
+			default : c = this.forum.coord.add(new Coord(0, -distanceCercle())); break;
+			}
+			
+			direc = (direc + 1) % 4;
+		}while(this.env.horsLimite(c) && direc != this.cercle % 4);
+		
+		if(direc == this.cercle % 4){
+			return null;
+		}
+		else{
+			return this.env.getCellule(c);
+		}
+	}
+
+	public int distanceCercle (){
+		return Forum.distanceCercle(this.cercle);
 	}
 	
 	class AgentsProbe extends PropertyProbe<AbstractAgent, Villageois>{
