@@ -39,10 +39,10 @@ public class Societe extends AbstractAgent{
 		int longueur;
 		int largeur;
 		int taille_cellule;
-		longueur = 30;
-		largeur = 30;
-		taille_cellule = 20;
-		Environnement env = new Environnement(longueur,largeur,4);
+		longueur = 40;
+		largeur = 40;
+		taille_cellule = 15;
+		Environnement env = new Environnement(longueur,largeur,1);
 		launchAgent(env);
 		
 		// 3 : create the scheduler

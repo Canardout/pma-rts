@@ -8,6 +8,11 @@ public class Vecteur {
 		this.y = y;
 	}
 	
+	public Vecteur(Coord c){
+		this.x = c.x;
+		this.y = c.y;
+	}
+	
 	public float norme (){
 		return (float) Math.sqrt(x*x + y*y);
 	}

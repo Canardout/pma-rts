@@ -127,8 +127,9 @@ public class Coord {
          * @return true si les 2 Coord ont meme valeur de x et y, false sinon
          */
         public boolean equal (Coord c){
-                return this.x > (c.x - EPSILON) && this.x < (c.x + EPSILON) &&
-                         this.y > (c.y - EPSILON) && this.y < (c.y + EPSILON);
+                /*return this.x > (c.x - EPSILON) && this.x < (c.x + EPSILON) &&
+                         this.y > (c.y - EPSILON) && this.y < (c.y + EPSILON);*/
+        	return this.x == c.x && this.y == c.y;
         }
         
         /**

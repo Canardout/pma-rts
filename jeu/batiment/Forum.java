@@ -28,7 +28,7 @@ public class Forum extends Batiment implements Stockable
 
 	
 	private Cellule curent;
-	protected int stock =400; //temporairement place ici
+	protected int stock =100; //temporairement place ici
     protected int vie;
     public int limitpop =5;
     public int limitcont = 3;
@@ -260,7 +260,8 @@ public class Forum extends Batiment implements Stockable
 		List<Cellule> s = v.getPosArbreSuppr();
 		
 		for(int i = 0 ; i < s.size() ; i++){
-			this.posArbreSuppr.add(s.get(i));
+			if(!this.posArbreSuppr.contains(s.get(i)))
+				this.posArbreSuppr.add(s.get(i));
 			if(this.posArbre.contains(s.get(i)))
 				this.posArbre.remove(s.get(i));
 		}
@@ -275,11 +276,16 @@ public class Forum extends Batiment implements Stockable
 					break;
 				}
 				
+				boolean mis = false;
 				for(int y = 0 ; y < this.posArbre.size() ; y++){
 					if(d <= this.coord.distance(this.posArbre.get(y).coord)){
 						this.posArbre.add(y, a.get(i));
+						mis = true;
 						break;
 					}
+				}
+				if(!mis){
+					this.posArbre.add(this.posArbre.size(), a.get(i));
 				}
 			}
 		}

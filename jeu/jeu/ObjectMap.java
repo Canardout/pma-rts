@@ -20,6 +20,8 @@ public class ObjectMap extends AbstractAgent {
 	protected Environnement env;
 	public Cellule curent;
 	public Alignement al;
+	
+  	public static final int vision = 2;
     
 	public ObjectMap (Cellule c , Alignement a){
 		this.curent = c;
@@ -51,8 +53,6 @@ public class ObjectMap extends AbstractAgent {
     	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.OBJECTMAP);
     }
     
-    //nico
-  	public static final int vision = 6;
   	/**
   	 * Les premiers éléments de la liste sont les plus proches de l'objets
   	 * @return tous les objets visible par l'unite

@@ -298,20 +298,89 @@ public class Villageois extends Unite {
 	
 	//nico
 	private Cellule cible;
+	private Cellule pointCercle;
 	private int cercle; // cercle ou est situe le villageois lors de la recherche
-	private Coord direction; // direction du villageois lors de la recherche du Bois
+	private Coord direc1, direc2; // direction du villageois lors de la recherche du bois
+	private int rotation;
+	private boolean depLineaire; // false lorsque que le villageois ne fera pas un parcours en "losange"
 	private boolean grCercle; //true lorsque que le cercle est trop grand par rapport aux limites de la carte
+	private boolean donneCercle = false;
 	private void IA3 (){
 		System.out.println(this.etat);
 		switch(this.etat){
 		case "recherche" : 
 			actualiseListeArbre(vision());
-			///////////////////////////////////////////////////////////////////////////////:
-			if(this.direction == Coord.NULL){
-				rapproche(cible); //TODO prendre en compte les cercles trop grand
+			if(this.direc1 == Coord.NULL && this.direc2 == Coord.NULL){ //tant qu'on a pas commencé le cercle
+				//TODO prendre en compte les cercles trop grand
+				if(this.curent == this.cible){ // on a atteins le point de debut du cercle			
+					System.out.println("cible atteinte"); ///////////////////////////////////////////////////////////////////////////////
+					this.depLineaire = true;
+					Coord dir = this.curent.coord.sous(this.forum.coord);
+					this.pointCercle = this.cible;
+					final int D = 0, B = 1, G = 2, H = 3;
+					if(dir.y > 0){ //BAS
+						rotation = this.cercle % 2 == 0 ? D : G;
+						System.out.println("BAS");//////////////////////////////////////////////////////////////////////////////////////
+					}
+					else if(dir.y < 0){ //HAUT
+						rotation = this.cercle % 2 == 0 ? G : D;
+						System.out.println("HAUT");//////////////////////////////////////////////////////////////////////////////////////
+					}
+					else if(dir.x > 0){ //DROITE
+						rotation = this.cercle % 2 == 0 ? H : B;
+						System.out.println("DROITE");//////////////////////////////////////////////////////////////////////////////////////
+					}
+					else{ //GAUCHE
+						rotation = this.cercle % 2 == 0 ? B : H;
+						System.out.println("GAUCHE");//////////////////////////////////////////////////////////////////////////////////////
+					}
+					
+					this.direc1 = directionCercle();
+					changeRotation();
+					this.direc2 = directionCercle();
+					
+					actualiseListeArbre(vision());
+					move(this.direc1);
+				}
+				else if(this.grCercle){
+					System.out.println("grand cercle ...."); ///////////////////////////////////////////////////////////////////////////////
+					//TODO ////////§§//§!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				}
+				else{
+					System.out.println("rapproche"); ///////////////////////////////////////////////////////////////////////////////
+					rapproche(this.cible);
+				}
 			}
 			else{
-				
+				if(this.curent == this.cible){ // On a fait tout le tour
+					System.out.println("tour fait"); ///////////////////////////////////////////////////////////////////////////////
+					this.etat = "ramene";
+					IA3();
+				}
+				else if(depLineaire){
+					if(this.curent.distance(this.pointCercle) >= (2 * this.curent.distance(this.forum))){ //On atteins un coin du losange
+						System.out.println("coin atteint " + this.curent.distance(this.pointCercle) + " " + (2 * this.curent.distance(this.forum))); ///////////////////////////////////////////////////////////////////////////////
+						this.direc1 = this.direc2;
+						changeRotation();
+						this.direc2 = directionCercle();
+						this.pointCercle = this.curent;
+						IA3();
+					}
+					else{
+						System.out.println("cercle en cours"); ///////////////////////////////////////////////////////////////////////////////
+						actualiseListeArbre(vision());
+						Coord c = this.curent.coord.sous(this.pointCercle.coord);
+						if(Math.abs(c.x) == Math.abs(c.y)){
+							move(this.direc1);
+						}
+						else{
+							move(this.direc2);
+						}
+					}
+				}
+				else{ // On longe un bors de la carte
+					//TODO//////////////////////////////////////////////////////////////////////////////////////
+				}
 			}
 			break;
 			
@@ -320,7 +389,12 @@ public class Villageois extends Unite {
 			if(distance(this.forum) > 0)
 				rapproche(this.forum);
 			else{
-				donnerRessource((Stockable)this.forum.objet); //attention aux erreurs
+				if(this.donneCercle)
+					((Forum)this.forum.objet).cercleFait(this.cercle);
+				else
+					donnerRessource((Stockable)this.forum.objet); //attention aux erreurs
+				
+				System.out.println(this.posArbre.size());
 				((Forum)this.forum.objet).actualiseListArbre(this);
 				this.cible = ((Forum)this.forum.objet).getArbreProche();
 				if(this.cible != null){
@@ -328,7 +402,9 @@ public class Villageois extends Unite {
 				}
 				else{ // il n'y a plus d'arbre : on en recherche !
 					cercle = ((Forum)this.forum.objet).assigneCercle();
-					this.direction = Coord.NULL;
+					this.direc1 = Coord.NULL;
+					this.direc2 = Coord.NULL;
+					this.depLineaire = true;
 					this.cible = positionDebutCercle();
 					this.grCercle = this.cible == null;
 					this.etat = "recherche";
@@ -528,6 +604,29 @@ public class Villageois extends Unite {
 
 	public int distanceCercle (){
 		return Forum.distanceCercle(this.cercle);
+	}
+	
+	/**
+	 * Renvoie une direction selon la valeur envoyé.
+	 * incrémenté rotation pour tourné dans le sens des aiguille d'une montre, 
+	 * décrémenté pour inversement,
+	 * à rotation = 0, direction = DROITE
+	 * @return direction (DROITE, GAUCHE, BAS, HAUT)
+	 */
+	public Coord directionCercle(){
+		switch((444 + this.rotation) % 4){ // rotation ne doit pas aller en dessous de -444
+		case 0 : return DROITE;
+		case 1 : return BAS;
+		case 2 : return GAUCHE;
+		default : return HAUT;
+		}
+	}
+	
+	private void changeRotation(){
+		if(this.cercle % 2 == 0)
+			this.rotation--;
+		else
+			this.rotation++;
 	}
 	
 	class AgentsProbe extends PropertyProbe<AbstractAgent, Villageois>{

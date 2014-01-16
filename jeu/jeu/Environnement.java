@@ -47,7 +47,8 @@ public class Environnement extends AbstractAgent{
         	valeur = r.nextInt(this.longueur-1);
 			valeur2 = r.nextInt(this.largeur-1);
 			for (int i =0 ; i<this.al.length ; i++){
-				this.carte[valeur][valeur2].add(new Forum (this.carte[valeur][valeur2], this.al[i]));
+				//this.carte[valeur][valeur2].add(new Forum (this.carte[valeur][valeur2], this.al[i])); TODO
+				this.carte[20][20].add(new Forum (this.carte[20][20], this.al[i]));
 				valeur = r.nextInt(this.longueur-1);
     			valeur2 = r.nextInt(this.largeur-1);
 			}
@@ -91,7 +92,7 @@ public ArrayList<Cellule> getenv(Cellule c){
 			randomColor = new Color(red, grey, blue);
 			
 		}
-		this.al[0].IA = 2; //TODO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		this.al[0].IA = 3; //TODO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
     }
 
