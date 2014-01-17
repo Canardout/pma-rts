@@ -40,5 +40,8 @@ public class Bois extends Ressource{
 		
 			
 		}
-		
+	
+	 public void end(){
+	    	this.curent.env.nb_arbre--;
+	    }
 }

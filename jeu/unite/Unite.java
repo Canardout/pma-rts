@@ -68,7 +68,7 @@ public class Unite extends ObjectMap {
 
         	
         	this.curent.personne.add(this);
-    	
+        	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.ALIGNEMENT[this.al.numero]);
     	
     }
 

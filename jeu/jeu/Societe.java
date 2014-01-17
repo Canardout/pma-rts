@@ -25,33 +25,34 @@ public class Societe extends AbstractAgent{
 	public static final String CASERNE ="cons-soldat";
 	public static final String HOPITAL = "HOPITAL";
 
+	public static String[] ALIGNEMENT = new String[8]; // Alignement que 
+	//!\\ Les Alignement ne peuvent desormer plus exceder 8 !
 	
 	
 	protected void activate() {
-		
+		for (int i = 0 ; i<this.ALIGNEMENT.length ; i++){
+			this.ALIGNEMENT[i] = "a"+i;
+		}
 		
 		
 		// 1 : create the simulation group
 		createGroup(SOCIETE, SIMU);
 		
-
+		GameDistributor scheduler = new GameDistributor();
+		launchAgent(scheduler,false);
+		
 		// 2 : create the environment
-		int longueur;
-		int largeur;
-		int taille_cellule;
-		longueur = 35;
-		largeur = 35;
-		taille_cellule = 20;
-		Environnement env = new Environnement(longueur,largeur,1);
+		int longueur = 35;
+		int largeur = 35;
+		int taille_cellule = 20;
+		int alignement = 1;
+		
+		Environnement env = new Environnement(scheduler, longueur, largeur, alignement);
 		
 		env.changeIA(3); // 1 à 3
 		//BUG : La 3eme ia est la plus développé mais ne marche que lorsque il n'y a qu'un seul forum
 		
 		launchAgent(env);
-		
-		// 3 : create the scheduler
-		GameDistributor scheduler = new GameDistributor();
-		launchAgent(scheduler,false);
 
 		// 3 : create the viewer
 		

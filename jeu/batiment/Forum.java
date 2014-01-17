@@ -32,6 +32,7 @@ public class Forum extends Batiment implements Stockable
     protected int vie;
     public int limitpop =5;
     public int limitcont = 3;
+    public boolean perdu; // indique sir l'alignement a perdu ou non.
 	/**
 	 * Liste utilisée pour gérer la recherche des arbres par les villageois.
 	 * Les villageois font des recherches en faisant des cercles autour du forum, le tableau permet de savoir à quel cercle est assigné chaque villageois.
@@ -54,6 +55,7 @@ public class Forum extends Batiment implements Stockable
 		this.curent = c;
 		this.curent.coord = this.coord;
 		this.curent.objet = this;
+		this.perdu = false;
 
 		this.cercleVillageois = new int[nbMaxCercle()];
 		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
@@ -117,42 +119,41 @@ public class Forum extends Batiment implements Stockable
 	
 	@SuppressWarnings("unused")
 	private void create() { //créé un villageois
-		
-		if (this.stock-100 >=0){
-			
-			if(!(this.limitpop <=0)){
-			launchAgent(new Villageois(this.curent,this.al));
-			
-			
-			this.stock = this.stock-40;
-			this.limitpop --;}
-							/*
-				Random r = new Random();
-				int valeur = r.nextInt(3)-1;
-				int valeur2 = r.nextInt(3)-1;
-				for (int i=0 ; i< this.coord.size() ; i++){
-					if (this.stock >400 && this.limitagrand >0){
-					if (this.env.env.getCellule(this.coord.get(i).x+valeur, this.coord.get(i).y+valeur2).objet == null){
-						this.env.env.getCellule(this.coord.get(i).x+valeur, this.coord.get(i).y+valeur2).objet = this;
-						this.stock = this.stock-400;
-						this.limitpop = this.limitpop+5;
-						Coord c = new Coord(this.coord.get(i).x+valeur, this.coord.get(i).y+valeur2);
-						this.coord.add(c);
-						this.limitagrand --;
-						
-					}
-					*/
+		if(!this.perdu) // TODO TODO TODO TODO TODO TODO TODO TODO
+			if (this.stock-100 >=0){	
+				
+				if(!(this.limitpop <=0)){
+				launchAgent(new Villageois(this.curent,this.al));
+				
+				
+				this.stock = this.stock-40;
+				this.limitpop --;
+				}
 				else if (this.stock -150>= 0 && this.limitcont >0){
-					
+						
 					launchAgent(new Constructeur(this.curent,this.al));
 					this.stock = this.stock -150;
 					this.limitcont--;
-				}}
-				
 				}
-			
-		//}
-	//}
+			}
+				
+		if (this.perdu()) {
+			for (int i =0 ; i<this.al.caserne.size() ; i++){
+				killAgent(this.al.caserne.get(i).objet);
+			}
+
+			for(int j = 0 ; j<this.al.demande_ressource.size() ; j++){
+			    killAgent(this.al.demande_ressource.get(j).objet);
+			}
+
+	        this.perdu = true;;
+		}
+		
+	}
+	
+	public boolean perdu (){ // verifie si l'alignement est concidere comme perdant (plus d'unite) ou non.
+		return (!isRole(Societe.SOCIETE,Societe.SIMU,Societe.ALIGNEMENT[this.al.numero]) && (this.stock<100));
+	}
 	
 	
 	@SuppressWarnings("unused")
