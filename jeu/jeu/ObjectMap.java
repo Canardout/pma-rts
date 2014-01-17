@@ -21,7 +21,7 @@ public class ObjectMap extends AbstractAgent {
 	public Cellule curent;
 	public Alignement al;
 	
-  	public static final int vision = 2;
+  	public static final int vision = 4;
     
 	public ObjectMap (Cellule c , Alignement a){
 		this.curent = c;

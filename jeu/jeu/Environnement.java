@@ -44,13 +44,12 @@ public class Environnement extends AbstractAgent{
         	Random r = new Random();
         	int valeur ;
     		int valeur2 ;
-        	valeur = r.nextInt(this.longueur-1);
-			valeur2 = r.nextInt(this.largeur-1);
+        	valeur = r.nextInt(this.longueur-1 - (ObjectMap.vision)) + (ObjectMap.vision / 2);
+			valeur2 = r.nextInt(this.largeur-1 - (ObjectMap.vision)) + (ObjectMap.vision / 2);
 			for (int i =0 ; i<this.al.length ; i++){
-				//this.carte[valeur][valeur2].add(new Forum (this.carte[valeur][valeur2], this.al[i])); TODO
-				this.carte[20][20].add(new Forum (this.carte[20][20], this.al[i]));
-				valeur = r.nextInt(this.longueur-1);
-    			valeur2 = r.nextInt(this.largeur-1);
+				this.carte[valeur][valeur2].add(new Forum (this.carte[valeur][valeur2], this.al[i]));
+				valeur = r.nextInt(this.longueur-1 - (ObjectMap.vision)) + (ObjectMap.vision / 2);
+				valeur2 = r.nextInt(this.largeur-1 - (ObjectMap.vision)) + (ObjectMap.vision / 2);
 			}
 		
         	
@@ -151,5 +150,28 @@ public ArrayList<Cellule> getenv(Cellule c){
     
     public Coord getDimension (){
     	return new Coord(this.longueur, this.largeur);
+    }
+    
+    /**
+     * Change l'ia d'un alignement.
+     * Attention, faite le avant de lancer l'environnement
+     * @param ia
+     * @param al : l'alignement à changer
+     */
+    public void changeIA (int ia, int al){
+    	if(al < this.al.length){
+    		this.al[al].IA = ia;
+    	}
+    }
+    
+    /**
+     * Change l'ia de tous les alignments.
+     * Attention, faite le avant de lancer l'environnement.
+     * @param ia
+     */
+    public void changeIA (int ia){
+    	for(int i = 0 ; i < this.al.length ; i++){
+    		this.al[i].IA = ia;
+    	}
     }
 }

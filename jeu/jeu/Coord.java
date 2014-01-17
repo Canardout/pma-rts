@@ -105,6 +105,15 @@ public class Coord {
                 this.y -= c.y;
         }
         
+        public Coord division(int d){
+        	return new Coord(this.x / d, this.y / d);
+        }
+        
+        public void divEgale(int d){
+        	this.x /= d;
+        	this.y /= d;
+        }
+        
         /**
          * @return l'inverse du coord
          */

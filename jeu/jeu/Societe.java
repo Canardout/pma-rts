@@ -39,10 +39,14 @@ public class Societe extends AbstractAgent{
 		int longueur;
 		int largeur;
 		int taille_cellule;
-		longueur = 40;
-		largeur = 40;
-		taille_cellule = 15;
+		longueur = 35;
+		largeur = 35;
+		taille_cellule = 20;
 		Environnement env = new Environnement(longueur,largeur,1);
+		
+		env.changeIA(3); // 1 à 3
+		//BUG : La 3eme ia est la plus développé mais ne marche que lorsque il n'y a qu'un seul forum
+		
 		launchAgent(env);
 		
 		// 3 : create the scheduler

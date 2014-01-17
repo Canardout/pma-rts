@@ -18,7 +18,7 @@ public class Alignement {
 		this.caserne = new ArrayList<Cellule>();
 		this.hopital = new ArrayList<Cellule>();
 		this.demande_ressource = new ArrayList<Cellule>();
-		this.IA = 1;
+		this.IA = 3;
 	}
 	
 	public void ajouteRessource (List<Cellule> r){

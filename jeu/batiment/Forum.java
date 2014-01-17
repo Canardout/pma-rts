@@ -55,7 +55,7 @@ public class Forum extends Batiment implements Stockable
 		this.curent.coord = this.coord;
 		this.curent.objet = this;
 
-		this.cercleVillageois = new int[nbMaxCercle() - 1];
+		this.cercleVillageois = new int[nbMaxCercle()];
 		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
 			this.cercleVillageois[i] = NON_FAIT;
 		}
@@ -259,6 +259,7 @@ public class Forum extends Batiment implements Stockable
 		List<Cellule> a = v.getPosArbre();
 		List<Cellule> s = v.getPosArbreSuppr();
 		
+		//suppression
 		for(int i = 0 ; i < s.size() ; i++){
 			if(!this.posArbreSuppr.contains(s.get(i)))
 				this.posArbreSuppr.add(s.get(i));
@@ -266,6 +267,7 @@ public class Forum extends Batiment implements Stockable
 				this.posArbre.remove(s.get(i));
 		}
 		
+		//ajout
 		boolean init = false;
 		for(int i = 0 ; i < a.size() ; i++){
 			if(!this.posArbre.contains(a.get(i)) && !this.posArbreSuppr.contains(a.get(i))){

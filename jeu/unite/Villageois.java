@@ -232,7 +232,6 @@ public class Villageois extends Unite {
 	// par Nicolas
 	private String etat = "ramene"; // Ce que fait le Villageois actuellement
 	private void IA2 (){
-		System.out.println(this.etat);
 		switch(this.etat){
 		case "recherche" : 
 			List<ObjectMap> objetProche = vision();
@@ -242,7 +241,6 @@ public class Villageois extends Unite {
 			else{
 				this.etat = "recolte";
 				this.objetCible = arbrePlusProcheO(objetProche);
-				System.out.println(this.objetCible);
 				IA2();
 			}
 			break;
@@ -306,60 +304,42 @@ public class Villageois extends Unite {
 	private boolean grCercle; //true lorsque que le cercle est trop grand par rapport aux limites de la carte
 	private boolean donneCercle = false;
 	private void IA3 (){
-		System.out.println(this.etat);
 		switch(this.etat){
 		case "recherche" : 
 			actualiseListeArbre(vision());
 			if(this.direc1 == Coord.NULL && this.direc2 == Coord.NULL){ //tant qu'on a pas commencé le cercle
-				//TODO prendre en compte les cercles trop grand
 				if(this.curent == this.cible){ // on a atteins le point de debut du cercle			
-					System.out.println("cible atteinte"); ///////////////////////////////////////////////////////////////////////////////
 					this.depLineaire = true;
-					Coord dir = this.curent.coord.sous(this.forum.coord);
-					this.pointCercle = this.cible;
-					final int D = 0, B = 1, G = 2, H = 3;
-					if(dir.y > 0){ //BAS
-						rotation = this.cercle % 2 == 0 ? D : G;
-						System.out.println("BAS");//////////////////////////////////////////////////////////////////////////////////////
-					}
-					else if(dir.y < 0){ //HAUT
-						rotation = this.cercle % 2 == 0 ? G : D;
-						System.out.println("HAUT");//////////////////////////////////////////////////////////////////////////////////////
-					}
-					else if(dir.x > 0){ //DROITE
-						rotation = this.cercle % 2 == 0 ? H : B;
-						System.out.println("DROITE");//////////////////////////////////////////////////////////////////////////////////////
-					}
-					else{ //GAUCHE
-						rotation = this.cercle % 2 == 0 ? B : H;
-						System.out.println("GAUCHE");//////////////////////////////////////////////////////////////////////////////////////
-					}
 					
-					this.direc1 = directionCercle();
-					changeRotation();
-					this.direc2 = directionCercle();
+					donneDirection();
 					
-					actualiseListeArbre(vision());
 					move(this.direc1);
 				}
 				else if(this.grCercle){
-					System.out.println("grand cercle ...."); ///////////////////////////////////////////////////////////////////////////////
-					//TODO ////////§§//§!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					if(this.env.horsLimite(this.curent.coord.add(HAUT.add(HAUT.multiple(vision / 2))))){ // dès que l'on est trop près du bord
+						this.cible = this.curent;
+						this.pointCercle = this.curent;
+						this.depLineaire = false;
+						
+						donneDirection();
+						move(this.direc1);
+						
+					}
+					else{
+						move(HAUT);
+					}
 				}
 				else{
-					System.out.println("rapproche"); ///////////////////////////////////////////////////////////////////////////////
 					rapproche(this.cible);
 				}
 			}
 			else{
 				if(this.curent == this.cible){ // On a fait tout le tour
-					System.out.println("tour fait"); ///////////////////////////////////////////////////////////////////////////////
 					this.etat = "ramene";
 					IA3();
 				}
-				else if(depLineaire){
+				else if(this.depLineaire){
 					if(this.curent.distance(this.pointCercle) >= (2 * this.curent.distance(this.forum))){ //On atteins un coin du losange
-						System.out.println("coin atteint " + this.curent.distance(this.pointCercle) + " " + (2 * this.curent.distance(this.forum))); ///////////////////////////////////////////////////////////////////////////////
 						this.direc1 = this.direc2;
 						changeRotation();
 						this.direc2 = directionCercle();
@@ -367,19 +347,48 @@ public class Villageois extends Unite {
 						IA3();
 					}
 					else{
-						System.out.println("cercle en cours"); ///////////////////////////////////////////////////////////////////////////////
-						actualiseListeArbre(vision());
 						Coord c = this.curent.coord.sous(this.pointCercle.coord);
 						if(Math.abs(c.x) == Math.abs(c.y)){
-							move(this.direc1);
+							if(!this.env.horsLimite(this.curent.coord.add(this.direc1.add(this.direc1.multiple(vision/2)))) || 
+									((this.curent.coord.x == this.forum.coord.x) || (this.curent.coord.y == this.forum.coord.y)))
+								move(this.direc1);
+							else{
+								this.depLineaire = false;
+								IA3();
+							}
 						}
 						else{
-							move(this.direc2);
+							if(!this.env.horsLimite(this.curent.coord.add(this.direc2.add(this.direc2.multiple(vision/2)))) ||
+									(this.curent.coord.x == this.forum.coord.x) || (this.curent.coord.y == this.forum.coord.y))
+								move(this.direc2);
+							else{
+								this.depLineaire = false;
+								IA3();
+							}
 						}
 					}
 				}
 				else{ // On longe un bors de la carte
-					//TODO//////////////////////////////////////////////////////////////////////////////////////
+					int distForum = this.curent.distance(this.forum);
+					int distCercle = Forum.distanceCercle(this.cercle);
+					
+					if((this.curent.coord.x == this.forum.coord.x) || (this.curent.coord.y == this.forum.coord.y)){ // on est aligné avec le forum
+						changeRotation();
+						this.direc1 = this.direc2;
+						this.direc2 = directionCercle();
+						if(distForum == distCercle){
+							this.pointCercle = this.curent;
+							this.depLineaire = true;
+						}
+					}
+					
+					if(this.env.horsLimite(this.curent.coord.add(this.direc1.add(this.direc1.multiple(vision/2)))) // On est trop près du bord
+							|| (distForum > distCercle)){ // ou on dépasse le cercle
+						move(this.direc2);
+					}
+					else{
+						move(this.direc1);
+					}
 				}
 			}
 			break;
@@ -389,12 +398,13 @@ public class Villageois extends Unite {
 			if(distance(this.forum) > 0)
 				rapproche(this.forum);
 			else{
-				if(this.donneCercle)
+				if(this.donneCercle){
 					((Forum)this.forum.objet).cercleFait(this.cercle);
+					this.donneCercle = false;
+				}
 				else
-					donnerRessource((Stockable)this.forum.objet); //attention aux erreurs
+					donnerRessource((Stockable)this.curent.objet); //attention aux erreurs
 				
-				System.out.println(this.posArbre.size());
 				((Forum)this.forum.objet).actualiseListArbre(this);
 				this.cible = ((Forum)this.forum.objet).getArbreProche();
 				if(this.cible != null){
@@ -406,7 +416,8 @@ public class Villageois extends Unite {
 					this.direc2 = Coord.NULL;
 					this.depLineaire = true;
 					this.cible = positionDebutCercle();
-					this.grCercle = this.cible == null;
+					this.grCercle = (this.cible == null);
+					this.donneCercle = true;
 					this.etat = "recherche";
 				}			
 			}
@@ -509,7 +520,7 @@ public class Villageois extends Unite {
 		for(int i = 0 ; i < l.size() ; i++){
 			if(l.get(i) instanceof Bois){
 				vue = true;
-				if(!this.posArbre.contains(l.get(i).curent)){
+				if(!this.posArbre.contains(l.get(i).curent) && !this.posArbreSuppr.contains(l.get(i).curent)){
 					this.posArbre.add(l.get(i).curent);
 				}
 			}
@@ -582,17 +593,19 @@ public class Villageois extends Unite {
 	
 	public Cellule positionDebutCercle (){
 		int direc = this.cercle % 4;
-		Coord c;
+		Coord d, c;
 		do{
 			switch(direc){
-			case 1 : c = this.forum.coord.add(new Coord(distanceCercle(), 0)); break;
-			case 2 : c = this.forum.coord.add(new Coord(-distanceCercle(), 0)); break;
-			case 3 : c = this.forum.coord.add(new Coord(0, distanceCercle())); break;
-			default : c = this.forum.coord.add(new Coord(0, -distanceCercle())); break;
+			case 1 : d = new Coord(distanceCercle(), 0); break;
+			case 2 : d = new Coord(-distanceCercle(), 0); break;
+			case 3 : d = new Coord(0, distanceCercle()); break;
+			default : d = new Coord(0, -distanceCercle()); break;
 			}
-			
+			c = this.forum.coord.add(d);
+			if(distanceCercle() != 0)
+				d.divEgale(distanceCercle());
 			direc = (direc + 1) % 4;
-		}while(this.env.horsLimite(c) && direc != this.cercle % 4);
+		}while(this.env.horsLimite(c.add(d.add(d.multiple(vision / 2)))) && direc != this.cercle % 4);
 		
 		if(direc == this.cercle % 4){
 			return null;
@@ -627,6 +640,28 @@ public class Villageois extends Unite {
 			this.rotation--;
 		else
 			this.rotation++;
+	}
+	
+	private void donneDirection (){
+		Coord dir = this.curent.coord.sous(this.forum.coord);
+		this.pointCercle = this.cible;
+		final int D = 0, B = 1, G = 2, H = 3;
+		if(dir.y > 0){ //BAS
+			rotation = this.cercle % 2 == 0 ? D : G;
+		}
+		else if(dir.y < 0){ //HAUT
+			rotation = this.cercle % 2 == 0 ? G : D;
+		}
+		else if(dir.x > 0){ //DROITE
+			rotation = this.cercle % 2 == 0 ? H : B;
+		}
+		else{ //GAUCHE
+			rotation = this.cercle % 2 == 0 ? B : H;
+		}
+		
+		this.direc1 = directionCercle();
+		changeRotation();
+		this.direc2 = directionCercle();
 	}
 	
 	class AgentsProbe extends PropertyProbe<AbstractAgent, Villageois>{
