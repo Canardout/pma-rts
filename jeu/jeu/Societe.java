@@ -1,11 +1,29 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package jeu;
 
-
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.TextField;
-
 import madkit.kernel.AbstractAgent;
+
+/**
+ * Classe Societe, classe définissant la méthode main.
+ * Des paramètres du programme peuvent être modifié directement dans la méthode activate
+ * @author fayej
+ */
 
 public class Societe extends AbstractAgent{
 	
@@ -42,15 +60,16 @@ public class Societe extends AbstractAgent{
 		launchAgent(scheduler,false);
 		
 		// 2 : create the environment
-		int longueur = 35;
-		int largeur = 35;
+		int longueur = 25;
+		int largeur = 25;
 		int taille_cellule = 20;
-		int alignement = 1;
+		int alignement = 4;
 		
 		Environnement env = new Environnement(scheduler, longueur, largeur, alignement);
 		
-		env.changeIA(3); // 1 à 3
-		//BUG : La 3eme ia est la plus développé mais ne marche que lorsque il n'y a qu'un seul forum
+		env.changeIA(3);
+		//env.changeIA(2, 0);
+		// Les ia vont de 1 à 3
 		
 		launchAgent(env);
 

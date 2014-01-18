@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package jeu;
 
 import java.util.logging.Level;
@@ -9,6 +26,11 @@ import unite.Constructeur;
 import unite.Soldat;
 import unite.Villageois;
 
+/**
+ * Classe GameDistributor, gère les activateurs
+ * @author fayej
+ */
+
 public class GameDistributor extends madkit.kernel.Scheduler{
 		
 	protected GenericBehaviorActivator<AbstractAgent> [] Activateur;
@@ -18,7 +40,7 @@ public class GameDistributor extends madkit.kernel.Scheduler{
 	protected void activate() {
 		
 		this.Activateur = new GenericBehaviorActivator[10];
-		// Le Scheduler prend son r�le
+		// Le Scheduler prend son rôle
 
 		requestRole(Societe.SOCIETE,Societe.SIMU,Societe.SCHEDULER); 
 		

@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package batiment;
 
 
@@ -9,11 +26,8 @@ import jeu.Cellule;
 import jeu.Coord;
 import jeu.Societe;
 
-
-
-
 /**
- * Classe "Caserne" definis le batiment Caserne et son activitee au cours de son activation.
+ * Classe "Caserne" definis le batiment Caserne et son activitée au cours de son activation.
  * @author fayej
  *
  */
@@ -23,13 +37,13 @@ public class Caserne extends Batiment implements Stockable
 {
 
 	
-	private Cellule curent; //TODO à modifier, porte le même nom que l'environnement et même fonction que curent
+	private Cellule curent;
 	protected int stock ; 
     protected int vie;
     public int statue ;
  
 
-    public static final int MAX_STOCK = Integer.MAX_VALUE; // à voir
+    public static final int MAX_STOCK = Integer.MAX_VALUE;
 
 	public Caserne (Cellule c , Alignement a){
 		super(c, a);
@@ -93,7 +107,7 @@ public class Caserne extends Batiment implements Stockable
 		
 	}
 	@SuppressWarnings("unused")
-	private void create() { //cr�e un villageois
+	private void create() { //créé un villageois
 		if (this.statue < 3){
 			if (this.stock >= 150){
 				this.statue++;
@@ -117,7 +131,7 @@ public class Caserne extends Batiment implements Stockable
 	
 	@SuppressWarnings("unused")
 	private void localisation() {
-		// Donne ces coordonn�es
+		// Donne ces coordonnées
 		
 		
 		}

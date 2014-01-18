@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package jeu;
 
 
@@ -12,19 +29,14 @@ import batiment.Forum;
 
 
 /**
-* Cette classe gere l'Environnement , peut renvoye ce qu'il se trouve sur differentes cellules
-* adjacente a  une Unite ect ...
+* Cette classe gere l'Environnement , peut renvoyé ce qu'il se trouve sur differentes cellules
+* adjacente a une Unite ect ...
 *
-* TODO redefinire auteur
-* @author fayej, powlpy
+* @author fayej, Nicolas
 * @version 1.0
 */
 public class Environnement extends AbstractAgent{
 	
-    /**
-     * TODO ecrire commentaire ou pas
-     * ps tout devrais etre modifiable a partir des getters
-     */
    private Cellule carte[][];
    private int longueur;
    private int largeur;
@@ -98,12 +110,9 @@ public ArrayList<Cellule> getenv(Cellule c){
 			randomColor = new Color(red, grey, blue);
 			
 		}
-		this.al[0].IA = 3; //TODO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
     }
 
 	/**
-	 * @author nico
 	 * @param coordonnée
 	 * @return true si les coordonnées sont hors de la carte
 	 */
@@ -118,7 +127,6 @@ public ArrayList<Cellule> getenv(Cellule c){
             return this.carte[(x)%this.longueur][(y)%this.largeur];
     }
     
-    //nico
     public Cellule getCellule (Coord c){
     	if(!horsLimite(c))
             return this.carte[c.x][c.y];
@@ -170,6 +178,14 @@ public ArrayList<Cellule> getenv(Cellule c){
     
     public Coord getDimension (){
     	return new Coord(this.longueur, this.largeur);
+    }
+    
+    public int getLongueur(){
+    	return this.longueur;
+    }
+    
+    public int getLargeur(){
+    	return this.largeur;
     }
     
     /**

@@ -1,4 +1,22 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package jeu;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,8 +24,6 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JScrollBar;
-
 import batiment.Caserne;
 import batiment.Forum;
 import batiment.Hopital;
@@ -17,6 +33,12 @@ import unite.Villageois;
 import madkit.simulation.probe.PropertyProbe;
 import madkit.simulation.probe.SingleAgentProbe;
 import madkit.simulation.viewer.SwingViewer;
+
+/**
+ * Classe Viewer, gère l'affichage du programme
+ * @author fayej
+ */
+
 public class Viewer extends SwingViewer{
 
 
@@ -57,7 +79,6 @@ public class Viewer extends SwingViewer{
 			this.hopital = new ImageIcon(getClass().getResource("/jeu/Ressource/hopital.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 			this.constructeur = new ImageIcon(getClass().getResource("/jeu/Ressource/constructeur.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 			this.forum_perte =  new ImageIcon(getClass().getResource("/jeu/Ressource/hopital.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
-			// mort n'y est pas donc j'ai mis hopital
 		}
 
 		

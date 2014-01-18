@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package batiment;
 
 
@@ -10,14 +27,13 @@ import jeu.Cellule;
 import jeu.Coord;
 import jeu.Societe;
 import unite.Constructeur;
-import unite.Unite;
 import unite.Villageois;
 
 
 
 
 /**
- * Classe "FORUM" definis le batiment Forum et son activitee au cours de son activation.
+ * Classe "FORUM" définis le batiment Forum et son activitée au cours de son activation.
  * @author fayej
  *
  */
@@ -28,11 +44,12 @@ public class Forum extends Batiment implements Stockable
 
 	
 	private Cellule curent;
-	protected int stock =100; //temporairement place ici
+	protected int stock = 300; //temporairement place ici
     protected int vie;
     public int limitpop =5;
     public int limitcont = 3;
-    public boolean perdu; // indique sir l'alignement a perdu ou non.
+    public boolean perdu; // indique si l'alignement a perdu ou non.
+    public int compteur = 0; //compteur qui s'incrémente à chaque tour, si il n'y a pas de ressources gagné pendant trop longtemps, on considère qu'on a perdu
 	/**
 	 * Liste utilisée pour gérer la recherche des arbres par les villageois.
 	 * Les villageois font des recherches en faisant des cercles autour du forum, le tableau permet de savoir à quel cercle est assigné chaque villageois.
@@ -42,7 +59,7 @@ public class Forum extends Batiment implements Stockable
     public static final int FAIT = 1;
     public static final int EN_COURS = 2;
     
-    // Les 2 listes suivant sont triés par rapport à la distance au forum par ordre croissant
+    // Les 2 listes suivant sont triés par rapport à la distance au forum
     private List<Cellule> posArbre; // position des arbres connus par le forum
     private List<Cellule> posArbreSuppr; // ancienne position des arbres connues par le forum qui ont été supprimés, est remis à zéro en même temps que cercleVillageois
     private List<Cellule> posForum; // position des forums ennemies connus par le forum
@@ -57,7 +74,7 @@ public class Forum extends Batiment implements Stockable
 		this.curent.objet = this;
 		this.perdu = false;
 
-		this.cercleVillageois = new int[nbMaxCercle()];
+		this.cercleVillageois = new int[nbMaxCercle() + 1];
 		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
 			this.cercleVillageois[i] = NON_FAIT;
 		}
@@ -67,6 +84,7 @@ public class Forum extends Batiment implements Stockable
 	
 	public void addStock(){
 		this.stock ++;
+		this.compteur = 0;
 	}
 	
 	public boolean deleteStock(){
@@ -85,7 +103,7 @@ public class Forum extends Batiment implements Stockable
             return this.stock;
     }
 	
-	public int prendreStock (int demande){
+	public int prendreStock (int demande){		
 		if(demande > this.stock){
 			int s = this.stock;
 			this.stock = 0;
@@ -98,6 +116,9 @@ public class Forum extends Batiment implements Stockable
 	}
 	
 	public int donnerStock (int dons){
+		if(dons > 0)
+			this.compteur = 0;
+		
 		if(this.stock + dons > MAX_STOCK){
 			int r = MAX_STOCK - this.stock;
 			this.stock = MAX_STOCK;
@@ -119,7 +140,11 @@ public class Forum extends Batiment implements Stockable
 	
 	@SuppressWarnings("unused")
 	private void create() { //créé un villageois
-		if(!this.perdu) // TODO TODO TODO TODO TODO TODO TODO TODO
+		if(this.compteur > (this.env.getLongueur() * this.env.getLargeur()) && this.compteur > 100) //la limite du compteur dépend de la taille du terrain, min 100
+			this.perdu = true;
+		
+		if(!this.perdu){
+			this.compteur++;
 			if (this.stock-100 >=0){	
 				
 				if(!(this.limitpop <=0)){
@@ -136,8 +161,8 @@ public class Forum extends Batiment implements Stockable
 					this.limitcont--;
 				}
 			}
-				
-		if (this.perdu()) {
+		}
+		else{
 			for (int i =0 ; i<this.al.caserne.size() ; i++){
 				killAgent(this.al.caserne.get(i).objet);
 			}
@@ -146,12 +171,12 @@ public class Forum extends Batiment implements Stockable
 			    killAgent(this.al.demande_ressource.get(j).objet);
 			}
 
-	        this.perdu = true;;
+	        this.perdu = true;
 		}
 		
 	}
 	
-	public boolean perdu (){ // verifie si l'alignement est concidere comme perdant (plus d'unite) ou non.
+	public boolean perdu (){ // vérifie si l'alignement est considére comme perdant (plus d'unite) ou non.
 		return (!isRole(Societe.SOCIETE,Societe.SIMU,Societe.ALIGNEMENT[this.al.numero]) && (this.stock<100));
 	}
 	
@@ -165,6 +190,7 @@ public class Forum extends Batiment implements Stockable
 	
 	/**
 	 * @return le nombre maximum de cercle à faire pour visionner toute la map
+	 * @author Nicolas
 	 */
 	public int nbMaxCercle (){
 		Coord dim = this.env.getDimension();
@@ -187,12 +213,18 @@ public class Forum extends Batiment implements Stockable
 	 * Retourne le cercle (ou le nombre de cercle) permettant de couvrir la distance maximum d
 	 * @param d
 	 * @return numero de cercle
+	 * @author Nicolas
 	 */
 	public static int cercleChampsVision (int d){
 		return d / (2 * Villageois.vision + 1) + 
 				(((d % (2 * Villageois.vision + 1)) > Villageois.vision) ? 1 : 0);
 	}
 	
+	/**
+	 * @param cercle
+	 * @return la distance où se situe un cercle
+	 * @author Nicolas
+	 */
 	public static int distanceCercle (int cercle){
 		return (2 * Villageois.vision + 1) * cercle;
 	}
@@ -200,6 +232,7 @@ public class Forum extends Batiment implements Stockable
 	/**
 	 * Permet d'assigner un cercle à un villageois et modifie le tableau de cercles
 	 * @return le cercle assigné
+	 * @author Nicolas
 	 */
 	public int assigneCercle (){
 		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
@@ -227,6 +260,7 @@ public class Forum extends Batiment implements Stockable
 	 * Met un cercle à FAIT à condition que celui était à EN_COURS
 	 * @param cercle à modifier
 	 * @return true si le cercle à été modifié
+	 * @author Nicolas
 	 */
 	public boolean cercleFait (int cercle){
 		if(this.cercleVillageois[cercle - 1] == EN_COURS){
@@ -240,6 +274,7 @@ public class Forum extends Batiment implements Stockable
 	
 	/**
 	 * Remet tous les cercles à NON_FAIT
+	 * @author Nicolas
 	 */
 	protected void initialiseCercle (){
 		for(int i = 0 ; i < this.cercleVillageois.length ; i++){
@@ -253,8 +288,8 @@ public class Forum extends Batiment implements Stockable
 	/**
 	 * Actualise la liste des arbres du forum. 
 	 * Remet les liste du villageois à 0
-	 * @author nico
 	 * @param Villageois
+	 * @author Nicolas
 	 */
 	public void actualiseListArbre(Villageois v){
 		List<Cellule> a = v.getPosArbre();
@@ -305,6 +340,7 @@ public class Forum extends Batiment implements Stockable
 	
 	/**
 	 * @return l'arbre le plus proche connus par le forum, null si il n'y a pas d'arbre
+	 * @author Nicolas
 	 */
 	public Cellule getArbreProche (){
 		if(this.posArbre.isEmpty())

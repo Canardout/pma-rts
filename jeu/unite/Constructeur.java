@@ -1,16 +1,28 @@
-package unite;
-	import java.util.ArrayList;
-import java.util.Random;
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
+package unite;
+
+import java.util.ArrayList;
 import batiment.Caserne;
 import batiment.Forum;
-import batiment.Hopital;
 import jeu.Alignement;
-import jeu.Bois;
 import jeu.Cellule;
 import jeu.Societe;
-
-
 
 
 	/**Classe constructeur
@@ -82,7 +94,7 @@ import jeu.Societe;
 			
 		}
 		
-		private void presente(ArrayList<Cellule> a){ // Regarde si la cellule est d�j� pr�sente dans une liste de cellule
+		private void presente(ArrayList<Cellule> a){ // Regarde si la cellule est déjà présente dans une liste de cellule
 			boolean present = true;
 			for (int i =0 ; i<a.size() ; i++){
 				for (int j = 0 ; j < this.al.ressource.size() ; j++){
@@ -156,7 +168,7 @@ import jeu.Societe;
 				if (!c.perdu){
 
 				
-				if (!this.al.caserne.isEmpty()){ //regarde la liste des ressources r�pertori� (d�j� trouv�)
+				if (!this.al.caserne.isEmpty()){ //regarde la liste des ressources répertorié (déjà trouvé)
 					Cellule plusproche = this.laplusproche(this.al.caserne);
 			
 				if (plusproche.objet != null){

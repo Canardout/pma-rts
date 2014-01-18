@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package unite;
 
 
@@ -11,7 +28,7 @@ import jeu.Societe;
 
 
 
-/**Classe Villageois définis l'unité "Villageoi" et son comportement lors de son activation 
+/**Classe Soldat 
  * 
  * @author fayej
  *
@@ -20,8 +37,8 @@ public class Soldat extends Unite {
 	
 	
 	
-	public boolean epuise; // Indique si le soldat � besoin de se reposer ou non
-	int repos; // Mesure le repos que doit prendre un Soldat apr�s avoir tuer quelque-chose.
+	public boolean epuise; // Indique si le soldat a besoin de se reposer ou non
+	int repos; // Mesure le repos que doit prendre un Soldat après avoir tuer quelque chose.
 	private Cellule Caserne; // cellule de naissance (Forum) du villageois. /!\ Provisoir
 	
 	public static final int MAX_VIE = 15;
@@ -38,7 +55,6 @@ public class Soldat extends Unite {
 
 	
 	protected void activate(){
-		// Definis le role de chercheur pour les villageois (Role unique et provisoir)
 		
 		requestRole(Societe.SOCIETE , Societe.SIMU , Societe.SOLDAT);
 		this.activationgeneral();

@@ -1,7 +1,22 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package unite;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -11,12 +26,10 @@ import jeu.Coord;
 import jeu.ObjectMap;
 import jeu.Societe;
 import jeu.Vecteur;
-import madkit.kernel.AbstractAgent;
-import madkit.simulation.probe.PropertyProbe;
 
 /** Classe qui définis les Unités , chaque Unité (hors batiment) hérite de cette classe.
  * 
- * @author fayej
+ * @author Nicolas, fayej
  *
  */
 public class Unite extends ObjectMap {
@@ -42,11 +55,6 @@ public class Unite extends ObjectMap {
      * Si l'unite n'est pas en mouvement, indique Vecteur.NULL.
      */
     protected Vecteur deplacement;
-    /**
-     * Represente l'action que l'unite est en train d'effectuer sous la forme d'une chaine de caractere.
-     * TODO a definir
-     */
-    protected String action;
     protected Cellule forum;
     
     public Unite (Cellule c, Alignement a, int v){
@@ -56,13 +64,6 @@ public class Unite extends ObjectMap {
     	this.curent.personne.add(this);
     }
     
-    /**
-     * Ordonne à l'unite de se deplace vers un point cible.
-     * Cette methode redefinie objetCible a null.
-     * TODO Cette specificite n'est definitif, il faut savoir si cette methode est faite
-     * pour etre utilise en interne ou en externe.
-     * @param c positionCible
-     */
     public void activationgeneral(){
     	
 

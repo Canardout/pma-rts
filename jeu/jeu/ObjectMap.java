@@ -9,7 +9,7 @@ import madkit.kernel.AbstractAgent;
 * Cette classe definis les caracteristiques globale des Objets place sur la carte
 * (Cordonnee x,y , vie , resistance ...)
 *
-* @author fayej, powlpy
+* @author fayej, Nicolas
 * @version 1.0
 */
 
@@ -72,7 +72,6 @@ public class ObjectMap extends AbstractAgent {
   		return l;
   	}
   	/**
-  	 * @author nico
   	 * @param l liste d'objet visible
   	 * @param v position actuel du pointeur
   	 * @param i distance par rapport au centre

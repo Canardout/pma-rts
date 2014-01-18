@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package batiment;
 
 import jeu.Alignement;
@@ -11,8 +28,8 @@ public class Hopital extends Batiment //implements Stockable
 {
 
 	
-	public Cellule curent; //TODO à modifier, porte le même nom que l'environnement et même fonction que curent
-	protected int stock ; // L'hopital poss�de des stocks ?
+	public Cellule curent;
+	protected int stock ;
     protected int vie;
     public int statue ;
     public int horloge;
@@ -69,7 +86,7 @@ public class Hopital extends Batiment //implements Stockable
 		
 	}
 	@SuppressWarnings("unused")
-	private void soin() { //cr�e un villageois
+	private void soin() {
 		/*
 		if (this.statue < 3){
 			if (this.stock >= 150){
@@ -85,7 +102,7 @@ public class Hopital extends Batiment //implements Stockable
 			*/
 			for(int i =0 ; i<this.curent.personne.size() ; i++){
 				System.out.print("Avant : "+this.curent.personne.get(i).getvie());
-				this.curent.personne.get(i).setvie(1); //donne 1 de vie aux unit�s. (pourra �tre remplacer par un % pour plus d'�quitabilit�)
+				this.curent.personne.get(i).setvie(1); //donne 1 de vie aux unités. (pourra être remplacer par un % pour plus d'équitabilité)
 				System.out.println("Apr�s : "+this.curent.personne.get(i).getvie());
 			}
 			/*
@@ -99,7 +116,7 @@ public class Hopital extends Batiment //implements Stockable
 	
 	@SuppressWarnings("unused")
 	private void localisation() {
-		// Donne ces coordonn�es
+		// Donne ces coordonnées
 		
 		
 		}

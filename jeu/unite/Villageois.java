@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoya
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package unite;
 
 
@@ -20,7 +37,7 @@ import madkit.simulation.probe.PropertyProbe;
 
 /**Classe Villageois definis l'unite "Villageois" et son comportement lors de son activation 
  * 
- * @author fayej
+ * @author fayej, Nicolas
  *
  */
 
@@ -83,7 +100,6 @@ public class Villageois extends Unite {
 		}
 		return autour;
 	}
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
 	private boolean giveForum(){ // Donne une ressource au forum (si le villageois est sur la bonne case) retourne Vrai s'il a reussit , faux sinon.
@@ -441,6 +457,7 @@ public class Villageois extends Unite {
 				else{ // une cible est assigné au villageois
 					if(this.distance(this.cible) <= vision){ //si la cible est en vue
 						if(this.cible.objet == null || !this.cible.objet.isAlive() || !(this.cible.objet instanceof Bois)){ //si l'arbre cible n'est plus
+							this.posArbreSuppr.add(this.cible);
 							this.cible = arbrePlusProche();
 							if(this.cible == null){
 								this.etat = "ramene";
@@ -662,6 +679,10 @@ public class Villageois extends Unite {
 		this.direc1 = directionCercle();
 		changeRotation();
 		this.direc2 = directionCercle();
+	}
+	
+	public int getCercle(){
+		return this.cercle;
 	}
 	
 	class AgentsProbe extends PropertyProbe<AbstractAgent, Villageois>{

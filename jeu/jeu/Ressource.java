@@ -1,13 +1,10 @@
 package jeu;
 /**Classe définissant les diverses ressources du jeux ..
  * 
- * @author fayej
+ * @author Nicolas, fayej
  *
  */
 public class Ressource extends ObjectMap {
-	 /**
-     * ecrire commentaire ou pas
-     */
     protected int quantite;
     
     
