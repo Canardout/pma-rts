@@ -102,6 +102,9 @@ public class Forum extends Batiment implements Stockable
 	public int getStock (){
             return this.stock;
     }
+	public Cellule getposition(){
+		return this.curent;
+	}
 	
 	public int prendreStock (int demande){		
 		if(demande > this.stock){

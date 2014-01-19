@@ -15,6 +15,7 @@ public class Checkbox extends JCheckBox implements MouseListener, ComponentListe
 		this.nom = nom;
 		this.cible = cible;
 		this.activ = activ;
+		this.setSelected(this.activ);
 		this.addMouseListener(this);
 	}
 	@Override

@@ -64,7 +64,7 @@ public class Societe extends AbstractAgent{
 		// 2 : create the environment
 		int longueur = 25;
 		int largeur = 25;
-		int taille_cellule = 50;
+		int taille_cellule = 20;
 		int alignement = 4;
 		
 		
