@@ -242,7 +242,7 @@ public class Viewer extends SwingViewer{
 		}
 		@Override
 		protected void render(Graphics g) {
-			System.out.println(getFrame());
+		
 			for (Cellule a :  cellule.getCurrentAgentsList()){
 				g.setColor(Color.GRAY);
 				Coord coord1 = cellule.getPropertyValue(a); // Prend les coordonn�e des agents "capturer" dans les listes d'affichage

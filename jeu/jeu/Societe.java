@@ -20,6 +20,7 @@ package jeu;
 import javax.swing.JFrame;
 
 import madkit.kernel.AbstractAgent;
+import madkit.kernel.Madkit;
 
 /**
  * Classe Societe, classe définissant la méthode main.
@@ -48,6 +49,10 @@ public class Societe extends AbstractAgent{
 	public static String[] ALIGNEMENT = new String[8]; // Alignement que 
 	//!\\ Les Alignement ne peuvent desormer plus exceder 8 !
 	
+	public void newGame(){
+		
+		
+	}
 	
 	protected void activate() {
 		for (int i = 0 ; i<this.ALIGNEMENT.length ; i++){

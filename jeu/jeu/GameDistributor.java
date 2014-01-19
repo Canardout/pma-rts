@@ -80,13 +80,15 @@ public class GameDistributor extends madkit.kernel.Scheduler{
 		
 	}	 
 					 
-	public void stop(){
+	public void stop() throws InterruptedException{
 		setSimulationState(SimulationState.PAUSED);
 		JFrame Finish = new JFrame("Fin !");
 		Finish.setVisible(true);
 		Finish.setSize(200, 200);
 		Finish.setLocationRelativeTo(null);
-		//this.s.reload();
+		
+		this.s.newGame();
+		
 	}	 
 					 
 	

@@ -160,7 +160,12 @@ public ArrayList<Cellule> getenv(Cellule c){
     			}
     		}
     		if (cpt == this.forum.length-1){
-    			this.game.stop();
+    			try {
+					this.game.stop();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
     			System.out.println("Nous avons un gagnant !");
     		}
     		}
