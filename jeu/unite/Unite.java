@@ -1,26 +1,39 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoy
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package unite;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import jeu.Alignement;
 import jeu.Cellule;
 import jeu.Coord;
 import jeu.ObjectMap;
 import jeu.Societe;
 import jeu.Vecteur;
-import madkit.kernel.AbstractAgent;
-import madkit.simulation.probe.PropertyProbe;
 
 /** Classe qui définis les Unités , chaque Unité (hors batiment) hérite de cette classe.
  * 
- * @author fayej
+ * @author Nicolas, fayej
  *
  */
 public class Unite extends ObjectMap {
-	protected Cellule curent;
-	protected Coord coord;
+	
 	protected int vie;
 	 /**
      * Represente l'objet ou l'unite doit se dirige lorsqu'il se deplace.
@@ -42,26 +55,21 @@ public class Unite extends ObjectMap {
      * Si l'unite n'est pas en mouvement, indique Vecteur.NULL.
      */
     protected Vecteur deplacement;
-    /**
-     * Represente l'action que l'unite est en train d'effectuer sous la forme d'une chaine de caractere.
-     * TODO a definir
-     */
-    protected String action;
+    protected Cellule forum;
     
-    /**
-     * Ordonne � l'unite de se deplace vers un point cible.
-     * Cette methode redefinie objetCible a null.
-     * TODO Cette specificite n'est definitif, il faut savoir si cette methode est faite
-     * pour etre utilise en interne ou en externe.
-     * @param c positionCible
-     */
+    public Unite (Cellule c, Alignement a, int v){
+    	super(c, a);
+    	this.vie = v;
+    	this.forum = c;
+    	//this.curent.personne.add(this);
+    }
+    
     public void activationgeneral(){
     	
 
         	
         	this.curent.personne.add(this);
         	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.ALIGNEMENT[this.al.numero]);
-    	
     	
     }
 
@@ -123,6 +131,11 @@ public class Unite extends ObjectMap {
 	public static final Coord DROITE = new Coord(1, 0);
 	public static final Coord BAS = new Coord(0, 1);
 	
+	/**
+	 * Methode permmetant de deplacer l'unite d'une case.
+	 * @param coordonnees, utilisez l'une des 4 constantes HAUT, GAUCHE, DROITE, BAS
+	 * @return false si l'unite ne peux pas se deplace
+	 */
 	public boolean move (Coord c){
 		Cellule ce = this.curent.env.getCellule(this.coord.add(c));
 		if(ce == null)
@@ -136,17 +149,13 @@ public class Unite extends ObjectMap {
 		}
 	}
 	
-	public static Coord envers (Coord c){
-		if(c == GAUCHE)
-			return DROITE;
-		else if(c == DROITE)
-			return GAUCHE;
-		else if(c == HAUT)
-			return BAS;
-		else if(c == BAS)
-			return HAUT;
-		else
-			return null;
+	
+	public int distance (Coord c){
+		return this.coord.distance(c);
+	}
+	
+	public int distance (Cellule c){
+		return distance(c.coord);
 	}
 	
     /**
@@ -166,7 +175,7 @@ public class Unite extends ObjectMap {
     public int getvie(){
     	return this.vie;
     }
-    public void setvie(int var){ //m�thode pour donner l'acc�s � la variable de vie (pour l'hopital ou une attaque)
+    public void setvie(int var){ //méthode pour donner l'acces a la variable de vie (pour l'hopital ou une attaque)
     	this.vie = this.vie+var;
     }
 }

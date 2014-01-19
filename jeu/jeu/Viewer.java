@@ -1,4 +1,22 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoy
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package jeu;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -6,8 +24,6 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JScrollBar;
-
 import batiment.Caserne;
 import batiment.Forum;
 import batiment.Hopital;
@@ -17,6 +33,12 @@ import unite.Villageois;
 import madkit.simulation.probe.PropertyProbe;
 import madkit.simulation.probe.SingleAgentProbe;
 import madkit.simulation.viewer.SwingViewer;
+
+/**
+ * Classe Viewer, gère l'affichage du programme
+ * @author fayej
+ */
+
 public class Viewer extends SwingViewer{
 
 
@@ -56,7 +78,7 @@ public class Viewer extends SwingViewer{
 			this.soldat_fatiguer = new ImageIcon(getClass().getResource("/jeu/Ressource/vill.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 			this.hopital = new ImageIcon(getClass().getResource("/jeu/Ressource/hopital.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 			this.constructeur = new ImageIcon(getClass().getResource("/jeu/Ressource/constructeur.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
-			this.forum_perte =  new ImageIcon(getClass().getResource("/jeu/Ressource/mort.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
+			this.forum_perte =  new ImageIcon(getClass().getResource("/jeu/Ressource/hopital.png")).getImage().getScaledInstance(this.taille_cel, this.taille_cel, Image.SCALE_SMOOTH);
 		}
 
 		
@@ -105,8 +127,9 @@ public class Viewer extends SwingViewer{
 				//g.drawImage(fond, coord.x,coord.y, pane );
 				g.drawImage(herbe,coord.x,coord.y, null);
 				g.drawRect(coord.x,coord.y, taille_cel, taille_cel);
+				
 				for (int i =0 ; i< a.personne.size() ; i++){
-					
+					if (a.personne.size() !=0){
 					if (a.personne.get(i) instanceof Constructeur){
 						g.drawImage(constructeur,coord.x+(i*3),coord.y+(i*3), null);
 					}
@@ -125,6 +148,8 @@ public class Viewer extends SwingViewer{
 					}
 					
 				}
+				}
+				
 				
 			}
 			
@@ -132,13 +157,13 @@ public class Viewer extends SwingViewer{
 				Coord coord1 = aff.getPropertyValue(a); // Prend les coordonn�e des agents "capturer" dans les listes d'affichage
 				Coord coord = coord1.multiple(taille_cel); 
 				if (a instanceof Forum){
-							Forum b = (Forum)a;
-							if(!b.perdu){
-							g.drawImage(forum,coord.x,coord.y, null);
-							}
-							else g.drawImage(forum_perte,coord.x,coord.y, null);
-							//g.fillRect(coord.x,coord.y, 10, 10);
-						}
+					Forum b = (Forum)a;
+					if(!b.perdu){
+						g.drawImage(forum,coord.x,coord.y, null);
+					}
+					else g.drawImage(forum_perte,coord.x,coord.y, null);
+							
+				}
 				else if (a instanceof Caserne){
 					Caserne b = (Caserne) a;
 					g.setColor(a.al.color.darker());
@@ -175,14 +200,15 @@ public class Viewer extends SwingViewer{
 					
 					
 				}
+				for (Cellule a :  cellule.getCurrentAgentsList()){
+					g.setColor(Color.GRAY);
+					Coord coord1 = cellule.getPropertyValue(a); // Prend les coordonn�e des agents "capturer" dans les listes d'affichage
+					Coord coord = coord1.multiple(taille_cel); 
+					g.drawString(""+a.personne.size(),coord.x,coord.y);
+					
+				}
 			/*
-			for (Cellule a :  cellule.getCurrentAgentsList()){
-				g.setColor(Color.GRAY);
-				Coord coord1 = cellule.getPropertyValue(a); // Prend les coordonn�e des agents "capturer" dans les listes d'affichage
-				Coord coord = coord1.multiple(taille_cel); 
-				g.drawString(""+a.personne.size(),coord.x,coord.y);
-				
-			}
+			
 			*/
 				}
 			}

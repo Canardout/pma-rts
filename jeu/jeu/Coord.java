@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 J√©r√©mie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoy
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package jeu;
 
 import java.awt.Dimension;
@@ -6,7 +23,7 @@ import java.awt.Dimension;
 /**
 * Classe representant des coordonnees
 *
-* @author powlpy
+* @author Nicolas
 */
 public class Coord {
         /**
@@ -20,6 +37,8 @@ public class Coord {
          * commune a tous les Coord, en cas d'utilisation de plusieurs epsilon, utilise compare()
          */
         public static double EPSILON = 0.5;
+        
+        public static final Coord NULL = new Coord(0, 0);
         
         /**
          * Constructeur par valeur
@@ -103,6 +122,30 @@ public class Coord {
                 this.y -= c.y;
         }
         
+        public Coord division(int d){
+        	return new Coord(this.x / d, this.y / d);
+        }
+        
+        public void divEgale(int d){
+        	this.x /= d;
+        	this.y /= d;
+        }
+        
+        /**
+         * @return l'inverse du coord
+         */
+        public Coord inverse (){
+        	return new Coord(-this.x, -this.y);
+        }
+        
+        /**
+         * this = this.inverse()
+         */
+        public void inverseEgale (){
+        	this.x = -this.x;
+        	this.y = -this.y;
+        }
+        
         /**
          * verifie l'egalite entre 2 Coord
          * prend en compte une marge d'erreur en utilisant l'attribut EPSILON
@@ -110,8 +153,9 @@ public class Coord {
          * @return true si les 2 Coord ont meme valeur de x et y, false sinon
          */
         public boolean equal (Coord c){
-                return this.x > (c.x - EPSILON) && this.x < (c.x + EPSILON) &&
-                         this.y > (c.y - EPSILON) && this.y < (c.y + EPSILON);
+                /*return this.x > (c.x - EPSILON) && this.x < (c.x + EPSILON) &&
+                         this.y > (c.y - EPSILON) && this.y < (c.y + EPSILON);*/
+        	return this.x == c.x && this.y == c.y;
         }
         
         /**
@@ -137,7 +181,7 @@ public class Coord {
          * @return la distance entre 2 points
          */
         /*
-        public double distance (Coord c){  // /!\ ProblËme ici , un vecteur est dÈfinis avec deux cordoonÈe x et y , hors ici on lui donne 4 coordonnÈes
+        public double distance (Coord c){  // /!\ ProblÔøΩme ici , un vecteur est dÔøΩfinis avec deux cordoonÔøΩe x et y , hors ici on lui donne 4 coordonnÔøΩes
                 Vecteur v = new Vecteur(this, c);
                 return v.norme();
         }

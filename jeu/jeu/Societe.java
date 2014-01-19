@@ -1,11 +1,29 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoy
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package jeu;
 
-
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.TextField;
-
 import madkit.kernel.AbstractAgent;
+
+/**
+ * Classe Societe, classe définissant la méthode main.
+ * Des paramètres du programme peuvent être modifié directement dans la méthode activate
+ * @author fayej
+ */
 
 public class Societe extends AbstractAgent{
 	
@@ -24,34 +42,36 @@ public class Societe extends AbstractAgent{
 	public static final String CONSTRUCTEUR ="construit";
 	public static final String CASERNE ="cons-soldat";
 	public static final String HOPITAL = "HOPITAL";
+
 	public static String[] ALIGNEMENT = new String[8]; // Alignement que 
 	//!\\ Les Alignement ne peuvent desormer plus exceder 8 !
-
 	
 	
 	protected void activate() {
-		
 		for (int i = 0 ; i<this.ALIGNEMENT.length ; i++){
 			this.ALIGNEMENT[i] = "a"+i;
 		}
 		
+		
 		// 1 : create the simulation group
 		createGroup(SOCIETE, SIMU);
+		
 		GameDistributor scheduler = new GameDistributor();
 		launchAgent(scheduler,false);
-
+		
 		// 2 : create the environment
-		int longueur;
-		int largeur;
-		int taille_cellule;
-		longueur = 25;
-		largeur = 25;
-		taille_cellule = 30;
-		Environnement env = new Environnement(scheduler,longueur,largeur,5);
+		int longueur = 25;
+		int largeur = 25;
+		int taille_cellule = 20;
+		int alignement = 4;
+		
+		Environnement env = new Environnement(scheduler, longueur, largeur, alignement);
+		
+		//env.changeIA(3);
+		//env.changeIA(2, 0);
+		// Les ia vont de 1 à 3
+		
 		launchAgent(env);
-		
-		// 3 : create the scheduler
-		
 
 		// 3 : create the viewer
 		

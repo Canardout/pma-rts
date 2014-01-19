@@ -1,16 +1,28 @@
-package unite;
-	import java.util.ArrayList;
-import java.util.Random;
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoy
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
+package unite;
+
+import java.util.ArrayList;
 import batiment.Caserne;
 import batiment.Forum;
-import batiment.Hopital;
 import jeu.Alignement;
-import jeu.Bois;
 import jeu.Cellule;
 import jeu.Societe;
-
-
 
 
 	/**Classe constructeur
@@ -24,16 +36,12 @@ import jeu.Societe;
 		
 		public boolean vide;
 		private int quantite =0; // quantite de ressource prise par le villageois
-		private Cellule Forum; // cellule de naissance (Forum) du villageois. 
 		private boolean action;
 		
+		public static final int MAX_VIE = 10;
 		
 		public Constructeur (Cellule c , Alignement a){
-			this.curent = c;
-			this.coord = c.coord;
-			this.Forum = c;
-			this.al =a;
-			this.vie =10;
+			super(c, a, MAX_VIE);
 			this.vide = true;
 			this.quantite =0;
 			this.action = false;
@@ -86,7 +94,7 @@ import jeu.Societe;
 			
 		}
 		
-		private void presente(ArrayList<Cellule> a){ // Regarde si la cellule est d�j� pr�sente dans une liste de cellule
+		private void presente(ArrayList<Cellule> a){ // Regarde si la cellule est déjà présente dans une liste de cellule
 			boolean present = true;
 			for (int i =0 ; i<a.size() ; i++){
 				for (int j = 0 ; j < this.al.ressource.size() ; j++){
@@ -103,19 +111,19 @@ import jeu.Societe;
 		
 		
 		private void se_remplis(){
-			if (this.curent.coord != this.Forum.coord){ 
-				this.rapproche(this.Forum);
+			if (this.curent.coord != this.forum.coord){ 
+				this.rapproche(this.forum);
 			}
 			else {
 			if (this.takeForum()){} // s'il est sur une case "Forum" , alors il se charge de 1.
 			else { // Sinon il regarde sur les cases adjacentes pour voir s'il n'y a pas un Forum
-				if (this.Forum ==null){
+				if (this.forum ==null){
 					this.killAgent(this); // le constructeur se suicide s'il n'a plus de forum
 				}
 				
 				
 				 
-				else this.rapproche(this.Forum);	
+				else this.rapproche(this.forum);	
 				
 				
 			}
@@ -135,7 +143,7 @@ import jeu.Societe;
 		
 		public void end(){
 			this.curent.personne.remove(this);
-			Forum b = (Forum)this.Forum.objet;
+			Forum b = (Forum)this.forum.objet;
 			b.limitcont++;
 			
 		}
@@ -155,11 +163,12 @@ import jeu.Societe;
 			
 			
 			
-			else{ 
-			Forum c = (Forum)this.Forum.objet;
+			else{
+				Forum c = (Forum)this.forum.objet;
 				if (!c.perdu){
+
 				
-				if (!this.al.caserne.isEmpty()){ //regarde la liste des ressources r�pertori� (d�j� trouv�)
+				if (!this.al.caserne.isEmpty()){ //regarde la liste des ressources répertorié (déjà trouvé)
 					Cellule plusproche = this.laplusproche(this.al.caserne);
 			
 				if (plusproche.objet != null){

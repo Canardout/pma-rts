@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 Jérémie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoy
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package batiment;
 
 
@@ -9,41 +26,34 @@ import jeu.Cellule;
 import jeu.Coord;
 import jeu.Societe;
 
-
-
-
 /**
- * Classe "Caserne" definis le batiment Caserne et son activitee au cours de son activation.
+ * Classe "Caserne" definis le batiment Caserne et son activitée au cours de son activation.
  * @author fayej
  *
  */
 
 @SuppressWarnings("serial")
-public class Caserne extends Batiment //implements Stockable
+public class Caserne extends Batiment implements Stockable
 {
+
 	
-	
-	public Coord coord;
-	
-	private Cellule env;
+	private Cellule curent;
 	protected int stock ; 
     protected int vie;
     public int statue ;
  
 
-    public static final int MAX_STOCK = Integer.MAX_VALUE; // � voir
+    public static final int MAX_STOCK = Integer.MAX_VALUE;
 
 	public Caserne (Cellule c , Alignement a){
-		
-		this.coord = new Coord(c.coord);
-		this.env = c;
-		this.env.coord = this.coord;
-		this.al = a;
-		this.env.objet = this;
+		super(c, a);
+		this.curent = c;
+		this.curent.coord = this.coord;
+		this.curent.objet = this;
 		this.statue =0;
 		this.stock =0;
 	
-		this.al.caserne.add(this.env);
+		this.al.caserne.add(this.curent);
 		
 	}
 	public boolean  addStock(){
@@ -97,21 +107,21 @@ public class Caserne extends Batiment //implements Stockable
 		
 	}
 	@SuppressWarnings("unused")
-	private void create() { //cr�e un villageois
+	private void create() { //créé un villageois
 		if (this.statue < 3){
 			if (this.stock >= 150){
 				this.statue++;
 				this.stock = this.stock-150;
 				if (this.statue == 3) {
-					this.al.caserne.remove(this.env);
-					this.al.demande_ressource.add(this.env);
+					this.al.caserne.remove(this.curent);
+					this.al.demande_ressource.add(this.curent);
 					
 				}
 			}
 		}
 		else {
 			if (this.stock >= 150){
-			launchAgent(new Soldat(this.env,this.al));
+			launchAgent(new Soldat(this.curent,this.al));
 			this.stock = this.stock-150;
 			}
 			
@@ -121,7 +131,7 @@ public class Caserne extends Batiment //implements Stockable
 	
 	@SuppressWarnings("unused")
 	private void localisation() {
-		// Donne ces coordonn�es
+		// Donne ces coordonnées
 		
 		
 		}

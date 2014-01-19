@@ -1,3 +1,20 @@
+/*
+* Copyright 2013-2014 JÃ©rÃ©mie Faye, Nicolas Poelen, Roman Lopez, Alexis Delannoy
+*
+* This program is free software: you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free
+* Software Foundation, either version 3 of the License, or (at your option) any
+* later version.
+*
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+* A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
 package batiment;
 
 import jeu.Alignement;
@@ -9,12 +26,10 @@ import unite.Soldat;
 
 public class Hopital extends Batiment //implements Stockable
 {
+
 	
-	
-	public Coord coord;
-	
-	public Cellule env;
-	protected int stock ; 
+	public Cellule curent;
+	protected int stock ;
     protected int vie;
     public int statue ;
     public int horloge;
@@ -22,16 +37,12 @@ public class Hopital extends Batiment //implements Stockable
    
 
 	public Hopital (Cellule c , Alignement a){
-		
-		this.coord = new Coord(c.coord);
-		this.env = c;
-		this.env.coord = this.coord;
-		this.al = a;
-		this.env.objet = this;
+		super(c, a);
+		this.curent.objet = this;
 		this.statue =0;
 		this.stock =0;
 		this.horloge=0;
-		this.al.hopital.add(this.env);
+		this.al.hopital.add(this.curent);
 		
 	}
 	public boolean  addStock(){
@@ -75,7 +86,7 @@ public class Hopital extends Batiment //implements Stockable
 		
 	}
 	@SuppressWarnings("unused")
-	private void soin() { //crï¿½e un villageois
+	private void soin() {
 		/*
 		if (this.statue < 3){
 			if (this.stock >= 150){
@@ -89,10 +100,10 @@ public class Hopital extends Batiment //implements Stockable
 		else {
 			if (this.horloge % 500 == 0){
 			*/
-			for(int i =0 ; i<this.env.personne.size() ; i++){
-				System.out.print("Avant : "+this.env.personne.get(i).getvie());
-				this.env.personne.get(i).setvie(1); //donne 1 de vie aux unités. (pourra être remplacer par un % pour plus d'équitabilité)
-				System.out.println("Après : "+this.env.personne.get(i).getvie());
+			for(int i =0 ; i<this.curent.personne.size() ; i++){
+				System.out.print("Avant : "+this.curent.personne.get(i).getvie());
+				this.curent.personne.get(i).setvie(1); //donne 1 de vie aux unitÃ©s. (pourra Ãªtre remplacer par un % pour plus d'Ã©quitabilitÃ©)
+				System.out.println("Aprï¿½s : "+this.curent.personne.get(i).getvie());
 			}
 			/*
 			this.horloge++;
@@ -105,7 +116,7 @@ public class Hopital extends Batiment //implements Stockable
 	
 	@SuppressWarnings("unused")
 	private void localisation() {
-		// Donne ces coordonnï¿½es
+		// Donne ces coordonnÃ©es
 		
 		
 		}
