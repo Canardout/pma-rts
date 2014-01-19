@@ -61,7 +61,9 @@ public class Villageois extends Unite {
 		this.quantite = 0;
 	}
 
-	
+	public int get_quantite(){
+		return this.quantite;
+	}
 	protected void activate(){
 		// Definis le role de chercheur pour les villageois (Role unique et provisoir)
 		
@@ -159,7 +161,8 @@ public class Villageois extends Unite {
 	// par Jeremie
 	private void IA1 (){
 		
-		if (plein){ // Si le villageois est plein , alors il cherche un FORUM pour se vider.
+		if (plein){
+			System.out.println("COUCOU");// Si le villageois est plein , alors il cherche un FORUM pour se vider.
 			if (this.curent.coord != this.forum.coord){ 
 				this.rapproche(this.forum);
 			}

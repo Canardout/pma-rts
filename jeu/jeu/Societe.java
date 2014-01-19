@@ -17,6 +17,8 @@
 
 package jeu;
 
+import javax.swing.JFrame;
+
 import madkit.kernel.AbstractAgent;
 
 /**
@@ -56,14 +58,15 @@ public class Societe extends AbstractAgent{
 		// 1 : create the simulation group
 		createGroup(SOCIETE, SIMU);
 		
-		GameDistributor scheduler = new GameDistributor();
+		GameDistributor scheduler = new GameDistributor(this);
 		launchAgent(scheduler,false);
 		
 		// 2 : create the environment
 		int longueur = 25;
 		int largeur = 25;
-		int taille_cellule = 20;
+		int taille_cellule = 50;
 		int alignement = 4;
+		
 		
 		Environnement env = new Environnement(scheduler, longueur, largeur, alignement);
 		
@@ -78,7 +81,7 @@ public class Societe extends AbstractAgent{
 		Viewer viewer= new Viewer(scheduler,taille_cellule, longueur , largeur);
 		launchAgent(viewer,true);
 		
-
+		
 		// 2 : launch some simulated agents
 
 		
