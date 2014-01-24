@@ -21,6 +21,7 @@ package unite;
 import java.util.ArrayList;
 import java.util.Random;
 
+import batiment.Forum;
 import jeu.Alignement;
 import jeu.Cellule;
 import jeu.Coord;
@@ -94,6 +95,25 @@ public class Soldat extends Unite {
 			
 			return autour;
 		}
+		private void cherche_Base(){ 
+			ArrayList<Cellule> autour = curent.env.getenv(curent);
+			
+			for (int i =0 ; i<autour.size() ; i++){
+				if (autour.get(i).objet != null){
+				if((autour.get(i).objet instanceof Forum)){
+					Forum b =(Forum ) autour.get(i).objet;
+					if (this.al != b.al && !b.perdu){
+					if (!this.al.forum_ennemi.contains(autour.get(i))){
+						this.al.forum_ennemi.add(autour.get(i));
+					}
+					}
+				}
+				}
+			}
+				
+			
+		
+		}
 		private boolean ennemi(ArrayList<Unite> personne){
 			if (!personne.isEmpty()){
 			for(int i =0 ; i<personne.size(); i++){
@@ -133,6 +153,7 @@ public class Soldat extends Unite {
 	private void attaque() {
 	
 		if (!this.epuise){
+			this.cherche_Base();
 			ArrayList<Cellule> autour = this.cherche();
 			if (!autour.isEmpty() && (autour.size() != 0)){
 				this.rapproche(this.laplusproche(autour));
@@ -145,7 +166,16 @@ public class Soldat extends Unite {
 				}
 			}
 			else {
+				if (this.al.forum_ennemi.size() != 0){
+					Forum b = (Forum) this.laplusproche(this.al.forum_ennemi).objet;
+					if(!b.perdu)this.rapproche(this.laplusproche(this.al.forum_ennemi));
+					else { this.al.forum_ennemi.remove(b.getposition());
+					this.deplacement_aleatoire();
+					}
+				}
+				else {
 				this.deplacement_aleatoire();
+				}
 			}
 		}
 			else {

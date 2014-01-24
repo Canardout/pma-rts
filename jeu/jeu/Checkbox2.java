@@ -15,12 +15,22 @@
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-Ce programme est une simulation de rts.
-Il est possible de modifier certains paramètres directement au sein du programme :
-Dans la classe Societe, méthode activate, vous pouvez modifier la taille de l'environnement, la taille des cellules, 
-le nombre d'alignement (forum) et changez leurs IAs (Intelligence artificielle).
+package jeu;
 
-changeIA(ia); // pour changer l'ia de tous les alignements
-change(ia, alignement); // pour changer l'ia d'un alignement précis. L'alignement commence à 0
-Les ia vont de 1 à 3
-Veuillez totu de même à placer ces méthodes entre la création et le lancement de l'environnement
+import java.awt.event.MouseEvent;
+
+public class Checkbox2 extends Checkbox{
+
+	public Checkbox2(String nom, Viewer cible, boolean activ) {
+		super(nom, cible, activ);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void mouseClicked(MouseEvent arg0) {
+		this.activ = !this.activ;
+		this.cible.setnum();
+		this.setSelected(this.activ);
+		this.updateUI();
+		
+	}
+}

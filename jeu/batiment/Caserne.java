@@ -135,9 +135,4 @@ public class Caserne extends Batiment implements Stockable
 		
 		
 		}
-	
-
-	
-
-
 }

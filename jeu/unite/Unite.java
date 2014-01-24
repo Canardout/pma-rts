@@ -61,7 +61,7 @@ public class Unite extends ObjectMap {
     	super(c, a);
     	this.vie = v;
     	this.forum = c;
-    	this.curent.personne.add(this);
+    	//this.curent.personne.add(this);
     }
     
     public void activationgeneral(){

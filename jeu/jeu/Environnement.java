@@ -44,11 +44,13 @@ public class Environnement extends AbstractAgent{
    private Forum[] forum;
    private GameDistributor game;
    public int nb_arbre;
+   private int nb_arbre_max;
+   private int nb_arbre_min;
     
     protected void activate(){ // Activation de l'Environnement en creant un tableau de cellule et en lan�ant tous ces agents cellules
     	requestRole(Societe.SOCIETE , Societe.SIMU , Societe.CARTE );
     	
-        	 // Cr�e la grille de jeu (grille de cellule)
+        	 // Créer la grille de jeu (grille de cellule)
         	for (int i=0 ; i < this.longueur; i++){
         		for (int j=0 ; j < this.largeur ; j++){
         			Coord actual = new Coord (i,j); //(*10 pour l'affichage)
@@ -87,13 +89,15 @@ public ArrayList<Cellule> getenv(Cellule c){
 	   
    }
 
-   public Environnement (GameDistributor game,int longueur, int largeur , int al){ // Genere un environnement avec une longueur , largeur et un nombre d'alignement (nombre de forum en debut de simulation)
+   public Environnement (GameDistributor game,int longueur, int largeur , int al, int nbArbreMax, int nbArbreMin){ // Genere un environnement avec une longueur , largeur et un nombre d'alignement (nombre de forum en debut de simulation)
 		this.carte = new Cellule[longueur][largeur];
 		this.longueur = longueur;
 		this.largeur = largeur;
 		this.al = new Alignement[al];
 		this.forum = new Forum[al];
 		this.game = game;
+		this.nb_arbre_max = nbArbreMax;
+		this.nb_arbre_min = nbArbreMin;
 		
 		//Generation des couleurs des Alignements
 		Random rand = new Random();
@@ -136,34 +140,40 @@ public ArrayList<Cellule> getenv(Cellule c){
     
     protected void ressource(){ // s'il n'y a plus d'arbre sur le terrain alors j'en refait !
     	
-    	if (this.nb_arbre < 4){
+    	if (this.nb_arbre < this.nb_arbre_min){
     		Random r = new Random();
     		int valeur ;
     		int valeur2 ;
-    		for (int i = 0 ; i<10 ; i++){
-    			valeur = r.nextInt(this.longueur-1);
-    			valeur2 = r.nextInt(this.largeur-1);
+    		for (int i = 0 ; i < this.nb_arbre_max ; i++){
+    			valeur = r.nextInt(this.longueur);
+    			valeur2 = r.nextInt(this.largeur);
     			
     			if (this.carte[valeur][valeur2].objet == null){
         			this.carte[valeur][valeur2].add(new Bois(getCellule(valeur, valeur2)));
         			this.nb_arbre++;
     			}
-    		
-    		}
-
-    		int cpt = 0;
-
-    		for (int i = 0 ; i<this.forum.length ; i++){
-    			if (this.forum[i].perdu){
-    				cpt++;
-    			}
-    		}
-
-    		if (cpt == this.forum.length-1){
-    			this.game.stop();
-    			System.out.println("Nous avons un gagnant !");
-    		}
+    		} 		
     	}
+    	
+    	if (this.forum.length != 1){
+	   		int cpt = 0;
+	
+	   		for (int i = 0 ; i<this.forum.length ; i++){
+	   			if (this.forum[i].perdu){
+	   				cpt++;
+	   			}
+	   		}
+	    		
+		   	if (cpt == this.forum.length-1){
+		   		try {
+					this.game.stop();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		   		System.out.println("Nous avons un gagnant !");
+		   	}
+	    }  	
     }
     
     public Alignement[] getAlignement (){
@@ -209,5 +219,9 @@ public ArrayList<Cellule> getenv(Cellule c){
     	for(int i = 0 ; i < this.al.length ; i++){
     		this.al[i].IA = ia;
     	}
+    }
+    
+    public int getIA (int al){
+    	return this.al[al].IA;
     }
 }

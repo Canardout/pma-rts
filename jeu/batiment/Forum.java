@@ -102,6 +102,9 @@ public class Forum extends Batiment implements Stockable
 	public int getStock (){
             return this.stock;
     }
+	public Cellule getposition(){
+		return this.curent;
+	}
 	
 	public int prendreStock (int demande){		
 		if(demande > this.stock){
@@ -140,39 +143,37 @@ public class Forum extends Batiment implements Stockable
 	
 	@SuppressWarnings("unused")
 	private void create() { //créé un villageois
-		if(this.compteur > (this.env.getLongueur() * this.env.getLargeur()) && this.compteur > 100) //la limite du compteur dépend de la taille du terrain, min 100
-			this.perdu = true;
-		
+	/**	if(this.compteur > (this.env.getLongueur() * this.env.getLargeur()) && this.compteur > 100) //la limite du compteur dépend de la taille du terrain, min 100
+			this.perdu = true; Tu veux faire perdre le forum s'il ne trouve pas de ressource? 
+		**/
 		if(!this.perdu){
 			this.compteur++;
-			if (this.stock-100 >=0){	
+			if (this.stock-100 >=0){
 				
 				if(!(this.limitpop <=0)){
 				launchAgent(new Villageois(this.curent,this.al));
 				
 				
 				this.stock = this.stock-40;
-				this.limitpop --;
-				}
-				else if (this.stock -150>= 0 && this.limitcont >0){
+				this.limitpop --;}
+			
+					else if (this.stock -150>= 0 && this.limitcont >0){
 						
-					launchAgent(new Constructeur(this.curent,this.al));
-					this.stock = this.stock -150;
-					this.limitcont--;
-				}
-			}
-		}
-		else{
-			for (int i =0 ; i<this.al.caserne.size() ; i++){
-				killAgent(this.al.caserne.get(i).objet);
-			}
-
-			for(int j = 0 ; j<this.al.demande_ressource.size() ; j++){
-			    killAgent(this.al.demande_ressource.get(j).objet);
-			}
-
-	        this.perdu = true;
-		}
+						launchAgent(new Constructeur(this.curent,this.al));
+						this.stock = this.stock -150;
+						this.limitcont--;
+					}}
+					if (this.perdu()) {
+						
+						for (int i =0 ; i<this.al.caserne.size() ; i++){
+							killAgent(this.al.caserne.get(i).objet);
+						}
+						for(int j = 0 ; j<this.al.demande_ressource.size() ; j++){
+							killAgent(this.al.demande_ressource.get(j).objet);
+						}
+						this.perdu = true;;
+					}
+					}
 		
 	}
 	
