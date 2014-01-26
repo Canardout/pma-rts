@@ -28,7 +28,7 @@ import java.util.List;
 
 public class Alignement {
 	public Color color;
-	public int IA;
+	public int IA = 3;
 	public int numero;
 	
 	public List<Cellule> ressource ;
@@ -43,7 +43,6 @@ public class Alignement {
 		this.hopital = new ArrayList<Cellule>();
 		this.demande_ressource = new ArrayList<Cellule>();
 		this.forum_ennemi = new ArrayList<Cellule>();
-		this.IA = 2;
 		this.numero = num;
 	}
 	

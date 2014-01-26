@@ -1,0 +1,32 @@
+/////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////// CONFIGURATION ////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// Taper les commandes ligne par ligne sous la forme "variable=valeur" sans espaces.
+// Si les valeurs sont trop grande ou trop petite, elle seront ajusté ou ignoré.
+// Les valeurs ne sont prise en compte qu'au lancement de l'application.
+// Pour réinitiliser ce fichier, donner la valeur 1 à init.
+// Si vous affecter valeur à une variable, seul la dernière valeur sera prise en compte.
+// Les IA vont de 1 à 3 (si ignoré IA=3)
+
+longueur=25
+largeur=25
+taille_cellule=20
+alignement=4
+nb_arbre_max=20
+nb_arbre_min=4
+
+IA_general=3
+//IA_1=2
+
+init=0
+
+// longueur : nombre de cellule horizontale de l'environnement
+// largeur : nombre de cellule verticale de l'environnement
+// taille_cellule : taille d'une cellule en pixel
+// alignement : nombre d'équipe en compétition
+// nb_arbre_max : nombre d'arbre maximum présent sur le terrain
+// nb_arbre_min : nombre d'arbre minimum présent sur le terrain
+// IA_general : change l'IA de toutes les équipe
+// IA_n : change l'IA d'un alignement en remplaçant n par le numéro de l'alignement
+// init : si init=1 le fichier est réinitialisé à son état d'origine
